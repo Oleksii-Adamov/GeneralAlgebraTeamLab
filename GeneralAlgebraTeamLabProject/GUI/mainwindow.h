@@ -16,7 +16,6 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_clicked();
 
     void on_pushButton_PolynomialRings_clicked();
 
