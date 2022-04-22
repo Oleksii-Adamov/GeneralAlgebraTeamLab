@@ -8,7 +8,7 @@ class LIB_EXPORT NumberModulo
 public:
     NumberModulo();
 private:
-    long long num;
+    long long num = 0;
 public:
     void set_num(long long input);
     long long get_num();
