@@ -9,6 +9,7 @@ public:
     NumberModulo();
 private:
     long long num = 0;
+    long long modulo = 2;
 public:
     void set_num(long long input);
     long long get_num();
