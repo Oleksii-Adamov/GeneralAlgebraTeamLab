@@ -11,11 +11,13 @@ CONFIG += c++17
 
 SOURCES += \
     lib.cpp \
+    testFolder/testfolderclass.cpp \
     testlib.cpp
 
 HEADERS += \
     Lib_global.h \
     lib.h \
+    testFolder/testfolderclass.h \
     testlib.h
 
 # Default rules for deployment.
