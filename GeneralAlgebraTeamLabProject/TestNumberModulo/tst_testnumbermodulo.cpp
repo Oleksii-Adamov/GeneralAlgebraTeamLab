@@ -2,6 +2,7 @@
 
 // add necessary includes here
 #include "task1/numbermodulo.h"
+#include <stdexcept>
 
 class TestNumberModulo : public QObject
 {
@@ -12,12 +13,9 @@ public:
     ~TestNumberModulo();
 
 private slots:
-    void test_case_get_modulo();
-    void test_case_set_modulo_positive();
-    void test_case_set_modulo_non_positive();
     void test_case_get_num();
     void test_case_set_num();
-
+    void test_case_mod();
 };
 
 TestNumberModulo::TestNumberModulo()
@@ -47,29 +45,52 @@ void TestNumberModulo::test_case_set_num()
     QCOMPARE(test_num.get_num(), 5);
     test_num.set_num(3);
     QCOMPARE(test_num.get_num(), 3);
-    // to do negative (maybe should in different test_case
+    test_num.set_num(-2);
+    QCOMPARE(test_num.get_num(), -2);
 }
 
-void TestNumberModulo::test_case_get_modulo()
+void TestNumberModulo::test_case_mod()
 {
     NumberModulo test_num;
-    QCOMPARE(test_num.get_modulo(), 2);
-    test_num.set_modulo(7);
-    QCOMPARE(test_num.get_modulo(), 7);
-}
-void TestNumberModulo::test_case_set_modulo_positive()
-{
-    NumberModulo test_num;
-    test_num.set_modulo(5);
-    QCOMPARE(test_num.get_modulo(), 5);
-    test_num.set_modulo(3);
-    QCOMPARE(test_num.get_modulo(), 3);
-}
-void TestNumberModulo::test_case_set_modulo_non_positive()
-{
-    NumberModulo test_num;
-    QVERIFY_THROWS_EXCEPTION( char*, test_num.set_modulo(0));
-    QVERIFY_THROWS_EXCEPTION( char*, test_num.set_modulo(-2));
+    // zero mod
+    QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.mod(0));
+    // postive mod
+    // positive num
+    test_num.set_num(5);
+    test_num.mod(2);
+    QCOMPARE(test_num.get_num(), 1);
+    test_num.set_num(7);
+    test_num.mod(5);
+    QCOMPARE(test_num.get_num(), 2);
+    test_num.set_num(3);
+    test_num.mod(3);
+    QCOMPARE(test_num.get_num(), 0);
+    test_num.set_num(12);
+    test_num.mod(4);
+    QCOMPARE(test_num.get_num(), 0);
+    test_num.set_num(13);
+    test_num.mod(1);
+    QCOMPARE(test_num.get_num(), 0);
+    // negative num
+    test_num.set_num(-5);
+    test_num.mod(2);
+    QCOMPARE(test_num.get_num(), 1);
+    test_num.set_num(-7);
+    test_num.mod(5);
+    QCOMPARE(test_num.get_num(), 3);
+    test_num.set_num(-3);
+    test_num.mod(3);
+    QCOMPARE(test_num.get_num(), 0);
+    test_num.set_num(-12);
+    test_num.mod(4);
+    QCOMPARE(test_num.get_num(), 0);
+    // zero num
+    test_num.set_num(0);
+    test_num.mod(3);
+    QCOMPARE(test_num.get_num(), 0);
+    test_num.set_num(0);
+    test_num.mod(5);
+    QCOMPARE(test_num.get_num(), 0);
 }
 
 QTEST_APPLESS_MAIN(TestNumberModulo)
