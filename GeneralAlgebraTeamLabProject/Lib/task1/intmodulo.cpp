@@ -1,34 +1,34 @@
-#include "numbermodulo.h"
+#include "intmodulo.h"
 #include <stdexcept>
 
-NumberModulo::NumberModulo()
+IntModulo::IntModulo()
 {
 
 }
 
-void NumberModulo::set_num(long long input)
+void IntModulo::set_num(long long input)
 {
     num = input;
 }
 
-long long NumberModulo::get_num() const
+long long IntModulo::get_num() const
 {
     return num;
 }
 
-NumberModulo::NumberModulo(long long num)
+IntModulo::IntModulo(long long num)
     : num(num)
 {
 
 }
 
-NumberModulo::NumberModulo(long long num, unsigned long long modulo)
+IntModulo::IntModulo(long long num, unsigned long long modulo)
     : num(num)
 {
     mod(modulo);
 }
 
-void NumberModulo::mod(unsigned long long modulo)
+void IntModulo::mod(unsigned long long modulo)
 {
     // check for zero
     if (modulo == 0)
@@ -45,18 +45,18 @@ void NumberModulo::mod(unsigned long long modulo)
         num %= modulo;
 }
 
-void NumberModulo::add(const NumberModulo& other, unsigned long long modulo)
+void IntModulo::add(const IntModulo& other, unsigned long long modulo)
 {
     num += other.get_num();
     mod(modulo);
 }
 
-void NumberModulo::substract(const NumberModulo& other, unsigned long long modulo)
+void IntModulo::substract(const IntModulo& other, unsigned long long modulo)
 {
     num -= other.get_num();
     mod(modulo);
 }
-void NumberModulo::multiply(const NumberModulo& other, unsigned long long modulo)
+void IntModulo::multiply(const IntModulo& other, unsigned long long modulo)
 {
     num *= other.get_num();
     mod(modulo);

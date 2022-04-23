@@ -11,14 +11,14 @@ CONFIG += c++17
 
 SOURCES += \
     lib.cpp \
-    task1/numbermodulo.cpp \
+    task1/intmodulo.cpp \
     testFolder/testfolderclass.cpp \
     testlib.cpp
 
 HEADERS += \
     Lib_global.h \
     lib.h \
-    task1/numbermodulo.h \
+    task1/intmodulo.h \
     testFolder/testfolderclass.h \
     testlib.h
 
