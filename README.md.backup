@@ -30,11 +30,8 @@ LIB_EXPORT void my_function();
 In .pro file after TEMPLATE = app
 
 DEPENDPATH += . ../Lib
-
 INCLUDEPATH += ../Lib
-
 LIBS += -L../Lib/debug/ -lLib
-
 LIBS += -L../Lib/release/ -lLib
 
 ### 4. Алгоритм роботи з гітом:
