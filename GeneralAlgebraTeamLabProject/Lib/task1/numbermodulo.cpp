@@ -16,6 +16,18 @@ long long NumberModulo::get_num() const
     return num;
 }
 
+NumberModulo::NumberModulo(long long num)
+    : num(num)
+{
+
+}
+
+NumberModulo::NumberModulo(long long num, unsigned long long modulo)
+    : num(num)
+{
+    mod(modulo);
+}
+
 void NumberModulo::mod(unsigned long long modulo)
 {
     // check for zero
@@ -35,14 +47,17 @@ void NumberModulo::mod(unsigned long long modulo)
 
 void NumberModulo::add(const NumberModulo& other, unsigned long long modulo)
 {
-
+    num += other.get_num();
+    mod(modulo);
 }
 
 void NumberModulo::substract(const NumberModulo& other, unsigned long long modulo)
 {
-
+    num -= other.get_num();
+    mod(modulo);
 }
 void NumberModulo::multiply(const NumberModulo& other, unsigned long long modulo)
 {
-
+    num *= other.get_num();
+    mod(modulo);
 }

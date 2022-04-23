@@ -6,14 +6,22 @@
 class LIB_EXPORT NumberModulo
 {
 public:
+    // constructors
+
+    // default constructor num = 0
     NumberModulo();
     // constuctor from integer
     NumberModulo(long long num);
-    // constuctor from integer by modulo
+    // constuctor from integer with respect to given modulo > 0
     NumberModulo(long long num, unsigned long long modulo);
+    // to do copy constructor
 private:
+    // fields
+
     long long num = 0;
 public:
+    // methods
+
     void set_num(const long long input);
     long long get_num() const;
     // change num to num (mod modulo > 0) , num < 0 taken into account
