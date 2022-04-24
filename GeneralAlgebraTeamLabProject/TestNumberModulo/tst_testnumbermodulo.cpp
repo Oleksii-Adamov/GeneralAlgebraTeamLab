@@ -66,7 +66,7 @@ void TestNumberModulo::test_case_constructor_from_integer()
 void TestNumberModulo::test_case_mod()
 {
     IntModulo test_num;
-    // zero modulo
+    // comment for merge test
     QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.mod(0));
     // postive modulo
     // positive num
@@ -112,9 +112,9 @@ void TestNumberModulo::test_case_mod()
 
 void TestNumberModulo::test_case_constructor_from_integer_modulo()
 {
-    // zero mod
+    // zero modulo
     QVERIFY_THROWS_EXCEPTION(std::invalid_argument, IntModulo(3, 0));
-    // postive mod
+    // postive modulo
     // positive num
     IntModulo test_num1(5, 2);
     QCOMPARE(test_num1.get_num(), 1);
