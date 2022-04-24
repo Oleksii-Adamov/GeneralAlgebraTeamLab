@@ -3,7 +3,6 @@
 
 #include <QDebug>
 
-#include "testlib.h"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -19,16 +18,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_PolynomialRings_clicked()
 {
-    TestLib a;
-    a.set_i(2);
-    qDebug() << a.get_i();
+
 }
 
 
 void MainWindow::on_pushButton_FiniteField_clicked()
 {
-    TestLib a;
-    a.set_i(1);
-    qDebug() << a.get_i();
+
 }
 

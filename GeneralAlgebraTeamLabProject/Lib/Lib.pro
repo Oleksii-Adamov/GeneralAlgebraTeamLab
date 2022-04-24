@@ -11,16 +11,12 @@ CONFIG += c++17
 
 SOURCES += \
     lib.cpp \
-    task1/intmodulo.cpp \
-    testFolder/testfolderclass.cpp \
-    testlib.cpp
+    task1/intmodulo.cpp
 
 HEADERS += \
     Lib_global.h \
     lib.h \
-    task1/intmodulo.h \
-    testFolder/testfolderclass.h \
-    testlib.h
+    task1/intmodulo.h
 
 # Default rules for deployment.
 unix {
