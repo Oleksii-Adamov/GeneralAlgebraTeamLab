@@ -7,7 +7,7 @@
 
 https://www.youtube.com/watch?v=HcESuwmlHEY&list=PLlrATfBNZ98dudnM48yfGUldqGD0S4FFb&index=47
 
-### 3. Для пункту 4 і 5 записані відео (скинув у телеграм-каналі)
+### 3. Для пункту 4, 5, 6(там я не дописав git clean -fd) записані відео (скинув у телеграм-каналі)
 
 ### 4. Найважливіше!! Правильно создавайте класи та файли у бібліотеці Lib. Алгоритм:
 
@@ -56,7 +56,7 @@ git checkout -b mybranch
 
 git push -u origin mybranch
 
-/* subsequent (последующие) pushes*/
+/* subsequent (наступні) pushes*/
 
 git push
 
@@ -76,6 +76,8 @@ git merge main
 
 /* solving merge conflicts and ensure everything work locally (unit tests) (Фіксимо мердж конфлікти і перевіряємо чи
  все працює локально (тести проходить))*/
+
+git push
  
 /* Create pull request and merge pull request in Github (через Github) */
 
@@ -84,3 +86,35 @@ git checkout main
 git pull
 
 git chechout mybranch
+
+#### Solving merge conflicts:
+
+Я не знайшов у Qt mergetool, тому встановлював свою kdiff3, можете використовувати щось інше (тільки не забувайте видаляти .orig файли).
+
+1. Встановлюємо kdiff3 за посиланням:
+	http://kdiff3.sourceforge.net/
+2. У git bash пишемо:
+
+git config --global merge.tool kdiff3
+	
+git config --global mergetool.kdiff3.path "C:/Program Files/KDiff3/kdiff3.exe"
+
+git config --global mergetool.kdiff3.trustExitCode false
+
+git config --global diff.guitool kdiff3
+
+git config --global difftool.kdiff3.path "C:/Program Files/KDiff3/kdiff3.exe"
+
+git config --global difftool.kdiff3.trustExitCode false
+
+3. Коли після git merge виникли конфлікти, пишемо у git bash:
+
+git mergetool
+
+/* Вирішуєш конфлікти, зберігаємо, закриваємо kdiff3 */
+
+git commit -m ""
+
+/*Видаляємо .orig файли за допомогою наступної команди (ну насправдні всі untracked, тому якщо у вас є інші потрібні untracked файли, використовуйте щось інше */
+
+git clean -fd
