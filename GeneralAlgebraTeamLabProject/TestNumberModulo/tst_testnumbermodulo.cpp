@@ -66,9 +66,9 @@ void TestNumberModulo::test_case_constructor_from_integer()
 void TestNumberModulo::test_case_mod()
 {
     IntModulo test_num;
-    // comment for merrrrrge test 3
+    // zero modulo
     QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.mod(0));
-    // comment for merrrrggge test
+    // postive modulo
     // positive num
     test_num.set_num(5);
     test_num.mod(2);
