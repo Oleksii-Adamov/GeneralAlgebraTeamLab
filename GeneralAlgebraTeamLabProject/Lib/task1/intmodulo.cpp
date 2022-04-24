@@ -28,6 +28,17 @@ IntModulo::IntModulo(long long num, unsigned long long modulo)
     mod(modulo);
 }
 
+IntModulo::IntModulo(const IntModulo& other)
+{
+    num = other.get_num();
+}
+
+IntModulo& IntModulo::operator=(const IntModulo& other)
+{
+    num = other.get_num();
+    return *this;
+}
+
 void IntModulo::mod(unsigned long long modulo)
 {
     // check for zero
