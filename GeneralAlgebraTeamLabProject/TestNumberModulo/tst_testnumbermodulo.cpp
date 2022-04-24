@@ -68,7 +68,7 @@ void TestNumberModulo::test_case_mod()
     IntModulo test_num;
     // zero mod
     QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.mod(0));
-    // another comment for merge test
+    // comment for merge test
     // positive num
     test_num.set_num(5);
     test_num.mod(2);
