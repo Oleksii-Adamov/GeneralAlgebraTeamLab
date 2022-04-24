@@ -14,9 +14,14 @@ public:
     IntModulo(long long num);
     // constuctor from integer with respect to given modulo > 0
     IntModulo(long long num, unsigned long long modulo);
-    // to do copy constructor
+    // copy constructor
+    IntModulo(const IntModulo& other);
+    // copy assignment operator
+    IntModulo& operator=(const IntModulo& other);
+
 private:
     // fields
+
     // I do not store modulo, because that would be a waste of memory (we will work in fields with some constant modulo, so
     // there is no sense to store it with every integer
     long long num = 0;

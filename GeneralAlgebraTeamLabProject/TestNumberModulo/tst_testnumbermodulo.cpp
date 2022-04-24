@@ -21,6 +21,8 @@ private slots:
     void test_case_add();
     void test_case_substract();
     void test_case_multiply();
+    void test_case_copy_constructor();
+    void test_case_copy_assignment_operator();
 };
 
 TestNumberModulo::TestNumberModulo()
@@ -66,9 +68,9 @@ void TestNumberModulo::test_case_constructor_from_integer()
 void TestNumberModulo::test_case_mod()
 {
     IntModulo test_num;
-    // comment for merrrrrge test 3
+    // zero modulo
     QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.mod(0));
-    // comment for merrrrggge test
+    // postive modulo
     // positive num
     test_num.set_num(5);
     test_num.mod(2);
@@ -170,6 +172,38 @@ void TestNumberModulo::test_case_multiply()
     QCOMPARE(test_num.get_num(), 0);
     test_num.multiply(5, 7);
     QCOMPARE(test_num.get_num(), 0);
+}
+
+void TestNumberModulo::test_case_copy_constructor()
+{
+    IntModulo test_num(3);
+    IntModulo copy_test_num = test_num;
+    QCOMPARE(copy_test_num.get_num(), test_num.get_num());
+    QCOMPARE(copy_test_num.get_num(), 3);
+    test_num.set_num(0);
+    IntModulo copy_test_num2 = test_num;
+    QCOMPARE(copy_test_num2.get_num(), test_num.get_num());
+    QCOMPARE(copy_test_num2.get_num(), 0);
+    test_num.set_num(-2);
+    IntModulo copy_test_num3 = test_num;
+    QCOMPARE(copy_test_num3.get_num(), test_num.get_num());
+    QCOMPARE(copy_test_num3.get_num(), -2);
+}
+void TestNumberModulo::test_case_copy_assignment_operator()
+{
+    IntModulo test_num(3);
+    IntModulo copy_test_num;
+    copy_test_num = test_num;
+    QCOMPARE(copy_test_num.get_num(), test_num.get_num());
+    QCOMPARE(copy_test_num.get_num(), 3);
+    test_num.set_num(0);
+    copy_test_num = test_num;
+    QCOMPARE(copy_test_num.get_num(), test_num.get_num());
+    QCOMPARE(copy_test_num.get_num(), 0);
+    test_num.set_num(-2);
+    copy_test_num = test_num;
+    QCOMPARE(copy_test_num.get_num(), test_num.get_num());
+    QCOMPARE(copy_test_num.get_num(), -2);
 }
 
 QTEST_APPLESS_MAIN(TestNumberModulo)
