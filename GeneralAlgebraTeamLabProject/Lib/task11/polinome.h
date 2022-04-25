@@ -4,6 +4,7 @@
 #include "Lib_global.h"
 #include "task1/intmodulo.h"
 #include <vector>
+#include <string>
 
 class LIB_EXPORT Polinome {
 private:
@@ -14,6 +15,7 @@ public:
     Polinome();
     Polinome(int power);
     Polinome(std::vector<IntModulo> coefficients);
+    Polinome(std::string writtenPolinome);
 
     //Methods
     Polinome add(const Polinome& polinome, unsigned long long modulo);
