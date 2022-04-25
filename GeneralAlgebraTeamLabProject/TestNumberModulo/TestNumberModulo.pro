@@ -10,4 +10,5 @@ INCLUDEPATH += ../Lib
 LIBS += -L../Lib/debug/ -lLib
 LIBS += -L../Lib/release/ -lLib
 
-SOURCES +=  tst_testnumbermodulo.cpp
+SOURCES +=  tst_testnumbermodulo.cpp \
+    tst_testpolinome.cpp

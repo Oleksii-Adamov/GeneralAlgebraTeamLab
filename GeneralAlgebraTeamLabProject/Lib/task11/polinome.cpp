@@ -1,5 +1,7 @@
 #include "polinome.h"
 
+std::vector<IntModulo> convert(std::string writtenPolinome);
+
 Polinome::Polinome() {}
 
 Polinome::Polinome(int power) {
@@ -13,7 +15,7 @@ Polinome::Polinome(std::vector<IntModulo> coefficients) {
 }
 
 Polinome::Polinome(std::string writtenPolinome) {
-    this->coefficients = convert(writtenPolinome)
+    this->coefficients = convert(writtenPolinome);
 }
 
 Polinome Polinome::add(const Polinome& polinome, unsigned long long modulo) {
@@ -50,6 +52,26 @@ Polinome Polinome::multiply(const Polinome& polinome, unsigned long long modulo)
         }
     }
     return result;
+}
+
+bool Polinome::operator== (const Polinome& polinome) const {
+    unsigned long long i = 0;
+    for(; i < std::min(this->coefficients.size(), polinome.coefficients.size()); ++i) {
+        if(this->coefficients[i].get_num() != polinome.coefficients[i].get_num()) {
+            return false;
+        }
+    }
+    for(; i < this->coefficients.size(); ++i) {
+        if(this->coefficients[i].get_num() != 0) {
+            return false;
+        }
+    }
+    for(; i < polinome.coefficients.size(); ++i) {
+        if(polinome.coefficients[i].get_num() != 0) {
+            return false;
+        }
+    }
+    return true;
 }
 
 struct PolinomeItem {
