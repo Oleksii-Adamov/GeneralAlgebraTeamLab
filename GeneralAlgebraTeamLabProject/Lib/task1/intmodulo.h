@@ -3,6 +3,7 @@
 
 #include "Lib_global.h"
 #include <string>
+#include <iostream>
 
 class LIB_EXPORT IntModulo
 {
@@ -15,11 +16,12 @@ public:
     IntModulo(long long num);
     // constuctor from integer with respect to given modulo > 0
     IntModulo(long long num, unsigned long long modulo);
+    // constructor from string
+    IntModulo(const std::string& input);
     // copy constructor
     IntModulo(const IntModulo& other);
     // copy assignment operator
     IntModulo& operator=(const IntModulo& other);
-
 private:
     // fields
 
@@ -41,6 +43,10 @@ public:
     void multiply(const IntModulo& other, unsigned long long modulo);
     // return string representation of num
     std::string ToString() const;
+    // read num from string
+    void FromString(const std::string& input);
+    // overload of >> for streams
+    LIB_EXPORT friend std::istream &operator>>(std::istream& in, IntModulo& obj );
 };
 
 #endif // INTMODULO_H

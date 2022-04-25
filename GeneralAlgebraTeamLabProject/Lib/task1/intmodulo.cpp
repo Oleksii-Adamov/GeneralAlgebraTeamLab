@@ -77,3 +77,21 @@ std::string IntModulo::ToString() const
 {
     return std::to_string(num);
 }
+
+std::istream &operator>>(std::istream& in, IntModulo& obj)
+{
+    long long input_num;
+    in >> input_num;
+    obj.set_num(input_num);
+    return in;
+}
+
+void IntModulo::FromString(const std::string& input)
+{
+    num = std::stoll(input);
+}
+
+IntModulo::IntModulo(const std::string& input)
+{
+    FromString(input);
+}

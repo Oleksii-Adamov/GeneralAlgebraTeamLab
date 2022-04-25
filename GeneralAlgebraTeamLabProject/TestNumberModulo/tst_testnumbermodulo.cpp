@@ -3,6 +3,7 @@
 // add necessary includes here
 #include "task1/intmodulo.h"
 #include <stdexcept>
+#include <sstream>
 
 class TestNumberModulo : public QObject
 {
@@ -24,6 +25,8 @@ private slots:
     void test_case_copy_constructor();
     void test_case_copy_assignment_operator();
     void test_case_ToString();
+    void test_case_in_stream();
+    void test_case_FromString();
 };
 
 TestNumberModulo::TestNumberModulo()
@@ -218,6 +221,35 @@ void TestNumberModulo::test_case_ToString()
     test_num.set_num(0);
     QCOMPARE(test_num.ToString(), "0");
 }
+
+void TestNumberModulo::test_case_in_stream()
+{
+    std::stringstream ss;
+    ss << "3 45 -145 0";
+    IntModulo test_num;
+    ss >> test_num;
+    QCOMPARE(test_num.get_num(), 3);
+    ss >> test_num;
+    QCOMPARE(test_num.get_num(), 45);
+    ss >> test_num;
+    QCOMPARE(test_num.get_num(), -145);
+    ss >> test_num;
+    QCOMPARE(test_num.get_num(), 0);
+}
+
+void TestNumberModulo::test_case_FromString()
+{
+    IntModulo test_num;
+    test_num.FromString("3");
+    QCOMPARE(test_num.get_num(), 3);
+    test_num.FromString("45");
+    QCOMPARE(test_num.get_num(), 45);
+    test_num.FromString("-145");
+    QCOMPARE(test_num.get_num(), -145);
+    test_num.FromString("0");
+    QCOMPARE(test_num.get_num(), 0);
+}
+
 QTEST_APPLESS_MAIN(TestNumberModulo)
 
 #include "tst_testnumbermodulo.moc"
