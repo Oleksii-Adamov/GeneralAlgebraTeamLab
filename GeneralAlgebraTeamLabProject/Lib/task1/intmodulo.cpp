@@ -72,3 +72,8 @@ void IntModulo::multiply(const IntModulo& other, unsigned long long modulo)
     num *= other.get_num();
     mod(modulo);
 }
+
+std::string IntModulo::ToString() const
+{
+    return std::to_string(num);
+}

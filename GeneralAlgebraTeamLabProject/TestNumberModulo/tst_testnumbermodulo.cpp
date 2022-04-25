@@ -23,6 +23,7 @@ private slots:
     void test_case_multiply();
     void test_case_copy_constructor();
     void test_case_copy_assignment_operator();
+    void test_case_ToString();
 };
 
 TestNumberModulo::TestNumberModulo()
@@ -206,6 +207,17 @@ void TestNumberModulo::test_case_copy_assignment_operator()
     QCOMPARE(copy_test_num.get_num(), -2);
 }
 
+void TestNumberModulo::test_case_ToString()
+{
+    IntModulo test_num(3);
+    QCOMPARE(test_num.ToString(), "3");
+    test_num.set_num(45);
+    QCOMPARE(test_num.ToString(), "45");
+    test_num.set_num(-145);
+    QCOMPARE(test_num.ToString(), "-145");
+    test_num.set_num(0);
+    QCOMPARE(test_num.ToString(), "0");
+}
 QTEST_APPLESS_MAIN(TestNumberModulo)
 
 #include "tst_testnumbermodulo.moc"
