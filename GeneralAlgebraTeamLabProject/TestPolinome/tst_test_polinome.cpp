@@ -12,9 +12,9 @@ public:
 
 private slots:
     void testPolinomeParsing();
-    /*void testPolinomeAddition();
+    void testPolinomeAddition();
     void testPolinomeSubtraction();
-    void testPolinomeMultiplication();*/
+    void testPolinomeMultiplication();
 
 };
 
@@ -26,15 +26,14 @@ void TestPolinome::testPolinomeParsing() {
     std::vector<IntModulo> coefficientsVector;
     coefficientsVector.emplace_back(IntModulo(1));
     coefficientsVector.emplace_back(IntModulo(2));
-    Polinome polinome1 = Polinome(coefficientsVector);
-    QCOMPARE(polinome1, Polinome("1 + 2x"));
+    QCOMPARE(Polinome(coefficientsVector), Polinome("1 + 2x"));
 
     coefficientsVector.clear();
     coefficientsVector.emplace_back(IntModulo(1));
     coefficientsVector.emplace_back(IntModulo(0));
     coefficientsVector.emplace_back(IntModulo(3));
     coefficientsVector.emplace_back(IntModulo(2));
-    QCOMPARE(polinome1, Polinome("  1 + 3x^2 +   2x ^3 "));
+    QCOMPARE(Polinome(coefficientsVector), Polinome("  1 + 3x^2 +   2x ^3 "));
 
     coefficientsVector.clear();
     coefficientsVector.emplace_back(IntModulo(321));
@@ -42,10 +41,10 @@ void TestPolinome::testPolinomeParsing() {
     coefficientsVector.emplace_back(IntModulo(3));
     coefficientsVector.emplace_back(IntModulo(0));
     coefficientsVector.emplace_back(IntModulo(35));
-    QCOMPARE(polinome1, Polinome("3x^ 2 + 35  x ^ 4   + 22 x  + 321"));
+    QCOMPARE(Polinome(coefficientsVector), Polinome("3x^ 2 + 35  x ^ 4   + 22 x  + 321"));
 }
 
-/*void TestPolinome::testPolinomeAddition() {
+void TestPolinome::testPolinomeAddition() {
     QCOMPARE(Polinome("1 + 2x").add(Polinome("2 + 3x"), 6), Polinome("3 + 5x"));
     QCOMPARE(Polinome("1 + 2x").add(Polinome("2 + 3x"), 5), Polinome("3"));
     QCOMPARE(Polinome("1 + 2x").add(Polinome("2"), 5), Polinome("3 + 2x"));
@@ -68,7 +67,7 @@ void TestPolinome::testPolinomeMultiplication() {
     QCOMPARE(Polinome("1 + x").multiply(Polinome("1"), 6), Polinome("1 + x"));
     QCOMPARE(Polinome("x + 2").multiply(Polinome("x^2 + 3x + 4"), 6), Polinome("x^3 + 5x^2 + 4x + 2"));
     QCOMPARE(Polinome("x^2 + 3x + 4").multiply(Polinome("x + 2"), 6), Polinome("x^3 + 5x^2 + 4x + 2"));
-}*/
+}
 
 QTEST_APPLESS_MAIN(TestPolinome)
 

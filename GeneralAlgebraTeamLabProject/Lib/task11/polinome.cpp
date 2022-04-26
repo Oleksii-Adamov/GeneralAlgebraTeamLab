@@ -2,7 +2,7 @@
 
 std::vector<IntModulo> convert(std::string writtenPolinome);
 
-Polinome::Polinome(): coefficients(std::vector<IntModulo>()) {
+Polinome::Polinome() {
     std::vector<IntModulo> vec;
     coefficients = vec;
 }
