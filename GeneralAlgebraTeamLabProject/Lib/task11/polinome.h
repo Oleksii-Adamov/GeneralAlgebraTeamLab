@@ -23,6 +23,9 @@ public:
      */
     Polinome(std::string writtenPolinome);
 
+    //Destructor
+    ~Polinome();
+
     //Methods
     Polinome add(const Polinome& polinome, unsigned long long modulo);
     Polinome subtract(const Polinome& polinome, unsigned long long modulo);

@@ -2,9 +2,13 @@
 
 std::vector<IntModulo> convert(std::string writtenPolinome);
 
-Polinome::Polinome() {}
+Polinome::Polinome(): coefficients(std::vector<IntModulo>()) {
+    std::vector<IntModulo> vec;
+    coefficients = vec;
+}
 
 Polinome::Polinome(int power) {
+    coefficients = std::vector<IntModulo>();
     for(int i = 0; i < power; ++i) {
         coefficients.emplace_back(IntModulo());
     }
@@ -95,7 +99,8 @@ std::vector<PolinomeItem> getPolinomCoefs(std::string writtenPolinome) {
                 coefficients.push_back(item);
                 continue;
             }
-            throw std::invalid_argument("invalid argument: " + writtenPolinome[i]);
+            //throw std::invalid_argument("invalid argument: " + writtenPolinome[i]);
+            throw "Invalid argument";
         }
         ++i;
         while (writtenPolinome[i] == ' ') ++i;
