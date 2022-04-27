@@ -20,6 +20,7 @@ public:
      * There could be whitespaces between numbers, variables and powers (" 3x^ 2 + 35  x ^ 4   + 22 x  + 321 " ).
      * The variable should be only x.
      * No "*" sings.
+     * Strings like "22x + 321 + 155" are forbidden.
      */
     Polinome(std::string writtenPolinome);
 
