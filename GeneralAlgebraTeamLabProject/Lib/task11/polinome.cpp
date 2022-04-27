@@ -88,7 +88,7 @@ std::vector<PolinomeItem> getPolinomCoefs(std::string writtenPolinome) {
     for (int i = 0; i < writtenPolinome.length(); ++i) {
         while (writtenPolinome[i] == ' ' || writtenPolinome[i] == '+') ++i;
         PolinomeItem item;
-        while (writtenPolinome[i] > '0' && writtenPolinome[i] < '9') {
+        while (writtenPolinome[i] >= '0' && writtenPolinome[i] <= '9') {
             if (item.coefficient == -1) item.coefficient = 0;
             item.coefficient = item.coefficient * 10 + writtenPolinome[i] - '0';
             ++i;
@@ -107,7 +107,7 @@ std::vector<PolinomeItem> getPolinomCoefs(std::string writtenPolinome) {
         if (writtenPolinome[i] == '^') {
             ++i;
             while (writtenPolinome[i] == ' ') ++i;
-            while (writtenPolinome[i] > '0' && writtenPolinome[i] < '9') {
+            while (writtenPolinome[i] >= '0' && writtenPolinome[i] <= '9') {
                 item.power = item.power * 10 + writtenPolinome[i] - '0';
                 ++i;
             }
