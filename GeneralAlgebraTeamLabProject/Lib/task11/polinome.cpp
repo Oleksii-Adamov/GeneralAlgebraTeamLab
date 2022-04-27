@@ -1,8 +1,14 @@
 #include "polinome.h"
 
-Polinome::Polinome() {}
+std::vector<IntModulo> convert(std::string writtenPolinome);
+
+Polinome::Polinome() {
+    std::vector<IntModulo> vec;
+    coefficients = vec;
+}
 
 Polinome::Polinome(int power) {
+    coefficients = std::vector<IntModulo>();
     for(int i = 0; i < power; ++i) {
         coefficients.emplace_back(IntModulo());
     }
@@ -13,7 +19,7 @@ Polinome::Polinome(std::vector<IntModulo> coefficients) {
 }
 
 Polinome::Polinome(std::string writtenPolinome) {
-    this->coefficients = convert(writtenPolinome)
+    this->coefficients = convert(writtenPolinome);
 }
 
 Polinome Polinome::add(const Polinome& polinome, unsigned long long modulo) {
@@ -52,6 +58,26 @@ Polinome Polinome::multiply(const Polinome& polinome, unsigned long long modulo)
     return result;
 }
 
+bool Polinome::operator== (const Polinome& polinome) const {
+    unsigned long long i = 0;
+    for(; i < std::min(this->coefficients.size(), polinome.coefficients.size()); ++i) {
+        if(this->coefficients[i].get_num() != polinome.coefficients[i].get_num()) {
+            return false;
+        }
+    }
+    for(; i < this->coefficients.size(); ++i) {
+        if(this->coefficients[i].get_num() != 0) {
+            return false;
+        }
+    }
+    for(; i < polinome.coefficients.size(); ++i) {
+        if(polinome.coefficients[i].get_num() != 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
 struct PolinomeItem {
     int coefficient = -1;
     int power = 0;
@@ -73,7 +99,8 @@ std::vector<PolinomeItem> getPolinomCoefs(std::string writtenPolinome) {
                 coefficients.push_back(item);
                 continue;
             }
-            throw std::invalid_argument("invalid argument: " + writtenPolinome[i]);
+            //throw std::invalid_argument("invalid argument: " + writtenPolinome[i]);
+            throw "Invalid argument";
         }
         ++i;
         while (writtenPolinome[i] == ' ') ++i;
