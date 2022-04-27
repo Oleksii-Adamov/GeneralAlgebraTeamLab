@@ -85,7 +85,7 @@ struct PolinomeItem {
 
 std::vector<PolinomeItem> getPolinomCoefs(std::string writtenPolinome) {
     std::vector<PolinomeItem> coefficients;
-    for (int i = 0; i < writtenPolinome.length(); ++i) {
+    for (std::size_t i = 0; i < writtenPolinome.length(); ++i) {
         while (writtenPolinome[i] == ' ' || writtenPolinome[i] == '+') ++i;
         PolinomeItem item;
         while (writtenPolinome[i] >= '0' && writtenPolinome[i] <= '9') {
@@ -123,7 +123,7 @@ std::vector<PolinomeItem> getPolinomCoefs(std::string writtenPolinome) {
 
 int maxPower(std::vector<PolinomeItem> coefficients) {
     int max = 0;
-    for (int i = 0; i < coefficients.size(); ++i) {
+    for (std::size_t i = 0; i < coefficients.size(); ++i) {
         if (max < coefficients[i].power)
             max = coefficients[i].power;
     }
@@ -131,7 +131,7 @@ int maxPower(std::vector<PolinomeItem> coefficients) {
 }
 
 int coefOfPower(std::vector<PolinomeItem> coefficients, int power) {
-    for (int i = 0; i < coefficients.size(); ++i) {
+    for (std::size_t i = 0; i < coefficients.size(); ++i) {
         if (coefficients[i].power == power) return coefficients[i].coefficient;
     }
     return 0;
