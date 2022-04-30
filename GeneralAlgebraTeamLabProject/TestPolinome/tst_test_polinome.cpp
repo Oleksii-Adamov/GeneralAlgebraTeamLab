@@ -23,50 +23,116 @@ TestPolinome::TestPolinome() {}
 TestPolinome::~TestPolinome() {}
 
 void TestPolinome::testPolinomeParsing() {
-    std::vector<IntModulo> coefficientsVector;
-    coefficientsVector.emplace_back(IntModulo(1));
-    coefficientsVector.emplace_back(IntModulo(2));
-    QCOMPARE(Polinome(coefficientsVector), Polinome("1 + 2x"));
+    std::vector<IntModulo>* coefficientsVector = new std::vector<IntModulo>();
+    coefficientsVector->emplace_back(IntModulo(1));
+    coefficientsVector->emplace_back(IntModulo(2));
+    std::string writtenPolinome = "1 + 2x";
+    QCOMPARE(Polinome(coefficientsVector), Polinome(writtenPolinome));
 
-    coefficientsVector.clear();
-    coefficientsVector.emplace_back(IntModulo(1));
-    coefficientsVector.emplace_back(IntModulo(0));
-    coefficientsVector.emplace_back(IntModulo(3));
-    coefficientsVector.emplace_back(IntModulo(2));
-    QCOMPARE(Polinome(coefficientsVector), Polinome("  1 + 3x^2 +   2x ^3 "));
+    coefficientsVector = new std::vector<IntModulo>();
+    coefficientsVector->emplace_back(IntModulo(1));
+    coefficientsVector->emplace_back(IntModulo(0));
+    coefficientsVector->emplace_back(IntModulo(3));
+    coefficientsVector->emplace_back(IntModulo(2));
+    writtenPolinome = "  1 + 3x^2 +   2x ^3 ";
+    QCOMPARE(Polinome(coefficientsVector), Polinome(writtenPolinome));
 
-    coefficientsVector.clear();
-    coefficientsVector.emplace_back(IntModulo(321));
-    coefficientsVector.emplace_back(IntModulo(22));
-    coefficientsVector.emplace_back(IntModulo(3));
-    coefficientsVector.emplace_back(IntModulo(0));
-    coefficientsVector.emplace_back(IntModulo(35));
-    QCOMPARE(Polinome(coefficientsVector), Polinome("3x^ 2 + 35  x ^ 4   + 22 x  + 321"));
+    coefficientsVector = new std::vector<IntModulo>();
+    coefficientsVector->emplace_back(IntModulo(321));
+    coefficientsVector->emplace_back(IntModulo(22));
+    coefficientsVector->emplace_back(IntModulo(3));
+    coefficientsVector->emplace_back(IntModulo(0));
+    coefficientsVector->emplace_back(IntModulo(35));
+    writtenPolinome = "3x^ 2 + 35  x ^ 4   + 22 x  + 321";
+    QCOMPARE(Polinome(coefficientsVector), Polinome(writtenPolinome));
 }
 
 void TestPolinome::testPolinomeAddition() {
-    QCOMPARE(Polinome("1 + 2x").add(Polinome("2 + 3x"), 6), Polinome("3 + 5x"));
-    QCOMPARE(Polinome("1 + 2x").add(Polinome("2 + 3x"), 5), Polinome("3"));
-    QCOMPARE(Polinome("1 + 2x").add(Polinome("2"), 5), Polinome("3 + 2x"));
-    QCOMPARE(Polinome("1").add(Polinome("3x + 4x^2"), 5), Polinome("1 + 3x + 4x^2"));
-    QCOMPARE(Polinome("1 + 2x").add(Polinome("2 + x"), 3), Polinome("0"));
+    std::string writtenAddend1 = "1 + 2x";
+    std::string writtenAddend2 = "2 + 3x";
+    std::string result = "3 + 5x";
+    QCOMPARE(Polinome(writtenAddend1).add(Polinome(writtenAddend2), 6), Polinome(result));
+
+    writtenAddend1 = "1 + 2x";
+    writtenAddend2 = "2 + 3x";
+    result = "3";
+    QCOMPARE(Polinome(writtenAddend1).add(Polinome(writtenAddend2), 5), Polinome(result));
+
+    writtenAddend1 = "1 + 2x";
+    writtenAddend2 = "2";
+    result = "3 + 2x";
+    QCOMPARE(Polinome(writtenAddend1).add(Polinome(writtenAddend2), 5), Polinome(result));
+
+    writtenAddend1 = "1";
+    writtenAddend2 = "3x + 4x^2";
+    result = "1 + 3x + 4x^2";
+    QCOMPARE(Polinome(writtenAddend1).add(Polinome(writtenAddend2), 5), Polinome(result));
+
+    writtenAddend1 = "1 + 2x";
+    writtenAddend2 = "2 + x";
+    result = "0";
+    QCOMPARE(Polinome(writtenAddend1).add(Polinome(writtenAddend2), 3), Polinome(result));
 }
 
 void TestPolinome::testPolinomeSubtraction() {
-    QCOMPARE(Polinome("2 + 2x").subtract(Polinome("1 + x"), 6), Polinome("1 + x"));
-    QCOMPARE(Polinome("1 + x").subtract(Polinome("2 + 2x"), 5), Polinome("4 + 4x"));
-    QCOMPARE(Polinome("1").subtract(Polinome("2 + 2x"), 5), Polinome("4 + 3x"));
-    QCOMPARE(Polinome("1 + x").subtract(Polinome("4x"), 5), Polinome("1 + 2x"));
-    QCOMPARE(Polinome("1 + x").subtract(Polinome("1 + x"), 5), Polinome("0"));
+    std::string writtenMinuend = "2 + 2x";
+    std::string writtenSubtrahend = "1 + x";
+    std::string result = "1 + x";
+
+
+    QCOMPARE(Polinome(writtenMinuend).subtract(Polinome(writtenSubtrahend), 6), Polinome(result));
+
+    writtenMinuend = "1 + x";
+    writtenSubtrahend = "2 + 2x";
+    result = "4 + 4x";
+    QCOMPARE(Polinome(writtenMinuend).subtract(Polinome(writtenSubtrahend), 5), Polinome(result));
+
+    writtenMinuend = "1";
+    writtenSubtrahend = "2 + 2x";
+    result = "4 + 3x";
+    QCOMPARE(Polinome(writtenMinuend).subtract(Polinome(writtenSubtrahend), 5), Polinome(result));
+
+    writtenMinuend = "1 + x";
+    writtenSubtrahend = "4x";
+    result = "1 + 2x";
+    QCOMPARE(Polinome(writtenMinuend).subtract(Polinome(writtenSubtrahend), 5), Polinome(result));
+
+    writtenMinuend = "1 + x";
+    writtenSubtrahend = "1 + x";
+    result = "0";
+    QCOMPARE(Polinome(writtenMinuend).subtract(Polinome(writtenSubtrahend), 5), Polinome(result));
 }
 
 void TestPolinome::testPolinomeMultiplication() {
-    QCOMPARE(Polinome("1").multiply(Polinome("1"), 6), Polinome("1"));
-    QCOMPARE(Polinome("1 + x").multiply(Polinome("1 + x"), 6), Polinome("1 + 2x + x^2"));
-    QCOMPARE(Polinome("1").multiply(Polinome("1 + x"), 6), Polinome("1 + x"));
-    QCOMPARE(Polinome("1 + x").multiply(Polinome("1"), 6), Polinome("1 + x"));
-    QCOMPARE(Polinome("x + 2").multiply(Polinome("x^2 + 3x + 4"), 6), Polinome("x^3 + 5x^2 + 4x + 2"));
-    QCOMPARE(Polinome("x^2 + 3x + 4").multiply(Polinome("x + 2"), 6), Polinome("x^3 + 5x^2 + 4x + 2"));
+    std::string writtenFactor1 = "1";
+    std::string writtenFactor2 = "1";
+    std::string result = "1";
+    QCOMPARE(Polinome(writtenFactor1).multiply(Polinome(writtenFactor2), 6), Polinome(result));
+
+    writtenFactor1 = "1 + x";
+    writtenFactor2 = "1 + x";
+    result = "1 + 2x + x^2";
+    QCOMPARE(Polinome(writtenFactor1).multiply(Polinome(writtenFactor2), 6), Polinome(result));
+
+    writtenFactor1 = "1";
+    writtenFactor2 = "1 + x";
+    result = "1 + x";
+    QCOMPARE(Polinome(writtenFactor1).multiply(Polinome(writtenFactor2), 6), Polinome(result));
+
+    writtenFactor1 = "1 + x";
+    writtenFactor2 = "1";
+    result = "1 + x";
+    QCOMPARE(Polinome(writtenFactor1).multiply(Polinome(writtenFactor2), 6), Polinome(result));
+
+    writtenFactor1 = "x + 2";
+    writtenFactor2 = "x^2 + 3x + 4";
+    result = "x^3 + 5x^2 + 4x + 2";
+    QCOMPARE(Polinome(writtenFactor1).multiply(Polinome(writtenFactor2), 6), Polinome(result));
+
+    writtenFactor1 = "x^2 + 3x + 4";
+    writtenFactor2 = "x + 2";
+    result = "x^3 + 5x^2 + 4x + 2";
+    QCOMPARE(Polinome(writtenFactor1).multiply(Polinome(writtenFactor2), 6), Polinome(result));
 }
 
 QTEST_APPLESS_MAIN(TestPolinome)
