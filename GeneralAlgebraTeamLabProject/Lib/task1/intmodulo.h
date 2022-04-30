@@ -41,6 +41,8 @@ public:
     void substract(const IntModulo& other, unsigned long long modulo);
     // multiplies num by other , with respect to given modulo > 0
     void multiply(const IntModulo& other, unsigned long long modulo);
+    // finds reversed element
+    IntModulo findReversed(unsigned long long modulo);
     // return string representation of num
     std::string ToString() const;
     // read num from string

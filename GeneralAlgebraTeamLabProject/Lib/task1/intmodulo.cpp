@@ -73,6 +73,25 @@ void IntModulo::multiply(const IntModulo& other, unsigned long long modulo)
     mod(modulo);
 }
 
+IntModulo IntModulo::findReversed(unsigned long long modulo) {
+    unsigned long long firstNum = modulo;
+    unsigned long long secondNum = this->get_num();
+    int firstNumComposition[] = {1, 0};
+    int secondNumComposition[] = {0, 1};
+    while(secondNum != 1) {
+        unsigned long long div = firstNum / secondNum;
+        for(int i = 0; i < 2; ++i) {
+            firstNumComposition[i] -= div * secondNumComposition[i];
+            std::swap(firstNumComposition[i], secondNumComposition[i]);
+        }
+        firstNum -= div * secondNum;
+        std::swap(firstNum, secondNum);
+    }
+    IntModulo result = IntModulo(secondNumComposition[1]);
+    result.mod(modulo);
+    return result;
+}
+
 std::string IntModulo::ToString() const
 {
     return std::to_string(num);
