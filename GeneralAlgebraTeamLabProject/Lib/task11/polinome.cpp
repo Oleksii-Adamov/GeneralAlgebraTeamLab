@@ -1,58 +1,62 @@
 #include "polinome.h"
 
-std::vector<IntModulo> convert(std::string writtenPolinome);
+std::vector<IntModulo>* convert(std::string& writtenPolinome);
 
 Polinome::Polinome() {
-    std::vector<IntModulo> vec;
+    std::vector<IntModulo>* vec = new std::vector<IntModulo>();
     coefficients = vec;
 }
 
 Polinome::Polinome(int power) {
-    coefficients = std::vector<IntModulo>();
+    coefficients = new std::vector<IntModulo>();
     for(int i = 0; i < power; ++i) {
-        coefficients.emplace_back(IntModulo());
+        coefficients->emplace_back();
     }
 }
 
-Polinome::Polinome(std::vector<IntModulo> coefficients) {
+Polinome::Polinome(std::vector<IntModulo>* coefficients) {
     this->coefficients = coefficients;
 }
 
-Polinome::Polinome(std::string writtenPolinome) {
+Polinome::Polinome(std::string& writtenPolinome) {
     this->coefficients = convert(writtenPolinome);
+}
+
+Polinome::~Polinome() {
+    delete coefficients;
 }
 
 Polinome Polinome::add(const Polinome& polinome, unsigned long long modulo) {
     Polinome result = Polinome();
-    unsigned long long maxPower = std::max(this->coefficients.size(), polinome.coefficients.size());
+    unsigned long long maxPower = std::max(this->coefficients->size(), polinome.coefficients->size());
     for(unsigned long long i = 0; i < maxPower; ++i) {
-        IntModulo addend1 = (i < this->coefficients.size()) ? this->coefficients[i] : IntModulo();
-        IntModulo addend2 = (i < polinome.coefficients.size()) ? polinome.coefficients[i] : IntModulo();
+        IntModulo addend1 = (i < this->coefficients->size()) ? (*this->coefficients)[i] : IntModulo();
+        IntModulo addend2 = (i < polinome.coefficients->size()) ? (*polinome.coefficients)[i] : IntModulo();
         addend1.add(addend2, modulo);
-        result.coefficients.emplace_back(addend1);
+        result.coefficients->push_back(addend1);
     }
     return result;
 }
 
 Polinome Polinome::subtract(const Polinome &polinome, unsigned long long modulo) {
     Polinome result = Polinome();
-    unsigned long long maxPower = std::max(this->coefficients.size(), polinome.coefficients.size());
+    unsigned long long maxPower = std::max(this->coefficients->size(), polinome.coefficients->size());
     for(unsigned long long i = 0; i < maxPower; ++i) {
-        IntModulo minuend = (i < this->coefficients.size()) ? this->coefficients[i] : IntModulo();
-        IntModulo subtrahend = (i < polinome.coefficients.size()) ? polinome.coefficients[i] : IntModulo();
+        IntModulo minuend = (i < this->coefficients->size()) ? (*this->coefficients)[i] : IntModulo();
+        IntModulo subtrahend = (i < polinome.coefficients->size()) ? (*polinome.coefficients)[i] : IntModulo();
         minuend.substract(subtrahend, modulo);
-        result.coefficients.emplace_back(minuend);
+        result.coefficients->push_back(minuend);
     }
     return result;
 }
 
 Polinome Polinome::multiply(const Polinome& polinome, unsigned long long modulo) {
-    Polinome result = Polinome(this->coefficients.size() + polinome.coefficients.size());
-    for(unsigned long long i = 0; i < this->coefficients.size(); ++i) {
-        for(unsigned long long j = 0; j < polinome.coefficients.size(); ++j) {
-            IntModulo factor = IntModulo(this->coefficients[i]);
-            factor.multiply(polinome.coefficients[j], modulo);
-            result.coefficients[i + j].add(factor, modulo);
+    Polinome result = Polinome(this->coefficients->size() + polinome.coefficients->size());
+    for(unsigned long long i = 0; i < this->coefficients->size(); ++i) {
+        for(unsigned long long j = 0; j < polinome.coefficients->size(); ++j) {
+            IntModulo factor = IntModulo((*this->coefficients)[i]);
+            factor.multiply((*polinome.coefficients)[j], modulo);
+            (*result.coefficients)[i + j].add(factor, modulo);
         }
     }
     return result;
@@ -60,18 +64,18 @@ Polinome Polinome::multiply(const Polinome& polinome, unsigned long long modulo)
 
 bool Polinome::operator== (const Polinome& polinome) const {
     unsigned long long i = 0;
-    for(; i < std::min(this->coefficients.size(), polinome.coefficients.size()); ++i) {
-        if(this->coefficients[i].get_num() != polinome.coefficients[i].get_num()) {
+    for(; i < std::min(this->coefficients->size(), polinome.coefficients->size()); ++i) {
+        if((*this->coefficients)[i].get_num() != (*polinome.coefficients)[i].get_num()) {
             return false;
         }
     }
-    for(; i < this->coefficients.size(); ++i) {
-        if(this->coefficients[i].get_num() != 0) {
+    for(; i < this->coefficients->size(); ++i) {
+        if((*this->coefficients)[i].get_num() != 0) {
             return false;
         }
     }
-    for(; i < polinome.coefficients.size(); ++i) {
-        if(polinome.coefficients[i].get_num() != 0) {
+    for(; i < polinome.coefficients->size(); ++i) {
+        if((*polinome.coefficients)[i].get_num() != 0) {
             return false;
         }
     }
@@ -83,7 +87,7 @@ struct PolinomeItem {
     int power = 0;
 };
 
-std::vector<PolinomeItem> getPolinomCoefs(std::string writtenPolinome) {
+std::vector<PolinomeItem> getPolinomCoefs(std::string& writtenPolinome) {
     std::vector<PolinomeItem> coefficients;
     for (std::size_t i = 0; i < writtenPolinome.length(); ++i) {
         while (writtenPolinome[i] == ' ' || writtenPolinome[i] == '+') ++i;
@@ -99,8 +103,7 @@ std::vector<PolinomeItem> getPolinomCoefs(std::string writtenPolinome) {
                 coefficients.push_back(item);
                 continue;
             }
-            //throw std::invalid_argument("invalid argument: " + writtenPolinome[i]);
-            throw "Invalid argument";
+            throw std::invalid_argument("invalid argument: " + writtenPolinome[i]);
         }
         ++i;
         while (writtenPolinome[i] == ' ') ++i;
@@ -137,12 +140,12 @@ int coefOfPower(std::vector<PolinomeItem> coefficients, int power) {
     return 0;
 }
 
-std::vector<IntModulo> convert(std::string writtenPolinome) {
+std::vector<IntModulo>* convert(std::string& writtenPolinome) {
     std::vector<PolinomeItem> coefficients = getPolinomCoefs(writtenPolinome);
-    std::vector<IntModulo> answer;
+    std::vector<IntModulo>* answer = new std::vector<IntModulo>();
     int power = maxPower(coefficients);
     for (int i = 0; i < power + 1; ++i) {
-        answer.push_back(IntModulo(coefOfPower(coefficients, i)));
+        answer->push_back(IntModulo(coefOfPower(coefficients, i)));
     }
     return answer;
 }

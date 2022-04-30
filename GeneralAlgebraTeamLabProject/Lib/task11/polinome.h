@@ -8,13 +8,13 @@
 
 class LIB_EXPORT Polinome {
 private:
-    std::vector<IntModulo> coefficients;
+    std::vector<IntModulo>* coefficients;
 
 public:
     //constructors
     Polinome();
     Polinome(int power);
-    Polinome(std::vector<IntModulo> coefficients);
+    Polinome(std::vector<IntModulo>* coefficients);
     /**
      * The string should be like this: " 3x^2 + 35x^4 + 22x + 321".
      * There could be whitespaces between numbers, variables and powers (" 3x^ 2 + 35  x ^ 4   + 22 x  + 321 " ).
@@ -22,7 +22,8 @@ public:
      * No "*" sings.
      * Strings like "22x + 321 + 155" are forbidden.
      */
-    Polinome(std::string writtenPolinome);
+    Polinome(std::string& writtenPolinome);
+    ~Polinome();
 
     //Methods
     Polinome add(const Polinome& polinome, unsigned long long modulo);
