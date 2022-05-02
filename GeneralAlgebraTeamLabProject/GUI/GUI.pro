@@ -14,13 +14,16 @@ LIBS += -L../Lib/debug/ -lLib
 LIBS += -L../Lib/release/ -lLib
 
 SOURCES += \
+    finitefieldwindow.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    finitefieldwindow.h \
     mainwindow.h
 
 FORMS += \
+    finitefieldwindow.ui \
     mainwindow.ui
 
 # Default rules for deployment.
