@@ -4,4 +4,5 @@ SUBDIRS += \
     GUI \
     Lib \
     TestNumberModulo \
-    TestPolinome
+    TestPolinome \
+    tests
