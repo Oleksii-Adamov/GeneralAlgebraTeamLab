@@ -41,6 +41,10 @@ public:
     void substract(const IntModulo& other, unsigned long long modulo);
     // multiplies num by other , with respect to given modulo > 0
     void multiply(const IntModulo& other, unsigned long long modulo);
+    // divides a number by a number, with respect to given modulo > 0
+    void divide(long long num1, unsigned long long modulo);
+    // finds reversed element
+    IntModulo findReversed(unsigned long long modulo);
     // return string representation of num
     std::string ToString() const;
     // read num from string
@@ -48,5 +52,6 @@ public:
     // overload of >> for streams
     LIB_EXPORT friend std::istream &operator>>(std::istream& in, IntModulo& obj );
 };
+
 
 #endif // INTMODULO_H
