@@ -46,6 +46,36 @@ void TestPolinome::testPolinomeParsing() {
     coefficientsVector->emplace_back(IntModulo(35));
     writtenPolinome = "3x^ 2 + 35  x ^ 4   + 22 x  + 321";
     QCOMPARE(Polinome(coefficientsVector), Polinome(writtenPolinome));
+
+    bool caught = false;
+    try {
+        writtenPolinome = "3x^ 2 + 35  x ^ 4 + 11x  + 22 x  + 321 + 11";
+        Polinome p = Polinome(writtenPolinome);
+        qDebug() << p.toString().c_str();
+    } catch(std::exception e) {
+        caught = true;
+    }
+    QVERIFY(caught);
+
+    caught = false;
+    try {
+        writtenPolinome = "3x^ 2 + 35  x ^ 4 + 22 x  + 321 + 11";
+        Polinome p = Polinome(writtenPolinome);
+        qDebug() << p.toString().c_str();
+    } catch(std::exception e) {
+        caught = true;
+    }
+    QVERIFY(caught);
+
+    caught = false;
+    try {
+        writtenPolinome = "3x^ 2 + 35  x ^ 4 + 11x  + 22 x  + 321";
+        Polinome p = Polinome(writtenPolinome);
+        qDebug() << p.toString().c_str();
+    } catch(std::exception e) {
+        caught = true;
+    }
+    QVERIFY(caught);
 }
 
 void TestPolinome::testPolinomeAddition() {

@@ -151,10 +151,20 @@ int maxPower(std::vector<PolinomeItem> coefficients) {
 }
 
 int coefOfPower(std::vector<PolinomeItem> coefficients, int power) {
+    int result = -1;
     for (std::size_t i = 0; i < coefficients.size(); ++i) {
-        if (coefficients[i].power == power) return coefficients[i].coefficient;
+        if (coefficients[i].power == power) {
+            if (result == -1) {
+                result = coefficients[i].coefficient;
+            } else {
+                throw std::invalid_argument("invalid argument: at least two parts have the same power of x.");
+            }
+        }
     }
-    return 0;
+    if (result == -1)
+        return 0;
+    else
+        return result;
 }
 
 std::vector<IntModulo>* convert(std::string& writtenPolinome) {
