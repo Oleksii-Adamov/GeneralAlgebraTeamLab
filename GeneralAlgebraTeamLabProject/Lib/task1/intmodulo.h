@@ -42,9 +42,9 @@ public:
     // multiplies num by other , with respect to given modulo > 0
     void multiply(const IntModulo& other, unsigned long long modulus);
     // divides a number by a number, with respect to given modulus > 0
-    void divide(long long num1, unsigned long long modulus);
-    // finds reversed element
-    IntModulo findReversed(unsigned long long modulus);
+    void divide(const IntModulo& num1, unsigned long long modulus);
+    // finds reversed element (return num = 0 if no reversed)
+    IntModulo findReversed(unsigned long long modulus) const;
     // num = num^(exponent) (mod modulus > 0) complexity O(log exponent) using Right-to-left binary method
     void pow(unsigned long long exponent, unsigned long long modulus);
     // return string representation of num
@@ -52,7 +52,7 @@ public:
     // read num from string (std::invalid_argument if contains non digits before digits, but if string is "123d", then num := 123)
     void FromString(const std::string& input);
     // overload of >> for streams
-    LIB_EXPORT friend std::istream &operator>>(std::istream& in, IntModulo& obj );
+    LIB_EXPORT friend std::istream &operator>>(std::istream& in, IntModulo& obj);
 };
 
 

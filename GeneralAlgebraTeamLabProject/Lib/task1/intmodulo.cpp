@@ -73,15 +73,12 @@ void IntModulo::multiply(const IntModulo& other, unsigned long long modulus)
     mod(modulus);
 }
 
-void IntModulo::divide(long long num1, unsigned long long modulus)
+void IntModulo::divide(const IntModulo& other, unsigned long long modulus)
 {
-    IntModulo other;
-    other.set_num(num1);
-    num *= other.findReversed(modulus).get_num();
-    mod(modulus);
+    multiply(other.findReversed(modulus), modulus);
 }
 
-IntModulo IntModulo::findReversed(unsigned long long modulus) {
+IntModulo IntModulo::findReversed(unsigned long long modulus) const {
     if(modulus > 0 && this->get_num() % modulus != 0){
         unsigned long long firstNum = modulus;
         unsigned long long secondNum = this->get_num();
