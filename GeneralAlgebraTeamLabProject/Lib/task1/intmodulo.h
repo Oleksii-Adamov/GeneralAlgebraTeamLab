@@ -16,7 +16,7 @@ public:
     IntModulo(long long num);
     // constuctor from integer with respect to given modulo > 0
     IntModulo(long long num, unsigned long long modulo);
-    // constructor from string
+    // constructor from string (std::invalid_argument if contains non digits before digits, but if string is "123d", then num := 123)
     IntModulo(const std::string& input);
     // copy constructor
     IntModulo(const IntModulo& other);
@@ -47,7 +47,7 @@ public:
     IntModulo findReversed(unsigned long long modulo);
     // return string representation of num
     std::string ToString() const;
-    // read num from string
+    // read num from string (std::invalid_argument if contains non digits before digits, but if string is "123d", then num := 123)
     void FromString(const std::string& input);
     // overload of >> for streams
     LIB_EXPORT friend std::istream &operator>>(std::istream& in, IntModulo& obj );
