@@ -29,6 +29,7 @@ public:
     Polinome add(const Polinome& polinome, unsigned long long modulo);
     Polinome subtract(const Polinome& polinome, unsigned long long modulo);
     Polinome multiply(const Polinome& polinome, unsigned long long modulo);
+    std::string toString();
 
     bool operator== (const Polinome& polinome) const;
 };
