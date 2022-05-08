@@ -297,6 +297,9 @@ void TestNumberModulo::test_case_FromString()
     QCOMPARE(test_num.get_num(), -145);
     test_num.FromString("0");
     QCOMPARE(test_num.get_num(), 0);
+    QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.FromString("ab"));
+    test_num.FromString("0b");
+    QCOMPARE(test_num.get_num(), 0);
 }
 
 QTEST_APPLESS_MAIN(TestNumberModulo)
