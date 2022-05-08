@@ -15,6 +15,7 @@ private slots:
     void testPolinomeAddition();
     void testPolinomeSubtraction();
     void testPolinomeMultiplication();
+    void testPolinomeToString();
 
 };
 
@@ -45,6 +46,36 @@ void TestPolinome::testPolinomeParsing() {
     coefficientsVector->emplace_back(IntModulo(35));
     writtenPolinome = "3x^ 2 + 35  x ^ 4   + 22 x  + 321";
     QCOMPARE(Polinome(coefficientsVector), Polinome(writtenPolinome));
+
+    bool caught = false;
+    try {
+        writtenPolinome = "3x^ 2 + 35  x ^ 4 + 11x  + 22 x  + 321 + 11";
+        Polinome p = Polinome(writtenPolinome);
+        qDebug() << p.toString().c_str();
+    } catch(std::exception e) {
+        caught = true;
+    }
+    QVERIFY(caught);
+
+    caught = false;
+    try {
+        writtenPolinome = "3x^ 2 + 35  x ^ 4 + 22 x  + 321 + 11";
+        Polinome p = Polinome(writtenPolinome);
+        qDebug() << p.toString().c_str();
+    } catch(std::exception e) {
+        caught = true;
+    }
+    QVERIFY(caught);
+
+    caught = false;
+    try {
+        writtenPolinome = "3x^ 2 + 35  x ^ 4 + 11x  + 22 x  + 321";
+        Polinome p = Polinome(writtenPolinome);
+        qDebug() << p.toString().c_str();
+    } catch(std::exception e) {
+        caught = true;
+    }
+    QVERIFY(caught);
 }
 
 void TestPolinome::testPolinomeAddition() {
@@ -133,6 +164,23 @@ void TestPolinome::testPolinomeMultiplication() {
     writtenFactor2 = "x + 2";
     result = "x^3 + 5x^2 + 4x + 2";
     QCOMPARE(Polinome(writtenFactor1).multiply(Polinome(writtenFactor2), 6), Polinome(result));
+}
+
+void TestPolinome::testPolinomeToString() {
+    std::string writtenPolinome = "2x + 1";
+    QCOMPARE(writtenPolinome, Polinome(writtenPolinome).toString());
+
+    writtenPolinome = "1";
+    QCOMPARE(writtenPolinome, Polinome(writtenPolinome).toString());
+
+    writtenPolinome = "0";
+    QCOMPARE(writtenPolinome, Polinome(writtenPolinome).toString());
+
+    writtenPolinome = "2x^2 + x + 150";
+    QCOMPARE(writtenPolinome, Polinome(writtenPolinome).toString());
+
+    writtenPolinome = "15x^4 + 2x^2 + x + 150";
+    QCOMPARE(writtenPolinome, Polinome(writtenPolinome).toString());
 }
 
 QTEST_APPLESS_MAIN(TestPolinome)

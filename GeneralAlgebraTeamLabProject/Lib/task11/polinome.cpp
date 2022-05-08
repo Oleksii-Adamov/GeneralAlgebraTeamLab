@@ -62,6 +62,23 @@ Polinome Polinome::multiply(const Polinome& polinome, unsigned long long modulo)
     return result;
 }
 
+std::string Polinome::toString() {
+    std::string result = "";
+    for (int power = coefficients->size() - 1; power >= 0; power--) {
+        if ((*this->coefficients)[power].get_num() != 0) {
+            if (!result.empty()) result.append(" + ");
+            if ((*this->coefficients)[power].get_num() > 1 || power == 0) {
+                result.append((*this->coefficients)[power].ToString());
+            }
+            if (power > 0) result.append("x");
+            if  (power > 1) result.append("^").append(std::to_string(power));
+        }
+    }
+    if (result.empty()) result.append("0");
+
+    return result;
+}
+
 bool Polinome::operator== (const Polinome& polinome) const {
     unsigned long long i = 0;
     for(; i < std::min(this->coefficients->size(), polinome.coefficients->size()); ++i) {
@@ -134,10 +151,20 @@ int maxPower(std::vector<PolinomeItem> coefficients) {
 }
 
 int coefOfPower(std::vector<PolinomeItem> coefficients, int power) {
+    int result = -1;
     for (std::size_t i = 0; i < coefficients.size(); ++i) {
-        if (coefficients[i].power == power) return coefficients[i].coefficient;
+        if (coefficients[i].power == power) {
+            if (result == -1) {
+                result = coefficients[i].coefficient;
+            } else {
+                throw std::invalid_argument("invalid argument: at least two parts have the same power of x.");
+            }
+        }
     }
-    return 0;
+    if (result == -1)
+        return 0;
+    else
+        return result;
 }
 
 std::vector<IntModulo>* convert(std::string& writtenPolinome) {
