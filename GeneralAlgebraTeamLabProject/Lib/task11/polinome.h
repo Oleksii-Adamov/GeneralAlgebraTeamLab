@@ -22,7 +22,7 @@ public:
      * No "*" sings.
      * Strings like "22x + 321 + 155" are forbidden.
      */
-    Polinome(std::string& writtenPolinome);
+    Polinome(const std::string& writtenPolinome);
     ~Polinome();
 
     //Methods

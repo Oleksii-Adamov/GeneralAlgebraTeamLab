@@ -1,6 +1,6 @@
 #include "polinome.h"
 
-std::vector<IntModulo>* convert(std::string& writtenPolinome);
+std::vector<IntModulo>* convert(const std::string& writtenPolinome);
 
 Polinome::Polinome() {
     std::vector<IntModulo>* vec = new std::vector<IntModulo>();
@@ -18,7 +18,7 @@ Polinome::Polinome(std::vector<IntModulo>* coefficients) {
     this->coefficients = coefficients;
 }
 
-Polinome::Polinome(std::string& writtenPolinome) {
+Polinome::Polinome(const std::string& writtenPolinome) {
     this->coefficients = convert(writtenPolinome);
 }
 
@@ -104,7 +104,7 @@ struct PolinomeItem {
     int power = 0;
 };
 
-std::vector<PolinomeItem> getPolinomCoefs(std::string& writtenPolinome) {
+std::vector<PolinomeItem> getPolinomCoefs(const std::string& writtenPolinome) {
     std::vector<PolinomeItem> coefficients;
     for (std::size_t i = 0; i < writtenPolinome.length(); ++i) {
         while (writtenPolinome[i] == ' ' || writtenPolinome[i] == '+') ++i;
@@ -120,7 +120,9 @@ std::vector<PolinomeItem> getPolinomCoefs(std::string& writtenPolinome) {
                 coefficients.push_back(item);
                 continue;
             }
-            throw std::invalid_argument("invalid argument: " + writtenPolinome[i]);
+            std::string exception_message = "invalid argument: ";
+            exception_message += writtenPolinome[i];
+            throw std::invalid_argument(exception_message);
         }
         ++i;
         while (writtenPolinome[i] == ' ') ++i;
@@ -167,7 +169,7 @@ int coefOfPower(std::vector<PolinomeItem> coefficients, int power) {
         return result;
 }
 
-std::vector<IntModulo>* convert(std::string& writtenPolinome) {
+std::vector<IntModulo>* convert(const std::string& writtenPolinome) {
     std::vector<PolinomeItem> coefficients = getPolinomCoefs(writtenPolinome);
     std::vector<IntModulo>* answer = new std::vector<IntModulo>();
     int power = maxPower(coefficients);

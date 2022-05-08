@@ -101,7 +101,7 @@ IntModulo IntModulo::findReversed(unsigned long long modulo) {
         IntModulo twin = IntModulo(this->get_num());
         twin.multiply(result, modulo); 
         if(twin.get_num() != 1)
-            IntModulo result = IntModulo(0);
+            result = IntModulo(0);
         return result;
     }
     else {
