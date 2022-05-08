@@ -132,3 +132,31 @@ IntModulo::IntModulo(const std::string& input)
 {
     FromString(input);
 }
+
+void IntModulo::pow(unsigned long long exponent, unsigned long long modulus)
+{
+    // fast modular exponentiation O(log exponent) using Right-to-left binary method
+    //https://en.wikipedia.org/wiki/Modular_exponentiation#Right-to-left_binary_method
+    if (modulus == 1) {
+        num = 0;
+        return;
+    }
+    // throw expeption if modulus = 0
+    mod(modulus);
+    // base_in_pow = base^(2^i)
+    unsigned long long base_in_pow = num;
+    unsigned long long result = 1;
+    // result = product(base^(bit(i)*2^i)) (mod m), i=0,n-1, bit(i) = i-th bit from end(least significant, right)
+    while (exponent > 0) {
+        // if right bit is 1
+        if (exponent % 2 == 1) {
+            result *= base_in_pow;
+            result %= modulus;
+        }
+        base_in_pow *= base_in_pow;
+        base_in_pow %= modulus;
+        // delete right bit
+        exponent = exponent >> 1;
+    }
+    num = result;
+}
