@@ -26,37 +26,37 @@ Polinome::~Polinome() {
     delete coefficients;
 }
 
-Polinome Polinome::add(const Polinome& polinome, unsigned long long modulo) {
+Polinome Polinome::add(const Polinome& polinome, unsigned long long modulus) {
     Polinome result = Polinome();
     unsigned long long maxPower = std::max(this->coefficients->size(), polinome.coefficients->size());
     for(unsigned long long i = 0; i < maxPower; ++i) {
         IntModulo addend1 = (i < this->coefficients->size()) ? (*this->coefficients)[i] : IntModulo();
         IntModulo addend2 = (i < polinome.coefficients->size()) ? (*polinome.coefficients)[i] : IntModulo();
-        addend1.add(addend2, modulo);
+        addend1.add(addend2, modulus);
         result.coefficients->push_back(addend1);
     }
     return result;
 }
 
-Polinome Polinome::subtract(const Polinome &polinome, unsigned long long modulo) {
+Polinome Polinome::subtract(const Polinome &polinome, unsigned long long modulus) {
     Polinome result = Polinome();
     unsigned long long maxPower = std::max(this->coefficients->size(), polinome.coefficients->size());
     for(unsigned long long i = 0; i < maxPower; ++i) {
         IntModulo minuend = (i < this->coefficients->size()) ? (*this->coefficients)[i] : IntModulo();
         IntModulo subtrahend = (i < polinome.coefficients->size()) ? (*polinome.coefficients)[i] : IntModulo();
-        minuend.substract(subtrahend, modulo);
+        minuend.substract(subtrahend, modulus);
         result.coefficients->push_back(minuend);
     }
     return result;
 }
 
-Polinome Polinome::multiply(const Polinome& polinome, unsigned long long modulo) {
+Polinome Polinome::multiply(const Polinome& polinome, unsigned long long modulus) {
     Polinome result = Polinome(this->coefficients->size() + polinome.coefficients->size());
     for(unsigned long long i = 0; i < this->coefficients->size(); ++i) {
         for(unsigned long long j = 0; j < polinome.coefficients->size(); ++j) {
             IntModulo factor = IntModulo((*this->coefficients)[i]);
-            factor.multiply((*polinome.coefficients)[j], modulo);
-            (*result.coefficients)[i + j].add(factor, modulo);
+            factor.multiply((*polinome.coefficients)[j], modulus);
+            (*result.coefficients)[i + j].add(factor, modulus);
         }
     }
     return result;
