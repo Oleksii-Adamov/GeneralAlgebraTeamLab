@@ -24,6 +24,7 @@ private slots:
     void test_case_multiply();
     void test_case_divide();
     void test_case_findReversed();
+    void test_case_pow();
     void test_case_copy_constructor();
     void test_case_copy_assignment_operator();
     void test_case_ToString();
@@ -225,6 +226,38 @@ void TestNumberModulo::test_case_findReversed()
     test_num.set_num(35);
     test_num = test_num.findReversed(1);
     QCOMPARE(test_num.get_num(), 0);
+
+    //not working
+    test_num.set_num(2);
+    test_num = test_num.findReversed(12);
+    QCOMPARE(test_num.get_num(), 0);
+
+}
+
+void TestNumberModulo::test_case_pow() {
+    IntModulo test_num(5);
+    test_num.pow(3, 13);
+    QCOMPARE(test_num.get_num(), 8);
+
+    test_num.set_num(4);
+    test_num.pow(13, 497);
+    QCOMPARE(test_num.get_num(), 445);
+
+    test_num.pow(5, 1);
+    QCOMPARE(test_num.get_num(), 0);
+
+    test_num.pow(3, 12);
+    QCOMPARE(test_num.get_num(), 0);
+
+    test_num.set_num(1);
+    test_num.pow(13, 497);
+    QCOMPARE(test_num.get_num(), 1);
+
+    test_num.set_num(2);
+    test_num.pow(0, 497);
+    QCOMPARE(test_num.get_num(), 1);
+
+    QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.pow(2, 0));
 }
 
 void TestNumberModulo::test_case_copy_constructor()
@@ -296,6 +329,9 @@ void TestNumberModulo::test_case_FromString()
     test_num.FromString("-145");
     QCOMPARE(test_num.get_num(), -145);
     test_num.FromString("0");
+    QCOMPARE(test_num.get_num(), 0);
+    QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.FromString("ab"));
+    test_num.FromString("0b");
     QCOMPARE(test_num.get_num(), 0);
 }
 
