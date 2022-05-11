@@ -79,7 +79,7 @@ void IntModulo::divide(const IntModulo& other, unsigned long long modulus)
 }
 
 IntModulo IntModulo::findReversed(unsigned long long modulus) const {
-    if(std::__gcd(this->get_num(), modulus) == 1 && this->get_num() > 0а){
+    if(modulus > 0 && this->get_num() % modulus != 0){
         unsigned long long firstNum = modulus;
         unsigned long long secondNum = this->get_num();
         int firstNumComposition[] = {1, 0};
