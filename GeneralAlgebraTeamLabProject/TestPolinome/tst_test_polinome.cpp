@@ -17,6 +17,8 @@ private slots:
     void testPolinomeMultiplication();
     void testPolinomeToString();
 
+    // Task12 tests
+    void testPolinomeDerivative();
 };
 
 TestPolinome::TestPolinome() {}
@@ -181,6 +183,31 @@ void TestPolinome::testPolinomeToString() {
 
     writtenPolinome = "15x^4 + 2x^2 + x + 150";
     QCOMPARE(writtenPolinome, Polinome(writtenPolinome).toString());
+}
+
+// Task12 tests
+void TestPolinome::testPolinomeDerivative() {
+   std::string writtenPolinome = "1 + 2x";
+   std::string writtenPolinomeDerivative = "2";
+
+   QCOMPARE(Polinome(writtenPolinome).derivative(6), Polinome(writtenPolinomeDerivative));
+
+   writtenPolinome = "1";
+   writtenPolinomeDerivative = "0";
+   QCOMPARE(Polinome(writtenPolinome).derivative(6), Polinome(writtenPolinomeDerivative));
+
+   writtenPolinome = "150 + x + 7x^2";
+   writtenPolinomeDerivative = "1 + 2x";
+   QCOMPARE(Polinome(writtenPolinome).derivative(6), Polinome(writtenPolinomeDerivative));
+
+   writtenPolinome = "150 + x + 2x^2";
+   writtenPolinomeDerivative = "1 + 4x";
+   QCOMPARE(Polinome(writtenPolinome).derivative(6), Polinome(writtenPolinomeDerivative));
+
+   writtenPolinome = "5x^3 + 3x + 150 + 9x^5";
+   writtenPolinomeDerivative = "3x^4 + 3x^2 + 3";
+
+   QCOMPARE(Polinome(writtenPolinome).derivative(6), Polinome(writtenPolinomeDerivative));
 }
 
 QTEST_APPLESS_MAIN(TestPolinome)

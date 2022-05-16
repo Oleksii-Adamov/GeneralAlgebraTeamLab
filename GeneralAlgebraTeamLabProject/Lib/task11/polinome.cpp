@@ -79,6 +79,16 @@ std::string Polinome::toString() {
     return result;
 }
 
+Polinome Polinome::derivative(unsigned long long modulus) {
+    Polinome result = Polinome(this->coefficients->size() - 1);
+    for (unsigned long long power = 1; power < this->coefficients->size(); power++) {
+        IntModulo factor = IntModulo(power);
+        factor.multiply((*this->coefficients)[power], modulus);
+        (*result.coefficients)[power - 1].add(factor, modulus);
+    }
+    return result;
+}
+
 bool Polinome::operator== (const Polinome& polinome) const {
     unsigned long long i = 0;
     for(; i < std::min(this->coefficients->size(), polinome.coefficients->size()); ++i) {
