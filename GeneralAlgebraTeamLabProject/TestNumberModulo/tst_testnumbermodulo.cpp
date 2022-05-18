@@ -200,6 +200,15 @@ void TestNumberModulo::test_case_divide()
     test_num.set_num(246);
     test_num.divide(1, 56);
     QCOMPARE(test_num.get_num(), 22);
+
+    //zero
+    test_num.set_num(0);
+    test_num.divide(3, 56);
+    QCOMPARE(test_num.get_num(), 0);
+
+    // no reverse
+    test_num.set_num(4);
+    QVERIFY_THROWS_EXCEPTION(std::logic_error, test_num.divide(4, 10));
 }
 void TestNumberModulo::test_case_findReversed()
 {
@@ -227,11 +236,14 @@ void TestNumberModulo::test_case_findReversed()
     test_num = test_num.findReversed(1);
     QCOMPARE(test_num.get_num(), 0);
 
-    /* not working
     test_num.set_num(2);
     test_num = test_num.findReversed(12);
     QCOMPARE(test_num.get_num(), 0);
-    */
+
+    test_num.set_num(4);
+    test_num = test_num.findReversed(10);
+    QCOMPARE(test_num.get_num(), 0);
+
 }
 
 void TestNumberModulo::test_case_pow() {
@@ -243,9 +255,6 @@ void TestNumberModulo::test_case_pow() {
     test_num.pow(13, 497);
     QCOMPARE(test_num.get_num(), 445);
 
-    test_num.pow(5, 1);
-    QCOMPARE(test_num.get_num(), 0);
-
     test_num.pow(3, 12);
     QCOMPARE(test_num.get_num(), 0);
 
@@ -255,6 +264,9 @@ void TestNumberModulo::test_case_pow() {
 
     test_num.set_num(2);
     test_num.pow(0, 497);
+    QCOMPARE(test_num.get_num(), 1);
+
+    QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.pow(2, 0));
     QCOMPARE(test_num.get_num(), 1);
 
     QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.pow(2, 0));

@@ -1,4 +1,5 @@
 #include "intmodulo.h"
+#include <numeric>
 #include <stdexcept>
 
 IntModulo::IntModulo()
@@ -75,11 +76,15 @@ void IntModulo::multiply(const IntModulo& other, unsigned long long modulus)
 
 void IntModulo::divide(const IntModulo& other, unsigned long long modulus)
 {
-    multiply(other.findReversed(modulus), modulus);
+    IntModulo reversed = other.findReversed(modulus);
+    if (reversed.num == 0) {
+        throw std::logic_error("divider has no reverse");
+    }
+    multiply(reversed, modulus);
 }
 
 IntModulo IntModulo::findReversed(unsigned long long modulus) const {
-    if(modulus > 0 && this->get_num() % modulus != 0){
+    if(std::gcd(this->get_num(), modulus) == 1 && this->get_num() > 0){
         unsigned long long firstNum = modulus;
         unsigned long long secondNum = this->get_num();
         int firstNumComposition[] = {1, 0};
