@@ -41,7 +41,7 @@ public:
     void substract(const IntModulo& other, unsigned long long modulus);
     // multiplies num by other , with respect to given modulo > 0
     void multiply(const IntModulo& other, unsigned long long modulus);
-    // divides a number by a number, with respect to given modulus > 0
+    // divides a number by a number, with respect to given modulus > 0, throws exception if no reverse to divider
     void divide(const IntModulo& num1, unsigned long long modulus);
     // finds reversed element (return num = 0 if no reversed)
     IntModulo findReversed(unsigned long long modulus) const;

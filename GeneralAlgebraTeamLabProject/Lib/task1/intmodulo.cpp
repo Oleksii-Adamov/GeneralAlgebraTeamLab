@@ -76,7 +76,11 @@ void IntModulo::multiply(const IntModulo& other, unsigned long long modulus)
 
 void IntModulo::divide(const IntModulo& other, unsigned long long modulus)
 {
-    multiply(other.findReversed(modulus), modulus);
+    IntModulo reversed = other.findReversed(modulus);
+    if (reversed.num == 0) {
+        throw std::logic_error("divider has no reverse");
+    }
+    multiply(reversed, modulus);
 }
 
 IntModulo IntModulo::findReversed(unsigned long long modulus) const {
@@ -100,43 +104,6 @@ IntModulo IntModulo::findReversed(unsigned long long modulus) const {
         twin.multiply(result, modulus);
         if(twin.get_num() != 1)
             result = IntModulo(0);
-        return result;
-    }
-    else {
-        IntModulo result = IntModulo(0);
-        return result;
-    }
-}
-
-void IntModulo::divide(long long num1, unsigned long long modulo) 
-{
-    IntModulo other;
-    other.set_num(num1);
-    num *= other.findReversed(modulo).get_num();
-    mod(modulo);
-}
-
-IntModulo IntModulo::findReversed(unsigned long long modulo) {
-    if(modulo > 0 && this->get_num() % modulo != 0){
-        unsigned long long firstNum = modulo;
-        unsigned long long secondNum = this->get_num();
-        int firstNumComposition[] = {1, 0};
-        int secondNumComposition[] = {0, 1};
-        while(secondNum != 1) {
-            unsigned long long div = firstNum / secondNum;
-            for(int i = 0; i < 2; ++i) {
-                firstNumComposition[i] -= div * secondNumComposition[i];
-                std::swap(firstNumComposition[i], secondNumComposition[i]);
-            }
-            firstNum -= div * secondNum;
-            std::swap(firstNum, secondNum);
-        }
-        IntModulo result = IntModulo(secondNumComposition[1]);
-        result.mod(modulo);
-        IntModulo twin = IntModulo(this->get_num());
-        twin.multiply(result, modulo); 
-        if(twin.get_num() != 1)
-            IntModulo result = IntModulo(0);
         return result;
     }
     else {
