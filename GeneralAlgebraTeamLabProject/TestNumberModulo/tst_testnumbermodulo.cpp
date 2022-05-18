@@ -184,7 +184,7 @@ void TestNumberModulo::test_case_divide()
 {
     IntModulo test_num;
     test_num.set_num(3);
-    test_num.divide(3, 26);
+    test_num.divide(IntModulo(3), 26);
     QCOMPARE(test_num.get_num(), 1);
     test_num.divide(5, 16);
     QCOMPARE(test_num.get_num(), 13);
@@ -255,9 +255,6 @@ void TestNumberModulo::test_case_pow() {
     test_num.pow(13, 497);
     QCOMPARE(test_num.get_num(), 445);
 
-    test_num.pow(5, 1);
-    QCOMPARE(test_num.get_num(), 0);
-
     test_num.pow(3, 12);
     QCOMPARE(test_num.get_num(), 0);
 
@@ -267,6 +264,9 @@ void TestNumberModulo::test_case_pow() {
 
     test_num.set_num(2);
     test_num.pow(0, 497);
+    QCOMPARE(test_num.get_num(), 1);
+
+    QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.pow(2, 0));
     QCOMPARE(test_num.get_num(), 1);
 
     QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.pow(2, 0));
