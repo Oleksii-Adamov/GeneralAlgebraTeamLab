@@ -255,6 +255,9 @@ void TestNumberModulo::test_case_pow() {
     test_num.pow(13, 497);
     QCOMPARE(test_num.get_num(), 445);
 
+    test_num.pow(5, 1);
+    QCOMPARE(test_num.get_num(), 0);
+
     test_num.pow(3, 12);
     QCOMPARE(test_num.get_num(), 0);
 
