@@ -262,14 +262,29 @@ void TestNumberModulo::test_case_pow() {
 }
 
 void TestNumberModulo::test_case_sqrt() {
+
+    // prime modulo
     IntModulo test_num(5);
-
     std::optional<std::pair<IntModulo, IntModulo>> res = test_num.sqrt(41);
-    QCOMPARE(res.has_value(), true);
-    QCOMPARE(res.value().first.get_num(), 28);
-    QCOMPARE(res.value().second.get_num(), -28);
+    std::vector<int> sqrtsP {13, 28};
+    std::vector<int> sqrtsN {-13, -28};
+    QVERIFY(res.has_value());
+    QVERIFY(std::find(std::begin(sqrtsP), std::end(sqrtsP), res.value().first.get_num()) != std::end(sqrtsP));
+    QVERIFY(std::find(std::begin(sqrtsN), std::end(sqrtsN), res.value().second.get_num()) != std::end(sqrtsN));
 
-    QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.pow(2, 0));
+    test_num.set_num(10);
+    res = test_num.sqrt(13);
+    sqrtsP.assign({6, 7});
+    sqrtsN.assign({-6, -7});
+    QVERIFY(res.has_value());
+    QVERIFY(std::find(std::begin(sqrtsP), std::end(sqrtsP), res.value().first.get_num()) != std::end(sqrtsP));
+    QVERIFY(std::find(std::begin(sqrtsN), std::end(sqrtsN), res.value().second.get_num()) != std::end(sqrtsN));
+
+    test_num.set_num(10);
+    res = test_num.sqrt(17);
+    QVERIFY(!res.has_value());
+
+
 }
 
 void TestNumberModulo::test_case_copy_constructor()

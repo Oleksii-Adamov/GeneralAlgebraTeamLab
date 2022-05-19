@@ -223,28 +223,23 @@ std::optional<std::pair<IntModulo, IntModulo>> IntModulo::sqrt(unsigned long lon
         std::cout << "b: " << b.get_num() << std::endl;
 
         IntModulo s(0);
-        IntModulo t(p - 1);
-        while (t.get_num() % 2 == 0 && s.get_num() < 10) {
-            std::cout << "t: " << t.get_num() << std::endl;
-            // is divide() working properly?
-            t.divide(IntModulo(2), ULLONG_MAX);
-            std::cout << "t/2: " << t.get_num() << std::endl;
-            s.add(IntModulo(1), ULLONG_MAX);
+        unsigned long long t = p - 1;
+        while (t % 2 == 0 && s.get_num() < 10) {
+            t /= 2;
+            s.add(IntModulo(1), LLONG_MAX);
         }
 
-        std::cout << p-1 << " = " << " 2 ^ " << s.get_num() << " * " << t.get_num() << std::endl;
+        std::cout << p-1 << " = " << " 2 ^ " << s.get_num() << " * " << t << std::endl;
 
         IntModulo rev = this->findReversed(p);
 
         IntModulo c;
         IntModulo temp(b);
-        temp.pow(t.get_num(), p);
+        temp.pow(t, p);
         c.set_num(temp.get_num());
 
         IntModulo r(this->get_num());
-        t.add(IntModulo(1), ULLONG_MAX);
-        t.divide(IntModulo(2), ULLONG_MAX);
-        r.pow(t.get_num(), p);
+        r.pow((t+1)/2, p);
 
         for (long long i = 1; i <= s.get_num()-1; i++)
         {
@@ -253,7 +248,7 @@ std::optional<std::pair<IntModulo, IntModulo>> IntModulo::sqrt(unsigned long lon
             d.multiply(rev, ULLONG_MAX);
             d.pow(std::pow(2, s.get_num()-i-1), p);
 
-            if (d.get_num() == -1) // mod p ?
+            if (p - d.get_num() == 1)
                 r.multiply(c, p);
 
             c.pow(2, p);
