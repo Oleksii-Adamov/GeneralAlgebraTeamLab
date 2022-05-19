@@ -7,7 +7,7 @@ class LIB_EXPORT SquareRoot
 {
 public:
     SquareRoot();
-    long long sqrt(long long input);
+    std::pair<long long, long long> sqrt(long long a, long long p);
 };
 
 #endif // SQUAREROOT_H

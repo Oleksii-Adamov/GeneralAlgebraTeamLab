@@ -5,8 +5,9 @@ SquareRoot::SquareRoot()
 
 }
 
-long long SquareRoot::sqrt(long long input)
+// finding a square root of a, modulo p
+std::pair<long long, long long> SquareRoot::sqrt(long long a, long long p)
 {
     // just for a test
-    return input/2;
+    return std::make_pair(7ll, -7ll);
 }

@@ -29,9 +29,7 @@ TestSquareRoot::~TestSquareRoot()
 void TestSquareRoot::test_case_sqrt()
 {
     SquareRoot test_sqrt;
-    QCOMPARE(test_sqrt.sqrt(0), 0);
-    QCOMPARE(test_sqrt.sqrt(4), 2);
-    QCOMPARE(test_sqrt.sqrt(16), 4);
+    QCOMPARE(test_sqrt.sqrt(10ll, 13ll), std::make_pair(7ll, -7ll));
 }
 
 QTEST_APPLESS_MAIN(TestSquareRoot)
