@@ -4,5 +4,4 @@ SUBDIRS += \
     GUI \
     Lib \
     TestNumberModulo \
-    TestPolinome \
-    TestSquareRoot
+    TestPolinome

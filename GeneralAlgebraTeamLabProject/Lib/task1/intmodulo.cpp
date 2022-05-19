@@ -1,5 +1,7 @@
 #include "intmodulo.h"
+#include <random>
 #include <stdexcept>
+#include <string>
 
 IntModulo::IntModulo()
 {
@@ -156,4 +158,113 @@ void IntModulo::pow(unsigned long long exponent, unsigned long long modulus)
         exponent = exponent >> 1;
     }
     num = result;
+}
+
+bool isPrime(unsigned long long n)
+{
+    if (n == 2 || n == 3)
+        return true;
+
+    if (n <= 1 || n % 2 == 0 || n % 3 == 0)
+        return false;
+
+    for (unsigned long long i = 5; i * i <= n; i += 6)
+    {
+        if (n % i == 0 || n % (i + 2) == 0)
+            return false;
+    }
+
+    return true;
+}
+
+long long legendreSymbol(unsigned long long a, unsigned long long n)
+{
+    if (a == 1)
+    {
+        return 1;
+    }
+    if ((a % 2 == 0) && (a != 0))
+    {
+        return legendreSymbol(a / 2, n) * pow(-1, (n * n - 1) / 8);
+    }
+    if (a % 2 != 0)
+    {
+        return legendreSymbol(n % a, a) * pow(-1, (a - 1) * (n - 1) / 4);
+    }
+    return 0;
+}
+
+
+std::optional<std::pair<IntModulo, IntModulo>> IntModulo::sqrt(unsigned long long p)
+{
+    if (isPrime(p))
+    {
+        if (this->get_num() > p-1)
+            throw std::invalid_argument("modulus-1 must be greater or equal to the number");
+        if (p % 1 != 0)
+            throw std::invalid_argument("modulus should be integer");
+
+        if (legendreSymbol(this->get_num(), p) == -1)
+            return std::nullopt;
+
+        // random numbers
+        const int range_from  = 1;
+        const int range_to    = p-1;
+
+        std::random_device                        rand_dev;
+        std::mt19937                              generator(rand_dev());
+        std::uniform_int_distribution<long long>  distr(range_from, range_to);
+
+        IntModulo b;
+        do {
+            b.set_num(distr(generator));
+        } while (legendreSymbol(b.get_num(), p) != -1);
+
+        std::cout << "b: " << b.get_num() << std::endl;
+
+        IntModulo s(0);
+        IntModulo t(p - 1);
+        while (t.get_num() % 2 == 0 && s.get_num() < 10) {
+            std::cout << "t: " << t.get_num() << std::endl;
+            // is divide() working properly?
+            t.divide(IntModulo(2), ULLONG_MAX);
+            std::cout << "t/2: " << t.get_num() << std::endl;
+            s.add(IntModulo(1), ULLONG_MAX);
+        }
+
+        std::cout << p-1 << " = " << " 2 ^ " << s.get_num() << " * " << t.get_num() << std::endl;
+
+        IntModulo rev = this->findReversed(p);
+
+        IntModulo c;
+        IntModulo temp(b);
+        temp.pow(t.get_num(), p);
+        c.set_num(temp.get_num());
+
+        IntModulo r(this->get_num());
+        t.add(IntModulo(1), ULLONG_MAX);
+        t.divide(IntModulo(2), ULLONG_MAX);
+        r.pow(t.get_num(), p);
+
+        for (long long i = 1; i <= s.get_num()-1; i++)
+        {
+            IntModulo d(r);
+            d.pow(2, ULLONG_MAX);
+            d.multiply(rev, ULLONG_MAX);
+            d.pow(std::pow(2, s.get_num()-i-1), p);
+
+            if (d.get_num() == -1) // mod p ?
+                r.multiply(c, p);
+
+            c.pow(2, p);
+        }
+
+        IntModulo neg(-r.get_num());
+        return std::make_pair(r, neg);
+    }
+    else
+    {
+        // АНДРЕЕЕЕЙ
+        return std::nullopt;
+    }
 }

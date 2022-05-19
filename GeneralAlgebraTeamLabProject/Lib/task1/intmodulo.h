@@ -47,6 +47,9 @@ public:
     IntModulo findReversed(unsigned long long modulus) const;
     // num = num^(exponent) (mod modulus > 0) complexity O(log exponent) using Right-to-left binary method
     void pow(unsigned long long exponent, unsigned long long modulus);
+    // operation of computing square roots modulo some number
+    // if the square root exists, returns pair (+root, -root), else empty optional
+    std::optional<std::pair<IntModulo, IntModulo>> sqrt(unsigned long long modulus);
     // return string representation of num
     std::string ToString() const;
     // read num from string (std::invalid_argument if contains non digits before digits, but if string is "123d", then num := 123)

@@ -12,15 +12,13 @@ CONFIG += c++17
 SOURCES += \
     lib.cpp \
     task1/intmodulo.cpp \
-    task11/polinome.cpp \
-    task6/squareroot.cpp
+    task11/polinome.cpp
 
 HEADERS += \
     Lib_global.h \
     lib.h \
     task1/intmodulo.h \
-    task11/polinome.h \
-    task6/squareroot.h
+    task11/polinome.h
 
 # Default rules for deployment.
 unix {

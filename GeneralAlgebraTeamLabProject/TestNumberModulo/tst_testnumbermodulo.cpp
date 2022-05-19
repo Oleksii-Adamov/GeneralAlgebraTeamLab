@@ -25,6 +25,7 @@ private slots:
     void test_case_divide();
     void test_case_findReversed();
     void test_case_pow();
+    void test_case_sqrt();
     void test_case_copy_constructor();
     void test_case_copy_assignment_operator();
     void test_case_ToString();
@@ -256,6 +257,17 @@ void TestNumberModulo::test_case_pow() {
     test_num.set_num(2);
     test_num.pow(0, 497);
     QCOMPARE(test_num.get_num(), 1);
+
+    QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.pow(2, 0));
+}
+
+void TestNumberModulo::test_case_sqrt() {
+    IntModulo test_num(5);
+
+    std::optional<std::pair<IntModulo, IntModulo>> res = test_num.sqrt(41);
+    QCOMPARE(res.has_value(), true);
+    QCOMPARE(res.value().first.get_num(), 28);
+    QCOMPARE(res.value().second.get_num(), -28);
 
     QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.pow(2, 0));
 }
