@@ -1,5 +1,6 @@
 #include "pollardfactorization.h"
 #include <stdlib.h>
+#include <algorithm>
 
 // finds greatest common divider
 static int gcd(int a, int b) {
@@ -28,5 +29,6 @@ std::vector<int> PollardFactorization::factorize(int number) {
         primeNumbers.push_back(n);
         number /= n;
     }
+    sort(primeNumbers.begin(), primeNumbers.end());
     return primeNumbers;
 }
