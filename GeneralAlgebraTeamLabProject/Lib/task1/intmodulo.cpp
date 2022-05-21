@@ -157,3 +157,60 @@ void IntModulo::pow(unsigned long long exponent, unsigned long long modulus)
     }
     num = result;
 }
+
+// optimal to use > 5 iterations
+bool IntModulo::isPrime(int iterationsNum) {
+    unsigned long long n = this->get_num();
+
+    // Corner cases
+    if (n <= 1 || n == 4)
+        return false;
+
+    if (n <= 3)
+        return true;
+
+    // Find r such that n = 2^d * r + 1 for some r >= 1
+    unsigned long long d = this->get_num() - 1;
+
+    while (d % 2 == 0) {
+        d /= 2;
+    }
+
+    for (int i = 0; i < iterationsNum; i++) {
+        if (!this->miillerTest(d, n)) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+// Private methods
+bool IntModulo::miillerTest(long long d, long long n) {
+    // Pick a random number in [2..n-2]
+    unsigned long long a = 2 + rand() % (n - 4);
+
+    // Compute x^d % n
+    IntModulo x = IntModulo(a);
+    x.pow(d, n);
+
+    if (x.get_num() == 1 || x.get_num() == n - 1)
+        return true;
+
+    // Keep squaring x while one of the following doesn't happen
+    // (i)   d does not reach n-1
+    // (ii)  (x^2) % n is not 1
+    // (iii) (x^2) % n is not n-1
+    while (d != n - 1) {
+        x.multiply(x, n);
+
+        d *= 2;
+
+        if (x.get_num() == 1)
+            return false;
+        if (x.get_num() == n - 1)
+            return true;
+    }
+
+    return false;
+}
