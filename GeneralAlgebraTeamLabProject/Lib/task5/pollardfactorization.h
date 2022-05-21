@@ -1,9 +1,10 @@
 #ifndef POLLARDFACTORIZATION_H
 #define POLLARDFACTORIZATION_H
 
+#include "Lib_global.h"
 #include <vector>
 
-class PollardFactorization
+class LIB_EXPORT PollardFactorization
 {
 public:
     /**
