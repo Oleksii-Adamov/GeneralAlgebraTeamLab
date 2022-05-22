@@ -95,7 +95,6 @@ IntModulo Polinome::evaluate(IntModulo x, unsigned long long modulus){
 
     IntModulo res((*this->coefficients)[this->coefficients->size()-1]);
 
-    std::cout << "a" << std::endl;
     for (unsigned long long power = this->coefficients->size()-1; power > 0; power--) {
         res.multiply(x, modulus);
         res.add((*this->coefficients)[power-1], modulus);
