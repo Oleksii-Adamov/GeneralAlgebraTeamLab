@@ -1,6 +1,5 @@
 #include <QtTest>
 
-// add necessary includes here
 #include "task1/intmodulo.h"
 #include <stdexcept>
 #include <sstream>
@@ -22,11 +21,15 @@ private slots:
     void test_case_add();
     void test_case_substract();
     void test_case_multiply();
+    void test_case_divide();
+    void test_case_findReversed();
+    void test_case_pow();
     void test_case_copy_constructor();
     void test_case_copy_assignment_operator();
     void test_case_ToString();
     void test_case_in_stream();
     void test_case_FromString();
+    void test_case_equal_not_equal_operator();
 };
 
 TestNumberModulo::TestNumberModulo()
@@ -177,6 +180,100 @@ void TestNumberModulo::test_case_multiply()
     test_num.multiply(5, 7);
     QCOMPARE(test_num.get_num(), 0);
 }
+void TestNumberModulo::test_case_divide()
+{
+    IntModulo test_num;
+    test_num.set_num(3);
+    test_num.divide(IntModulo(3), 26);
+    QCOMPARE(test_num.get_num(), 1);
+    test_num.divide(5, 16);
+    QCOMPARE(test_num.get_num(), 13);
+    test_num.set_num(7);
+    test_num.divide(8, 3);
+    QCOMPARE(test_num.get_num(), 2);
+    test_num.set_num(56);
+    test_num.divide(34, 67);
+    QCOMPARE(test_num.get_num(), 45);
+    test_num.set_num(246);
+    test_num.divide(3, 56);
+    QCOMPARE(test_num.get_num(), 26);
+    test_num.set_num(246);
+    test_num.divide(1, 56);
+    QCOMPARE(test_num.get_num(), 22);
+
+    //zero
+    test_num.set_num(0);
+    test_num.divide(3, 56);
+    QCOMPARE(test_num.get_num(), 0);
+
+    // no reverse
+    test_num.set_num(4);
+    QVERIFY_THROWS_EXCEPTION(std::logic_error, test_num.divide(4, 10));
+}
+void TestNumberModulo::test_case_findReversed()
+{
+    IntModulo test_num;
+    test_num.set_num(3);
+    test_num = test_num.findReversed(26);
+    QCOMPARE(test_num.get_num(), 9);
+    test_num.set_num(147);
+    test_num = test_num.findReversed(53);
+    QCOMPARE(test_num.get_num(), 22);
+    test_num.set_num(454);
+    test_num = test_num.findReversed(21);
+    QCOMPARE(test_num.get_num(), 13);
+    test_num.set_num(0);
+    // no reverse
+    test_num = test_num.findReversed(1);
+    QCOMPARE(test_num.get_num(), 0);
+    test_num.set_num(2);
+    test_num = test_num.findReversed(0);
+    QCOMPARE(test_num.get_num(), 0);
+    test_num.set_num(1);
+    test_num = test_num.findReversed(1);
+    QCOMPARE(test_num.get_num(), 0);
+    test_num.set_num(35);
+    test_num = test_num.findReversed(1);
+    QCOMPARE(test_num.get_num(), 0);
+
+    test_num.set_num(2);
+    test_num = test_num.findReversed(12);
+    QCOMPARE(test_num.get_num(), 0);
+
+    test_num.set_num(4);
+    test_num = test_num.findReversed(10);
+    QCOMPARE(test_num.get_num(), 0);
+
+}
+
+void TestNumberModulo::test_case_pow() {
+    IntModulo test_num(5);
+    test_num.pow(3, 13);
+    QCOMPARE(test_num.get_num(), 8);
+
+    test_num.set_num(4);
+    test_num.pow(13, 497);
+    QCOMPARE(test_num.get_num(), 445);
+
+    test_num.pow(5, 1);
+    QCOMPARE(test_num.get_num(), 0);
+
+    test_num.pow(3, 12);
+    QCOMPARE(test_num.get_num(), 0);
+
+    test_num.set_num(1);
+    test_num.pow(13, 497);
+    QCOMPARE(test_num.get_num(), 1);
+
+    test_num.set_num(2);
+    test_num.pow(0, 497);
+    QCOMPARE(test_num.get_num(), 1);
+
+    QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.pow(2, 0));
+    QCOMPARE(test_num.get_num(), 1);
+
+    QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.pow(2, 0));
+}
 
 void TestNumberModulo::test_case_copy_constructor()
 {
@@ -248,6 +345,22 @@ void TestNumberModulo::test_case_FromString()
     QCOMPARE(test_num.get_num(), -145);
     test_num.FromString("0");
     QCOMPARE(test_num.get_num(), 0);
+    QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.FromString("ab"));
+    test_num.FromString("0b");
+    QCOMPARE(test_num.get_num(), 0);
+}
+
+void TestNumberModulo::test_case_equal_not_equal_operator()
+{
+    IntModulo test_num1, test_num2;
+    test_num1.set_num(3);
+    test_num2.set_num(3);
+    QCOMPARE(test_num1 == test_num2, true);
+    QCOMPARE(test_num1 != test_num2, false);
+
+    test_num2.set_num(2);
+    QCOMPARE(test_num1 == test_num2, false);
+    QCOMPARE(test_num1 != test_num2, true);
 }
 
 QTEST_APPLESS_MAIN(TestNumberModulo)

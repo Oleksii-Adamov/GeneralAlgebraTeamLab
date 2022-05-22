@@ -20,15 +20,19 @@ public:
      * There could be whitespaces between numbers, variables and powers (" 3x^ 2 + 35  x ^ 4   + 22 x  + 321 " ).
      * The variable should be only x.
      * No "*" sings.
-     * Strings like "22x + 321 + 155" are forbidden.
      */
-    Polinome(std::string& writtenPolinome);
+    Polinome(const std::string& writtenPolinome);
     ~Polinome();
 
     //Methods
-    Polinome add(const Polinome& polinome, unsigned long long modulo);
-    Polinome subtract(const Polinome& polinome, unsigned long long modulo);
-    Polinome multiply(const Polinome& polinome, unsigned long long modulo);
+    Polinome add(const Polinome& polinome, unsigned long long modulus);
+    Polinome subtract(const Polinome& polinome, unsigned long long modulus);
+    Polinome multiply(const Polinome& polinome, unsigned long long modulus);
+    std::string toString();
+
+    // task12 methods
+    Polinome derivative(unsigned long long modulus);
+    IntModulo evaluate(IntModulo x, unsigned long long modulus);
 
     bool operator== (const Polinome& polinome) const;
 };
