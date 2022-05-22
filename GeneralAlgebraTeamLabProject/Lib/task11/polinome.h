@@ -32,6 +32,7 @@ public:
 
     // task12 methods
     Polinome derivative(unsigned long long modulus);
+    IntModulo evaluate(IntModulo x, unsigned long long modulus);
 
     bool operator== (const Polinome& polinome) const;
 };
