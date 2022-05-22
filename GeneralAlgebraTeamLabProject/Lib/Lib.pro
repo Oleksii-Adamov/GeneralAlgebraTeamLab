@@ -12,13 +12,15 @@ CONFIG += c++17 staticlib
 SOURCES += \
     lib.cpp \
     task1/intmodulo.cpp \
-    task11/polinome.cpp
+    task11/polinome.cpp \
+    task8/findgroup.cpp
 
 HEADERS += \
     Lib_global.h \
     lib.h \
     task1/intmodulo.h \
-    task11/polinome.h
+    task11/polinome.h \
+    task8/findgroup.h
 
 # Default rules for deployment.
 unix {
