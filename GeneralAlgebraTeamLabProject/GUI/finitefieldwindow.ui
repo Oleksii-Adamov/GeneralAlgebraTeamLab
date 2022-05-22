@@ -86,7 +86,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit_3"/>
+          <widget class="QLineEdit" name="lineEdit_modulus"/>
          </item>
         </layout>
        </item>
@@ -96,21 +96,21 @@
           <number>0</number>
          </property>
          <item row="3" column="0">
-          <widget class="QPushButton" name="pushButton_2">
+          <widget class="QPushButton" name="pushButton_factorization_naive">
            <property name="text">
             <string>Розкласти на множники (наївний алоритм)</string>
            </property>
           </widget>
          </item>
          <item row="5" column="0">
-          <widget class="QPushButton" name="pushButton_7">
+          <widget class="QPushButton" name="pushButton_sqrt">
            <property name="text">
             <string>Квадратний корінь</string>
            </property>
           </widget>
          </item>
          <item row="2" column="1">
-          <widget class="QPushButton" name="pushButton_3">
+          <widget class="QPushButton" name="pushButton_add">
            <property name="text">
             <string>Додати</string>
            </property>
@@ -138,27 +138,27 @@
           </widget>
          </item>
          <item row="1" column="0">
-          <widget class="QLineEdit" name="lineEdit"/>
+          <widget class="QLineEdit" name="lineEdit_first"/>
          </item>
          <item row="4" column="0">
-          <widget class="QPushButton" name="pushButton_13">
+          <widget class="QPushButton" name="pushButton_factorization_Pollard">
            <property name="text">
             <string>Розкласти на множники (алгоритм Поларда)</string>
            </property>
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QLineEdit" name="lineEdit_2"/>
+          <widget class="QLineEdit" name="lineEdit_second"/>
          </item>
          <item row="6" column="0">
-          <widget class="QPushButton" name="pushButton_8">
+          <widget class="QPushButton" name="pushButton_log">
            <property name="text">
             <string>Дискретний логарифм</string>
            </property>
           </widget>
          </item>
          <item row="2" column="0">
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="pushButton_reverse">
            <property name="text">
             <string>Знайти обернений</string>
            </property>
@@ -172,7 +172,7 @@
           </widget>
          </item>
          <item row="3" column="1">
-          <widget class="QPushButton" name="pushButton_4">
+          <widget class="QPushButton" name="pushButton_substract">
            <property name="text">
             <string>Відняти</string>
            </property>
@@ -186,14 +186,14 @@
           </widget>
          </item>
          <item row="4" column="1">
-          <widget class="QPushButton" name="pushButton_5">
+          <widget class="QPushButton" name="pushButton_pow">
            <property name="text">
             <string>Піднести у степінь</string>
            </property>
           </widget>
          </item>
          <item row="5" column="1">
-          <widget class="QPushButton" name="pushButton_6">
+          <widget class="QPushButton" name="pushButton_divide">
            <property name="text">
             <string>Поділити</string>
            </property>
@@ -211,7 +211,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit_4"/>
+          <widget class="QLineEdit" name="lineEdit_ans"/>
          </item>
         </layout>
        </item>

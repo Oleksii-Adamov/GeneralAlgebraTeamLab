@@ -15,6 +15,11 @@ public:
     explicit FiniteFieldWindow(QWidget *parent = nullptr);
     ~FiniteFieldWindow();
 
+private slots:
+    void on_pushButton_add_clicked();
+
+    void on_pushButton_substract_clicked();
+
 private:
     Ui::FiniteFieldWindow *ui;
 };
