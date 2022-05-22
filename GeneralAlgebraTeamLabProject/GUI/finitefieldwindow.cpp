@@ -6,6 +6,7 @@ FiniteFieldWindow::FiniteFieldWindow(QWidget *parent) :
     ui(new Ui::FiniteFieldWindow)
 {
     ui->setupUi(this);
+    ui->verticalLayout->setAlignment(Qt::AlignHCenter);
 }
 
 FiniteFieldWindow::~FiniteFieldWindow()
