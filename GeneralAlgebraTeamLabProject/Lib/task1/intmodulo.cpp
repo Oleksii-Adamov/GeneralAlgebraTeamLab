@@ -199,6 +199,7 @@ std::optional<std::pair<IntModulo, IntModulo>> IntModulo::sqrt(unsigned long lon
 {
     if (isPrime(p))
     {
+
         if (this->get_num() > p-1)
             throw std::invalid_argument("modulus-1 must be greater or equal to the number");
         if (p % 1 != 0)
@@ -206,6 +207,37 @@ std::optional<std::pair<IntModulo, IntModulo>> IntModulo::sqrt(unsigned long lon
 
         if (legendreSymbol(this->get_num(), p) == -1)
             return std::nullopt;
+
+        // case p == 3 (mod 4) (Algorithm 3.36)
+        if (p % 4 == 3) {
+            IntModulo r(*this);
+            r.pow((p+1)/4, p);
+            IntModulo neg(-r.get_num());
+            return std::make_pair(r, neg);
+        }
+
+        // case p == 5 (mod 8) (Algorithm 3.37)
+        if (p % 8 == 5) {
+            IntModulo d(*this);
+            d.pow((p-1)/4, p);
+            IntModulo r(*this);
+            if (d.get_num() == 1){
+                r.pow((p+3)/8, p);
+                IntModulo neg(-r.get_num());
+                return std::make_pair(r, neg);
+            } else if (d.get_num() == p-1) {
+                IntModulo r2(*this);
+                r.multiply(IntModulo(2ll), p);
+                r2.multiply(IntModulo(4ll), p);
+                r2.pow((p-5)/8, p);
+                r.multiply(r2, p);
+                IntModulo neg(-r.get_num());
+                return std::make_pair(r, neg);
+            }
+        }
+
+
+        // (Algorithm 3.34)
 
         // random numbers
         const int range_from  = 1;
@@ -220,16 +252,12 @@ std::optional<std::pair<IntModulo, IntModulo>> IntModulo::sqrt(unsigned long lon
             b.set_num(distr(generator));
         } while (legendreSymbol(b.get_num(), p) != -1);
 
-        std::cout << "b: " << b.get_num() << std::endl;
-
         IntModulo s(0);
         unsigned long long t = p - 1;
         while (t % 2 == 0 && s.get_num() < 10) {
             t /= 2;
             s.add(IntModulo(1), LLONG_MAX);
         }
-
-        std::cout << p-1 << " = " << " 2 ^ " << s.get_num() << " * " << t << std::endl;
 
         IntModulo rev = this->findReversed(p);
 
@@ -244,8 +272,8 @@ std::optional<std::pair<IntModulo, IntModulo>> IntModulo::sqrt(unsigned long lon
         for (long long i = 1; i <= s.get_num()-1; i++)
         {
             IntModulo d(r);
-            d.pow(2, ULLONG_MAX);
-            d.multiply(rev, ULLONG_MAX);
+            d.pow(2, p);
+            d.multiply(rev, p);
             d.pow(std::pow(2, s.get_num()-i-1), p);
 
             if (p - d.get_num() == 1)

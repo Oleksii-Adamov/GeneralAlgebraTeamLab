@@ -280,10 +280,208 @@ void TestNumberModulo::test_case_sqrt() {
     QVERIFY(std::find(std::begin(sqrtsP), std::end(sqrtsP), res.value().first.get_num()) != std::end(sqrtsP));
     QVERIFY(std::find(std::begin(sqrtsN), std::end(sqrtsN), res.value().second.get_num()) != std::end(sqrtsN));
 
+    test_num.set_num(47);
+    res = test_num.sqrt(61);
+    sqrtsP.assign({13, 48});
+    sqrtsN.assign({-13, -48});
+    QVERIFY(res.has_value());
+    QVERIFY(std::find(std::begin(sqrtsP), std::end(sqrtsP), res.value().first.get_num()) != std::end(sqrtsP));
+    QVERIFY(std::find(std::begin(sqrtsN), std::end(sqrtsN), res.value().second.get_num()) != std::end(sqrtsN));
+
+    test_num.set_num(47);
+    res = test_num.sqrt(89);
+    sqrtsP.assign({15, 74});
+    sqrtsN.assign({-15, -74});
+    QVERIFY(res.has_value());
+    QVERIFY(std::find(std::begin(sqrtsP), std::end(sqrtsP), res.value().first.get_num()) != std::end(sqrtsP));
+    QVERIFY(std::find(std::begin(sqrtsN), std::end(sqrtsN), res.value().second.get_num()) != std::end(sqrtsN));
+
+    test_num.set_num(55);
+    res = test_num.sqrt(103);
+    sqrtsP.assign({40, 63});
+    sqrtsN.assign({-40, -63});
+    QVERIFY(res.has_value());
+    QVERIFY(std::find(std::begin(sqrtsP), std::end(sqrtsP), res.value().first.get_num()) != std::end(sqrtsP));
+    QVERIFY(std::find(std::begin(sqrtsN), std::end(sqrtsN), res.value().second.get_num()) != std::end(sqrtsN));
+
+    test_num.set_num(43);
+    res = test_num.sqrt(131);
+    sqrtsP.assign({49, 82});
+    sqrtsN.assign({-49, -82});
+    QVERIFY(res.has_value());
+    QVERIFY(std::find(std::begin(sqrtsP), std::end(sqrtsP), res.value().first.get_num()) != std::end(sqrtsP));
+    QVERIFY(std::find(std::begin(sqrtsN), std::end(sqrtsN), res.value().second.get_num()) != std::end(sqrtsN));
+
+    test_num.set_num(43);
+    res = test_num.sqrt(173);
+    sqrtsP.assign({40, 133});
+    sqrtsN.assign({-40, -133});
+    QVERIFY(res.has_value());
+    QVERIFY(std::find(std::begin(sqrtsP), std::end(sqrtsP), res.value().first.get_num()) != std::end(sqrtsP));
+    QVERIFY(std::find(std::begin(sqrtsN), std::end(sqrtsN), res.value().second.get_num()) != std::end(sqrtsN));
+
+    test_num.set_num(43);
+    res = test_num.sqrt(229);
+    sqrtsP.assign({57, 172});
+    sqrtsN.assign({-57, -172});
+    QVERIFY(res.has_value());
+    QVERIFY(std::find(std::begin(sqrtsP), std::end(sqrtsP), res.value().first.get_num()) != std::end(sqrtsP));
+    QVERIFY(std::find(std::begin(sqrtsN), std::end(sqrtsN), res.value().second.get_num()) != std::end(sqrtsN));
+
+    test_num.set_num(59);
+    res = test_num.sqrt(257);
+    sqrtsP.assign({109, 148});
+    sqrtsN.assign({-109, -148});
+    QVERIFY(res.has_value());
+    QVERIFY(std::find(std::begin(sqrtsP), std::end(sqrtsP), res.value().first.get_num()) != std::end(sqrtsP));
+    QVERIFY(std::find(std::begin(sqrtsN), std::end(sqrtsN), res.value().second.get_num()) != std::end(sqrtsN));
+
+    test_num.set_num(55);
+    res = test_num.sqrt(271);
+    sqrtsP.assign({41, 230});
+    sqrtsN.assign({-41, -230});
+    QVERIFY(res.has_value());
+    QVERIFY(std::find(std::begin(sqrtsP), std::end(sqrtsP), res.value().first.get_num()) != std::end(sqrtsP));
+    QVERIFY(std::find(std::begin(sqrtsN), std::end(sqrtsN), res.value().second.get_num()) != std::end(sqrtsN));
+
+    test_num.set_num(71);
+    res = test_num.sqrt(313);
+    sqrtsP.assign({135, 178});
+    sqrtsN.assign({-135, -178});
+    QVERIFY(res.has_value());
+    QVERIFY(std::find(std::begin(sqrtsP), std::end(sqrtsP), res.value().first.get_num()) != std::end(sqrtsP));
+    QVERIFY(std::find(std::begin(sqrtsN), std::end(sqrtsN), res.value().second.get_num()) != std::end(sqrtsN));
+
+    test_num.set_num(43);
+    res = test_num.sqrt(383);
+    sqrtsP.assign({127, 256});
+    sqrtsN.assign({-127, -256});
+    QVERIFY(res.has_value());
+    QVERIFY(std::find(std::begin(sqrtsP), std::end(sqrtsP), res.value().first.get_num()) != std::end(sqrtsP));
+    QVERIFY(std::find(std::begin(sqrtsN), std::end(sqrtsN), res.value().second.get_num()) != std::end(sqrtsN));
+
+    test_num.set_num(43);
+    res = test_num.sqrt(397);
+    sqrtsP.assign({123, 274});
+    sqrtsN.assign({-123, -274});
+    std::cout << "val:" << res.value().first.get_num() << std::endl;
+    QVERIFY(res.has_value());
+    QVERIFY(std::find(std::begin(sqrtsP), std::end(sqrtsP), res.value().first.get_num()) != std::end(sqrtsP));
+    QVERIFY(std::find(std::begin(sqrtsN), std::end(sqrtsN), res.value().second.get_num()) != std::end(sqrtsN));
+
+    test_num.set_num(51);
+    res = test_num.sqrt(439);
+    sqrtsP.assign({200, 239});
+    sqrtsN.assign({-200, -239});
+    QVERIFY(res.has_value());
+    QVERIFY(std::find(std::begin(sqrtsP), std::end(sqrtsP), res.value().first.get_num()) != std::end(sqrtsP));
+    QVERIFY(std::find(std::begin(sqrtsN), std::end(sqrtsN), res.value().second.get_num()) != std::end(sqrtsN));
+
+    test_num.set_num(43);
+    res = test_num.sqrt(467);
+    sqrtsP.assign({38, 429});
+    sqrtsN.assign({-38, -429});
+    QVERIFY(res.has_value());
+    QVERIFY(std::find(std::begin(sqrtsP), std::end(sqrtsP), res.value().first.get_num()) != std::end(sqrtsP));
+    QVERIFY(std::find(std::begin(sqrtsN), std::end(sqrtsN), res.value().second.get_num()) != std::end(sqrtsN));
+
+    test_num.set_num(43);
+    res = test_num.sqrt(509);
+    sqrtsP.assign({68, 441});
+    sqrtsN.assign({-68, -441});
+    QVERIFY(res.has_value());
+    QVERIFY(std::find(std::begin(sqrtsP), std::end(sqrtsP), res.value().first.get_num()) != std::end(sqrtsP));
+    QVERIFY(std::find(std::begin(sqrtsN), std::end(sqrtsN), res.value().second.get_num()) != std::end(sqrtsN));
+
+    test_num.set_num(43);
+    res = test_num.sqrt(523);
+    sqrtsP.assign({33, 490});
+    sqrtsN.assign({-33, -490});
+    QVERIFY(res.has_value());
+    QVERIFY(std::find(std::begin(sqrtsP), std::end(sqrtsP), res.value().first.get_num()) != std::end(sqrtsP));
+    QVERIFY(std::find(std::begin(sqrtsN), std::end(sqrtsN), res.value().second.get_num()) != std::end(sqrtsN));
+
+    test_num.set_num(55);
+    res = test_num.sqrt(593);
+    sqrtsP.assign({184, 409});
+    sqrtsN.assign({-184, -409});
+    QVERIFY(res.has_value());
+    QVERIFY(std::find(std::begin(sqrtsP), std::end(sqrtsP), res.value().first.get_num()) != std::end(sqrtsP));
+    QVERIFY(std::find(std::begin(sqrtsN), std::end(sqrtsN), res.value().second.get_num()) != std::end(sqrtsN));
+
     test_num.set_num(10);
     res = test_num.sqrt(17);
     QVERIFY(!res.has_value());
 
+    // -- p == 3 (mod 4)
+    test_num.set_num(17);
+    res = test_num.sqrt(43);
+    sqrtsP.assign({19, 24});
+    sqrtsN.assign({-19, -24});
+    QVERIFY(res.has_value());
+    QVERIFY(std::find(std::begin(sqrtsP), std::end(sqrtsP), res.value().first.get_num()) != std::end(sqrtsP));
+    QVERIFY(std::find(std::begin(sqrtsN), std::end(sqrtsN), res.value().second.get_num()) != std::end(sqrtsN));
+
+    test_num.set_num(2);
+    res = test_num.sqrt(31);
+    sqrtsP.assign({8, 23});
+    sqrtsN.assign({-8, -23});
+    QVERIFY(res.has_value());
+    QVERIFY(std::find(std::begin(sqrtsP), std::end(sqrtsP), res.value().first.get_num()) != std::end(sqrtsP));
+    QVERIFY(std::find(std::begin(sqrtsN), std::end(sqrtsN), res.value().second.get_num()) != std::end(sqrtsN));
+
+    test_num.set_num(67);
+    res = test_num.sqrt(683);
+    sqrtsP.assign({46, 637});
+    sqrtsN.assign({-46, -637});
+    QVERIFY(res.has_value());
+    QVERIFY(std::find(std::begin(sqrtsP), std::end(sqrtsP), res.value().first.get_num()) != std::end(sqrtsP));
+    QVERIFY(std::find(std::begin(sqrtsN), std::end(sqrtsN), res.value().second.get_num()) != std::end(sqrtsN));
+
+    test_num.set_num(15);
+    res = test_num.sqrt(23);
+    QVERIFY(!res.has_value());
+
+    // -- p == 5 (mod 8)
+    test_num.set_num(15);
+    res = test_num.sqrt(797);
+    sqrtsP.assign({183, 614});
+    sqrtsN.assign({-183, -614});
+    QVERIFY(res.has_value());
+    QVERIFY(std::find(std::begin(sqrtsP), std::end(sqrtsP), res.value().first.get_num()) != std::end(sqrtsP));
+    QVERIFY(std::find(std::begin(sqrtsN), std::end(sqrtsN), res.value().second.get_num()) != std::end(sqrtsN));
+
+    test_num.set_num(55);
+    res = test_num.sqrt(421);
+    sqrtsP.assign({62, 359});
+    sqrtsN.assign({-62, -359});
+    QVERIFY(res.has_value());
+    QVERIFY(std::find(std::begin(sqrtsP), std::end(sqrtsP), res.value().first.get_num()) != std::end(sqrtsP));
+    QVERIFY(std::find(std::begin(sqrtsN), std::end(sqrtsN), res.value().second.get_num()) != std::end(sqrtsN));
+
+    test_num.set_num(37);
+    res = test_num.sqrt(101);
+    sqrtsP.assign({21, 80});
+    sqrtsN.assign({-21, -80});
+    QVERIFY(res.has_value());
+    QVERIFY(std::find(std::begin(sqrtsP), std::end(sqrtsP), res.value().first.get_num()) != std::end(sqrtsP));
+    QVERIFY(std::find(std::begin(sqrtsN), std::end(sqrtsN), res.value().second.get_num()) != std::end(sqrtsN));
+
+    test_num.set_num(46);
+    res = test_num.sqrt(109);
+    sqrtsP.assign({41, 68});
+    sqrtsN.assign({-41, -68});
+    QVERIFY(res.has_value());
+    QVERIFY(std::find(std::begin(sqrtsP), std::end(sqrtsP), res.value().first.get_num()) != std::end(sqrtsP));
+    QVERIFY(std::find(std::begin(sqrtsN), std::end(sqrtsN), res.value().second.get_num()) != std::end(sqrtsN));
+
+    test_num.set_num(54);
+    res = test_num.sqrt(421);
+    QVERIFY(!res.has_value());
+
+    test_num.set_num(44);
+    res = test_num.sqrt(109);
+    QVERIFY(!res.has_value());
 
 }
 
