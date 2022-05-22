@@ -2,7 +2,7 @@
 #include "ui_finitefieldwindow.h"
 
 FiniteFieldWindow::FiniteFieldWindow(QWidget *parent) :
-    QDialog(parent),
+    QMainWindow(parent),
     ui(new Ui::FiniteFieldWindow)
 {
     ui->setupUi(this);

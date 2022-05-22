@@ -1,13 +1,13 @@
 #ifndef FINITEFIELDWINDOW_H
 #define FINITEFIELDWINDOW_H
 
-#include <QDialog>
+#include <QMainWindow>
 
 namespace Ui {
 class FiniteFieldWindow;
 }
 
-class FiniteFieldWindow : public QDialog
+class FiniteFieldWindow : public QMainWindow
 {
     Q_OBJECT
 
