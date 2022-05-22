@@ -13,3 +13,15 @@ FiniteFieldWindow::~FiniteFieldWindow()
 {
     delete ui;
 }
+
+void FiniteFieldWindow::on_pushButton_add_clicked()
+{
+
+}
+
+
+void FiniteFieldWindow::on_pushButton_substract_clicked()
+{
+
+}
+
