@@ -29,12 +29,9 @@ private slots:
     void test_case_ToString();
     void test_case_in_stream();
     void test_case_FromString();
-<<<<<<< HEAD
     void test_case_isPrime();
     void test_case_isPrime_helper(int optimal_iterations_num);
-=======
     void test_case_comparision_operators();
->>>>>>> main
 };
 
 TestNumberModulo::TestNumberModulo()
@@ -355,7 +352,6 @@ void TestNumberModulo::test_case_FromString()
     QCOMPARE(test_num.get_num(), 0);
 }
 
-<<<<<<< HEAD
 void TestNumberModulo::test_case_isPrime()
 {
     // checking incorrect iterations numbers.
@@ -439,7 +435,8 @@ void TestNumberModulo::test_case_isPrime_helper(int iterations_num)
     QVERIFY(test_num.isPrime(iterations_num));
     test_num.set_num(101);
     QVERIFY(test_num.isPrime(iterations_num));
-=======
+}
+
 void TestNumberModulo::test_case_comparision_operators()
 {
     IntModulo test_num1, test_num2;
@@ -459,7 +456,6 @@ void TestNumberModulo::test_case_comparision_operators()
     QCOMPARE(test_num1 <= test_num2, false);
     QCOMPARE(test_num1 > test_num2, true);
     QCOMPARE(test_num1 < test_num2, false);
->>>>>>> main
 }
 
 QTEST_APPLESS_MAIN(TestNumberModulo)
