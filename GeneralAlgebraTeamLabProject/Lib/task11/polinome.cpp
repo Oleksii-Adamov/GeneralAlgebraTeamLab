@@ -209,7 +209,9 @@ std::vector<long long> Eratosthene(long long M)
     bool isPrime[M+1];
 
 //initialize prime numbers
-    memset(isPrime, true, sizeof(isPrime));
+    for (long long i = 0; i <= M + 1; i++) {
+        isPrime[i] = true;
+    }
 
     for(long long k=2; k*k<=M;k++){
         if(isPrime[k]==true){
