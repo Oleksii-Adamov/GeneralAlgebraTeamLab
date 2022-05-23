@@ -160,6 +160,8 @@ void IntModulo::pow(unsigned long long exponent, unsigned long long modulus)
 
 // optimal to use > 5 iterations
 bool IntModulo::isPrime(int iterationsNum) {
+    if(iterationsNum < 1) throw std::invalid_argument("iterationsNum can`t be negative.");
+
     unsigned long long n = this->get_num();
 
     // Corner cases
