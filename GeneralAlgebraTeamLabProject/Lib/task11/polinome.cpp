@@ -44,7 +44,7 @@ Polinome Polinome::subtract(const Polinome &polinome, unsigned long long modulus
     for(unsigned long long i = 0; i < maxPower; ++i) {
         IntModulo minuend = (i < this->coefficients->size()) ? (*this->coefficients)[i] : IntModulo();
         IntModulo subtrahend = (i < polinome.coefficients->size()) ? (*polinome.coefficients)[i] : IntModulo();
-        minuend.substract(subtrahend, modulus);
+        minuend.subtract(subtrahend, modulus);
         result.coefficients->push_back(minuend);
     }
     return result;

@@ -63,7 +63,7 @@ void IntModulo::add(const IntModulo& other, unsigned long long modulus)
     mod(modulus);
 }
 
-void IntModulo::substract(const IntModulo& other, unsigned long long modulus)
+void IntModulo::subtract(const IntModulo& other, unsigned long long modulus)
 {
     num -= other.get_num();
     mod(modulus);
