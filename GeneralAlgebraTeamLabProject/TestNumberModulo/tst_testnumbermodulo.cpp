@@ -29,7 +29,7 @@ private slots:
     void test_case_ToString();
     void test_case_in_stream();
     void test_case_FromString();
-    void test_case_equal_not_equal_operator();
+    void test_case_comparision_operators();
 };
 
 TestNumberModulo::TestNumberModulo()
@@ -350,17 +350,25 @@ void TestNumberModulo::test_case_FromString()
     QCOMPARE(test_num.get_num(), 0);
 }
 
-void TestNumberModulo::test_case_equal_not_equal_operator()
+void TestNumberModulo::test_case_comparision_operators()
 {
     IntModulo test_num1, test_num2;
     test_num1.set_num(3);
     test_num2.set_num(3);
     QCOMPARE(test_num1 == test_num2, true);
     QCOMPARE(test_num1 != test_num2, false);
+    QCOMPARE(test_num1 >= test_num2, true);
+    QCOMPARE(test_num1 <= test_num2, true);
+    QCOMPARE(test_num1 > test_num2, false);
+    QCOMPARE(test_num1 < test_num2, false);
 
     test_num2.set_num(2);
     QCOMPARE(test_num1 == test_num2, false);
     QCOMPARE(test_num1 != test_num2, true);
+    QCOMPARE(test_num1 >= test_num2, true);
+    QCOMPARE(test_num1 <= test_num2, false);
+    QCOMPARE(test_num1 > test_num2, true);
+    QCOMPARE(test_num1 < test_num2, false);
 }
 
 QTEST_APPLESS_MAIN(TestNumberModulo)
