@@ -202,3 +202,51 @@ std::vector<IntModulo>* convert(const std::string& writtenPolinome) {
     }
     return answer;
 }
+
+// Function to check whether the three
+// conditions of Eisenstein's
+// Irreducibility criterion for prime P
+bool check(std::vector<IntModulo>* coefficients, long long P, long long N)
+{
+    if (coefficients[0].get_num() % P == 0)
+        return 0;
+
+    for (int i = 1; i < N; i++)
+        if (coefficients[i].get_num() % P)
+            return 0;
+
+    if (coefficients[N - 1].get_num() % (P * P) == 0)
+        return 0;
+
+    return 1;
+}
+// Function to check for Eisensteins
+// Irreducubility Criterion
+bool checkIrreducibilty(std::vector<IntModulo>* coefficients, long long N)
+{
+    std::reverse(coefficients.begin(), coefficients.end());
+    // Stores the largest element in A
+    int M = -1;
+
+    // Find the maximum element in A
+    for (int i = 0; i < N; i++) {
+        M = max(M, coefficients[i].get_num());
+    }
+
+    // Stores all the prime numbers
+    vector<long long> primes
+        = Eratosthene(M + 1);
+
+    // Check if any prime
+    // satisfies the conditions
+    for (int i = 0;
+        i < primes.size(); i++) {
+
+        // Function Call to check
+        // for the three conditions
+        if (check(coefficients, primes[i], N)) {
+            return 1;
+        }
+    }
+    return 0;
+}
