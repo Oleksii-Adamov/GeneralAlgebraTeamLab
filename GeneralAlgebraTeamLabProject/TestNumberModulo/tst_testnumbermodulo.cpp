@@ -273,6 +273,9 @@ void TestNumberModulo::test_case_pow() {
     QCOMPARE(test_num.get_num(), 1);
 
     QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.pow(2, 0));
+
+    // negative
+
 }
 
 void TestNumberModulo::test_case_copy_constructor()
