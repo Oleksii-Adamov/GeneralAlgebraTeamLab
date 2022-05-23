@@ -10,7 +10,7 @@
 class LIB_EXPORT FindGroup
 {
 public:
-    FindGroup(const std::string& multiplicativeGroup, IntModulo a);
+    FindGroup(const std::string& multiplicativeGroup);
 private:
     IntModulo groupOrder;
     int degree = 0;

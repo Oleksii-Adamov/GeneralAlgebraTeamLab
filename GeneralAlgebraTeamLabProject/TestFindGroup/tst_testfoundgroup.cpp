@@ -30,8 +30,8 @@ TestFoundGroup::~TestFoundGroup()
 void TestFoundGroup::test_case1()
 {
     std::string vec = "3 1 2 6 11 10 7 4 5 8 9 12";
-    FindGroup group1;
-    group1.SetGroup(vec);
+    FindGroup group1(vec);
+
 
     QCOMPARE(1,1);
 

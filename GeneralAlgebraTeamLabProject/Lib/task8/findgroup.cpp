@@ -1,10 +1,11 @@
 #include "findgroup.h"
 
-FindGroup::FindGroup(const std::string& multiplicativeGroup, IntModulo a)
+FindGroup::FindGroup(const std::string& multiplicativeGroup)
 {
     SetGroup(multiplicativeGroup);
     FindPrimeFactorization();
     IntModulo t = IntModulo(this->degree);
+    IntModulo a = group[0][0];
 
     std::map<IntModulo, IntModulo>::iterator it;
     for(it = this->factorizationMap.begin(); it != this->factorizationMap.end(); it++){
