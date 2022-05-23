@@ -41,8 +41,8 @@ public:
     void mod(unsigned long long modulus);
     // adds to num other , with respect to given modulus > 0
     void add(const IntModulo& other, unsigned long long modulus);
-    // substracts from num other , with respect to given modulus > 0
-    void substract(const IntModulo& other, unsigned long long modulus);
+    // subtracts from num other , with respect to given modulus > 0
+    void subtract(const IntModulo& other, unsigned long long modulus);
     // multiplies num by other , with respect to given modulo > 0
     void multiply(const IntModulo& other, unsigned long long modulus);
     // divides a number by a number, with respect to given modulus > 0, throws exception if no reverse to divider
