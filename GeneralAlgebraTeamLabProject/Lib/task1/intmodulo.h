@@ -26,6 +26,14 @@ public:
     friend inline bool operator==(const IntModulo& lhs, const IntModulo& rhs){return lhs.get_num() == rhs.get_num();};
     // != operator
     friend inline bool operator!=(const IntModulo& lhs, const IntModulo& rhs){return !(lhs == rhs);};
+    // < operator
+    friend inline bool operator<(const IntModulo& lhs, const IntModulo& rhs){return lhs.get_num() < rhs.get_num();};
+    // > operator
+    friend inline bool operator>(const IntModulo& lhs, const IntModulo& rhs){return lhs.get_num() > rhs.get_num();};
+    // <= operator
+    friend inline bool operator<=(const IntModulo& lhs, const IntModulo& rhs){return lhs.get_num() <= rhs.get_num();};
+    // >= operator
+    friend inline bool operator>=(const IntModulo& lhs, const IntModulo& rhs){return lhs.get_num() >= rhs.get_num();};
 private:
     // fields
 
