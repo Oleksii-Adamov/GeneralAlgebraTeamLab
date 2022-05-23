@@ -13,6 +13,7 @@ SOURCES += \
     lib.cpp \
     task1/intmodulo.cpp \
     task11/polinome.cpp \
+    task7/discrete_logarithm.cpp \
     task5/pollardfactorization.cpp
 
 HEADERS += \
@@ -20,6 +21,7 @@ HEADERS += \
     lib.h \
     task1/intmodulo.h \
     task11/polinome.h \
+    task7/discrete_logarithm.h \
     task5/pollardfactorization.h
 
 # Default rules for deployment.
