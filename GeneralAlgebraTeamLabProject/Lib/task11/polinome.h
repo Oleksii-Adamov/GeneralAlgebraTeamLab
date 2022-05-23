@@ -30,6 +30,10 @@ public:
     Polinome multiply(const Polinome& polinome, unsigned long long modulus);
     std::string toString();
 
+    // task12 methods
+    Polinome derivative(unsigned long long modulus);
+    IntModulo evaluate(IntModulo x, unsigned long long modulus);
+
     bool operator== (const Polinome& polinome) const;
 };
 

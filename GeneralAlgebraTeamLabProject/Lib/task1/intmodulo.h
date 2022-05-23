@@ -22,6 +22,18 @@ public:
     IntModulo(const IntModulo& other);
     // copy assignment operator
     IntModulo& operator=(const IntModulo& other);
+    // == operator (same modulus is implied, just lhs.get_num() == rhs.get_num())
+    friend inline bool operator==(const IntModulo& lhs, const IntModulo& rhs){return lhs.get_num() == rhs.get_num();};
+    // != operator
+    friend inline bool operator!=(const IntModulo& lhs, const IntModulo& rhs){return !(lhs == rhs);};
+    // < operator
+    friend inline bool operator<(const IntModulo& lhs, const IntModulo& rhs){return lhs.get_num() < rhs.get_num();};
+    // > operator
+    friend inline bool operator>(const IntModulo& lhs, const IntModulo& rhs){return lhs.get_num() > rhs.get_num();};
+    // <= operator
+    friend inline bool operator<=(const IntModulo& lhs, const IntModulo& rhs){return lhs.get_num() <= rhs.get_num();};
+    // >= operator
+    friend inline bool operator>=(const IntModulo& lhs, const IntModulo& rhs){return lhs.get_num() >= rhs.get_num();};
 private:
     // fields
 
@@ -37,11 +49,11 @@ public:
     void mod(unsigned long long modulus);
     // adds to num other , with respect to given modulus > 0
     void add(const IntModulo& other, unsigned long long modulus);
-    // substracts from num other , with respect to given modulus > 0
-    void substract(const IntModulo& other, unsigned long long modulus);
+    // subtracts from num other , with respect to given modulus > 0
+    void subtract(const IntModulo& other, unsigned long long modulus);
     // multiplies num by other , with respect to given modulo > 0
     void multiply(const IntModulo& other, unsigned long long modulus);
-    // divides a number by a number, with respect to given modulus > 0
+    // divides a number by a number, with respect to given modulus > 0, throws exception if no reverse to divider
     void divide(const IntModulo& num1, unsigned long long modulus);
     // finds reversed element (return num = 0 if no reversed)
     IntModulo findReversed(unsigned long long modulus) const;
