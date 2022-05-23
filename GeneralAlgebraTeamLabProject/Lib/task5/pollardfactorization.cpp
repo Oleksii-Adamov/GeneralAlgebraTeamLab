@@ -1,34 +1,68 @@
 #include "pollardfactorization.h"
 #include <stdlib.h>
 #include <algorithm>
+#include <cmath>
+#include <stdexcept>
 
 // finds greatest common divider
-static int gcd(int a, int b) {
+static long long gcd(long long a, long long b) {
     return b == 0 ? a : gcd (b, a % b);
 }
 
-static int rhoPollard (int N) {
-    int x = rand() % (N-3) + 1;
-    int y = 1, i = 0, stage = 2;
-    while (gcd(N, abs(x - y)) == 1)
-    {
-        if (i == stage){
-            y = x;
-            stage = stage*2;
-        }
-        x = (x * x + 1) % N;
-        i = i + 1;
+static bool isPrime(long long a) {
+    for (long long i = 2; i <= sqrt(a); ++i) {
+        if (a % i == 0) return false;
     }
-    return gcd(N, abs(x-y));
+    return true;
 }
 
-std::vector<int> PollardFactorization::factorize(int number) {
-    std::vector<int> primeNumbers;
-    while (number != 1) {
-        int n = rhoPollard(number);
-        primeNumbers.push_back(n);
-        number /= n;
+static long long F(long long x, long long a, long long mod) {
+    return (x * x + (1 + 2 * a)) % mod;
+}
+
+static std::vector<long long> rhoPollard(long long N) {
+    if (N < 1) {
+        throw std::invalid_argument(N + " is less than 1");
     }
+    if (N == 1) {
+        return std::vector<long long>{1};
+    }
+    if (N % 2 == 0) {
+        std::vector<long long> t = rhoPollard(N / 2);
+        t.push_back(2);
+        return t;
+    }
+    std::vector<long long> ans;
+    long long x = 2;
+    long long y = 2;
+    long long gcd1;
+    long long a = rand() % 10;
+    do {
+        x = F(x, a, N);
+        y = F(F(y, a, N), a, N);
+        gcd1 = gcd(N, abs(x - y));
+    } while (gcd1 == 1);
+
+    if (isPrime(gcd1)) {
+        ans.push_back(gcd1);
+    } else {
+        std::vector<long long>  t = rhoPollard(gcd1);
+        ans.insert(ans.end(), t.begin(), t.end());
+    }
+
+    long long zvor = N / gcd1;
+    if (isPrime(zvor)) {
+        ans.push_back(zvor);
+    } else {
+        std::vector<long long>  t = rhoPollard(zvor);
+        ans.insert(ans.end(), t.begin(), t.end());
+    }
+
+    return ans;
+}
+
+std::vector<long long> PollardFactorization::factorize(long long number) {
+    std::vector<long long> primeNumbers = rhoPollard(number);
     sort(primeNumbers.begin(), primeNumbers.end());
     return primeNumbers;
 }
