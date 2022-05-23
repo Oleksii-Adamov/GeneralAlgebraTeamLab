@@ -22,20 +22,40 @@ FiniteFieldWindow::~FiniteFieldWindow()
     delete ui;
 }
 
-void FiniteFieldWindow::on_pushButton_add_clicked()
-{
-    IntModulo first(ui->lineEdit_first->text().toStdString());
-    IntModulo second(ui->lineEdit_second->text().toStdString());
-    unsigned long long modulus = std::stoull(ui->lineEdit_modulus->text().toStdString());
+void FiniteFieldWindow::read_and_mod(IntModulo& first, IntModulo& second, unsigned long long& modulus) {
+    first.FromString(ui->lineEdit_first->text().toStdString());
+    second.FromString(ui->lineEdit_second->text().toStdString());
+    modulus = std::stoull(ui->lineEdit_modulus->text().toStdString());
     first.mod(modulus);
     second.mod(modulus);
+}
+
+void FiniteFieldWindow::read_and_mod(IntModulo& first, unsigned long long& modulus) {
+    first.FromString(ui->lineEdit_first->text().toStdString());
+    modulus = std::stoull(ui->lineEdit_modulus->text().toStdString());
+    first.mod(modulus);
+}
+
+void FiniteFieldWindow::set_ans(const QString& ans) {
+    ui->lineEdit_ans->setText(ans);
+}
+
+void FiniteFieldWindow::on_pushButton_add_clicked()
+{
+    IntModulo first, second;
+    unsigned long long modulus;
+    read_and_mod(first, second, modulus);
     first.add(second, modulus);
-    ui->lineEdit_ans->setText(QString::number(first.get_num()));
+    set_ans(QString::number(first.get_num()));
 }
 
 
 void FiniteFieldWindow::on_pushButton_substract_clicked()
 {
-
+    IntModulo first, second;
+    unsigned long long modulus;
+    read_and_mod(first, second, modulus);
+    first.subtract(second, modulus);
+    set_ans(QString::number(first.get_num()));
 }
 
