@@ -203,6 +203,32 @@ std::vector<IntModulo>* convert(const std::string& writtenPolinome) {
     return answer;
 }
 
+std::vector<long long> Eratosthene(long long M)
+{
+    //store prime numbers
+    bool isPrime[M+1];
+
+//initialize prime numbers
+    memset(isPrime, true, sizeof(isPrime));
+
+    for(long long k=2; k*k<=M;k++){
+        if(isPrime[k]==true){
+               //update all multiples if k non prime
+            for(int i=k*k; i<=M;i++){
+                isPrime[i]=false;
+            }
+        }
+    }
+    //prime numbers<M
+    vector<long long> prime;
+    for(int i=2; i<=M;i++){
+        if(isPrime[i]){
+            prime.pushback(i);
+        }
+    }
+    return prime;
+}
+
 // Function to check whether the three
 // conditions of Eisenstein's
 // Irreducibility criterion for prime P
