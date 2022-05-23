@@ -225,7 +225,7 @@ std::vector<long long> Eratosthene(long long M)
     std::vector<long long> prime;
     for(int i=2; i<=M;i++){
         if(isPrime[i]){
-            prime.pushback(i);
+            prime.push_back(i);
         }
     }
     return prime;
