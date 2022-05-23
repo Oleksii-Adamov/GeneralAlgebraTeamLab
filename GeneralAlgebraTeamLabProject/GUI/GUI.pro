@@ -16,15 +16,18 @@ LIBS += -L../Lib/release/ -lLib
 SOURCES += \
     finitefieldwindow.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    polynomialringwindow.cpp
 
 HEADERS += \
     finitefieldwindow.h \
-    mainwindow.h
+    mainwindow.h \
+    polynomialringwindow.h
 
 FORMS += \
     finitefieldwindow.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    polynomialringwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
