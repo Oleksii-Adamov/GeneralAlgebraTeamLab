@@ -220,7 +220,7 @@ std::vector<long long> Eratosthene(long long M)
         }
     }
     //prime numbers<M
-    vector<long long> prime;
+    std::vector<long long> prime;
     for(int i=2; i<=M;i++){
         if(isPrime[i]){
             prime.pushback(i);
