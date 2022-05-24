@@ -29,7 +29,9 @@ private slots:
     void test_case_ToString();
     void test_case_in_stream();
     void test_case_FromString();
-    void test_case_equal_not_equal_operator();
+    void test_case_isPrime();
+    void test_case_isPrime_helper(int optimal_iterations_num);
+    void test_case_comparision_operators();
 };
 
 TestNumberModulo::TestNumberModulo()
@@ -350,17 +352,110 @@ void TestNumberModulo::test_case_FromString()
     QCOMPARE(test_num.get_num(), 0);
 }
 
-void TestNumberModulo::test_case_equal_not_equal_operator()
+void TestNumberModulo::test_case_isPrime()
+{
+    // checking incorrect iterations numbers.
+    int iterations_num = 0;
+    test_case_isPrime_helper(iterations_num);
+    iterations_num = -1;
+    test_case_isPrime_helper(iterations_num);
+
+    // checking iterations numbers.
+    // optimal numbers
+    iterations_num = 5;
+    test_case_isPrime_helper(iterations_num);
+    iterations_num = 8;
+    test_case_isPrime_helper(iterations_num);
+
+    // non-optimal numbers
+    iterations_num = 1;
+    test_case_isPrime_helper(iterations_num);
+    iterations_num = 2;
+    test_case_isPrime_helper(iterations_num);
+    iterations_num = 4;
+    test_case_isPrime_helper(iterations_num);
+    iterations_num = 5;
+    test_case_isPrime_helper(iterations_num);
+}
+
+void TestNumberModulo::test_case_isPrime_helper(int iterations_num)
+{
+    IntModulo test_num;
+
+    // checking incorrect iterations numbers.
+    if(iterations_num < 1){
+        test_num.set_num(0);
+        QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.isPrime(iterations_num));
+        test_num.set_num(-1);
+        QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.isPrime(iterations_num));
+        test_num.set_num(1);
+        QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.isPrime(iterations_num));
+        test_num.set_num(2);
+        QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.isPrime(iterations_num));
+        test_num.set_num(8);
+        QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.isPrime(iterations_num));
+        return;
+    }
+
+    // if iterations numbers are correct.
+    // checking for non-natural numbers.
+    test_num.set_num(0);
+    QVERIFY(!test_num.isPrime(iterations_num));
+    test_num.set_num(-1);
+    QVERIFY(!test_num.isPrime(iterations_num));
+    test_num.set_num(-2);
+    QVERIFY(!test_num.isPrime(iterations_num));
+    test_num.set_num(-8);
+    QVERIFY(!test_num.isPrime(iterations_num));
+    test_num.set_num(-36);
+    QVERIFY(!test_num.isPrime(iterations_num));
+
+    // checking corner case.
+    test_num.set_num(1);
+    QVERIFY(!test_num.isPrime(iterations_num));
+
+    // checking non-prime numbers.
+    test_num.set_num(4);
+    QVERIFY(!test_num.isPrime(iterations_num));
+    test_num.set_num(6);
+    QVERIFY(!test_num.isPrime(iterations_num));
+    test_num.set_num(8);
+    QVERIFY(!test_num.isPrime(iterations_num));
+    test_num.set_num(36);
+    QVERIFY(!test_num.isPrime(iterations_num));
+
+    // checking prime numbers.
+    test_num.set_num(2);
+    QVERIFY(test_num.isPrime(iterations_num));
+    test_num.set_num(3);
+    QVERIFY(test_num.isPrime(iterations_num));
+    test_num.set_num(5);
+    QVERIFY(test_num.isPrime(iterations_num));
+    test_num.set_num(11);
+    QVERIFY(test_num.isPrime(iterations_num));
+    test_num.set_num(101);
+    QVERIFY(test_num.isPrime(iterations_num));
+}
+
+void TestNumberModulo::test_case_comparision_operators()
 {
     IntModulo test_num1, test_num2;
     test_num1.set_num(3);
     test_num2.set_num(3);
     QCOMPARE(test_num1 == test_num2, true);
     QCOMPARE(test_num1 != test_num2, false);
+    QCOMPARE(test_num1 >= test_num2, true);
+    QCOMPARE(test_num1 <= test_num2, true);
+    QCOMPARE(test_num1 > test_num2, false);
+    QCOMPARE(test_num1 < test_num2, false);
 
     test_num2.set_num(2);
     QCOMPARE(test_num1 == test_num2, false);
     QCOMPARE(test_num1 != test_num2, true);
+    QCOMPARE(test_num1 >= test_num2, true);
+    QCOMPARE(test_num1 <= test_num2, false);
+    QCOMPARE(test_num1 > test_num2, true);
+    QCOMPARE(test_num1 < test_num2, false);
 }
 
 QTEST_APPLESS_MAIN(TestNumberModulo)

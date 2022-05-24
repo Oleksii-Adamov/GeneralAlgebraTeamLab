@@ -12,7 +12,7 @@ public:
      * @param number a number to take prime numbers of.
      * @return a vector of prime numbers
      */
-    static std::vector<int> factorize(int number);
+    static std::vector<long long> factorize(long long number);
 };
 
 #endif // POLLARDFACTORIZATION_H

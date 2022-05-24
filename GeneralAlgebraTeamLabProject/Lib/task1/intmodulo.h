@@ -26,6 +26,14 @@ public:
     friend inline bool operator==(const IntModulo& lhs, const IntModulo& rhs){return lhs.get_num() == rhs.get_num();};
     // != operator
     friend inline bool operator!=(const IntModulo& lhs, const IntModulo& rhs){return !(lhs == rhs);};
+    // < operator
+    friend inline bool operator<(const IntModulo& lhs, const IntModulo& rhs){return lhs.get_num() < rhs.get_num();};
+    // > operator
+    friend inline bool operator>(const IntModulo& lhs, const IntModulo& rhs){return lhs.get_num() > rhs.get_num();};
+    // <= operator
+    friend inline bool operator<=(const IntModulo& lhs, const IntModulo& rhs){return lhs.get_num() <= rhs.get_num();};
+    // >= operator
+    friend inline bool operator>=(const IntModulo& lhs, const IntModulo& rhs){return lhs.get_num() >= rhs.get_num();};
 private:
     // fields
 
@@ -57,6 +65,12 @@ public:
     void FromString(const std::string& input);
     // overload of >> for streams
     LIB_EXPORT friend std::istream &operator>>(std::istream& in, IntModulo& obj);
+
+    // checks if this number is prime using Miller–Rabin primality test
+    bool isPrime(int iterationsNum);
+private:
+    // methods
+    static bool miillerTest(long long d, long long n);
 };
 
 
