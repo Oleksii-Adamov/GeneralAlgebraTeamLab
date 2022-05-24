@@ -4,6 +4,7 @@
 #include "Lib_global.h"
 #include <string>
 #include <iostream>
+#include <map>
 
 class LIB_EXPORT IntModulo
 {
@@ -71,6 +72,12 @@ public:
 private:
     // methods
     static bool miillerTest(long long d, long long n);
+
+    long long phi();
+    long long carmichael();
+
+private:
+    std::map<long long, int> prime_factor(long long n);
 };
 
 
