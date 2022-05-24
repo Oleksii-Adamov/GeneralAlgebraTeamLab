@@ -47,3 +47,12 @@ void PolynomialRingWindow::on_pushButton_evaluate_clicked()
     ui->lineEdit_ans->setText(QString::number(ans.get_num()));
 }
 
+
+void PolynomialRingWindow::on_pushButton_derivative_clicked()
+{
+    Polinome first(ui->lineEdit_first->text().toStdString());
+    unsigned long long modulus = std::stoull(ui->lineEdit_modulus->text().toStdString());
+    Polinome ans = first.derivative(modulus);
+    ui->lineEdit_ans->setText(QString::fromStdString(ans.toString()));
+}
+

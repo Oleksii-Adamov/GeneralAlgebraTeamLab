@@ -20,6 +20,8 @@ private slots:
 
     void on_pushButton_evaluate_clicked();
 
+    void on_pushButton_derivative_clicked();
+
 private:
     Ui::PolynomialRingWindow *ui;
 };
