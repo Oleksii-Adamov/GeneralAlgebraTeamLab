@@ -186,7 +186,7 @@ Polinome CyclotomicPolynomial(unsigned long long n) {
 
     Polinome result = Polinome(n);
 
-    for(unsigned long long d = 1; d < n; d++) {
+    for(unsigned long long d = 1; d <= n; d++) {
         if (n % d == 0) {
             std::vector<IntModulo> pol(n, 0);
             pol[d] = 1;
