@@ -5,6 +5,7 @@
 #include "task1/intmodulo.h"
 #include <vector>
 #include <string>
+#include <algorithm>
 
 class LIB_EXPORT Polinome {
 private:
