@@ -130,6 +130,5 @@ void FiniteFieldWindow::on_pushButton_factorization_Pollard_clicked()
     catch(std::invalid_argument& e) {
         set_ans("Число меньше 1");
     }
-
 }
 

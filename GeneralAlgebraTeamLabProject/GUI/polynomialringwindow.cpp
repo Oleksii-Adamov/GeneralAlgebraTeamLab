@@ -23,16 +23,27 @@ PolynomialRingWindow::~PolynomialRingWindow()
 void PolynomialRingWindow::on_pushButton_add_clicked()
 {
 
-    unsigned long long modulus;
+
     try {
         Polinome first(ui->lineEdit_first->text().toStdString());
         Polinome second(ui->lineEdit_second->text().toStdString());
-        modulus = std::stoull(ui->lineEdit_modulus->text().toStdString());
+        unsigned long long modulus = std::stoull(ui->lineEdit_modulus->text().toStdString());
         Polinome ans = first.add(second, modulus);
         ui->lineEdit_ans->setText(QString::fromStdString(ans.toString()));
     }
     catch(std::exception& e) {
         ui->lineEdit_ans->setText(e.what());
     }
+}
+
+
+void PolynomialRingWindow::on_pushButton_evaluate_clicked()
+{
+    Polinome first(ui->lineEdit_first->text().toStdString());
+    unsigned long long modulus = std::stoull(ui->lineEdit_modulus->text().toStdString());
+    IntModulo point(ui->lineEdit_second->text().toStdString());
+    point.mod(modulus);
+    IntModulo ans = first.evaluate(point, modulus);
+    ui->lineEdit_ans->setText(QString::number(ans.get_num()));
 }
 
