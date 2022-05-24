@@ -15,13 +15,6 @@ Polinome::Polinome(int power) {
     }
 }
 
-Polinome::Polinome(int power, int num) {
-    coefficients = new std::vector<IntModulo>();
-    for(int i = 0; i < power; ++i) {
-        coefficients->emplace_back(num);
-    }
-}
-
 Polinome::Polinome(std::vector<IntModulo>* coefficients) {
     this->coefficients = coefficients;
 }
@@ -87,72 +80,7 @@ std::string Polinome::toString() {
     return result;
 }
 
-Polinome Polinome::CyclotomicPolynomial(long long n, unsigned long long modulus) {
-    long long m = n / 2;
 
-    Polinome result = Polinome();
-
-    if (isSquareFree(n) && n % 2 == 0 && isSquareFree(m) && m % 2 != 0 && m != 1) {
-
-        if (isSquareFree(m)) {
-            std::vector<IntModulo> coefficients(m, 1);
-            for (long long i = 0; i < m; i++) {
-                if (i % 2 != 0)
-                    coefficients[i] = IntModulo(-1);
-            }
-            return Polinome(coefficients);
-        }
-        for (long long d = 1; d <= m; d++) {
-            if (m % d == 0 && mobius(m / d) == 1) {
-                std::vector<IntModulo> coefficients(d + 1, 0);
-                if (d % 2 != 0)
-                    coefficients[d] = IntModulo(-1);
-                else
-                    coefficients[d] = IntModulo(1);
-                
-                coefficients[0] = IntModulo(-1);
-
-                Polinome multiplier = Polinome(coefficients);
-                result.multiply(multiplier, modulus);
-            }
-        }
-        for (long long d = 1; d <= m; d++) {
-            if (m % d == 0 && mobius(m / d) == -1) {
-                std::vector<IntModulo> coefficients(d + 1, 0);
-                coefficients[d] = IntModulo(1);
-                coefficients[0] = IntModulo(-1);
-
-                Polinome divider = Polinome(coefficients);
-                result.divide(divider, modulus); //TODO
-            }
-        }
-    }
-    else {
-        if (isSquareFree(n))
-            return Polinome(n, 1);
-        for (long long d = 1; d <= n; d++) {
-            if (n % d == 0 && utils::mobius(n / d) == 1) {
-                std::vector<IntModulo> coefficients(d + 1, 0);
-                coefficients[d] = IntModulo(1);
-                coefficients[0] = IntModulo(-1);
-
-                Polinome multiplier = Polinome(coefficients);
-                result.multiply(multiplier, modulus);
-            }
-        }
-        for (long long d = 1; d <= n; d++) {
-            if (n % d == 0 && utils::mobius(n / d) == -1) {
-                std::vector<IntModulo> coefficients(d + 1, 0);
-                coefficients[d] = IntModulo(1);
-                coefficients[0] = IntModulo(-1);
-
-                Polinome divider = Polinome(coefficients);
-                result.divide(divider, modulus); //TODO
-            }
-        }
-    }
-    return result;
-} 
 
 bool Polinome::operator== (const Polinome& polinome) const {
     unsigned long long i = 0;
@@ -253,3 +181,28 @@ std::vector<IntModulo>* convert(const std::string& writtenPolinome) {
     }
     return answer;
 }
+
+Polinome CyclotomicPolynomial(unsigned long long n) {
+
+    Polinome result = Polinome(n);
+
+    for(unsigned long long d = 1; d < n; d++) {
+        if (n % d == 0) {
+            std::vector<IntModulo> pol(n, 0);
+            pol[d] = 1;
+            pol[0] = -1;
+            switch(mobius(n/d)){
+                case 1: {
+                    result.muliply(Polinome(pol), 2);
+                    break;
+                }
+                case -1: {
+                    //result.divide(Polinome(pol), 2);  TODO
+                    break;
+                }
+            }
+        }
+    }
+
+    return result;
+} 

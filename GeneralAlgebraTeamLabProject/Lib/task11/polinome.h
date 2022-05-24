@@ -29,9 +29,10 @@ public:
     Polinome subtract(const Polinome& polinome, unsigned long long modulus);
     Polinome multiply(const Polinome& polinome, unsigned long long modulus);
     std::string toString();
-    Polinome Polinome::CyclotomicPolynomial(long long n, unsigned long long modulus);
 
     bool operator== (const Polinome& polinome) const;
 };
+
+Polinome CyclotomicPolynomial(long long n);
 
 #endif // POLINOME_H
