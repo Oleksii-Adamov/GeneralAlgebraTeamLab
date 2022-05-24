@@ -33,6 +33,6 @@ public:
     bool operator== (const Polinome& polinome) const;
 };
 
-Polinome CyclotomicPolynomial(long long n);
+Polinome CyclotomicPolynomial(unsigned long long n);
 
 #endif // POLINOME_H

@@ -193,7 +193,7 @@ Polinome CyclotomicPolynomial(unsigned long long n) {
             pol[0] = -1;
             switch(mobius(n/d)){
                 case 1: {
-                    result.muliply(Polinome(pol), 2);
+                    result.multiply(Polinome(&pol), 2);
                     break;
                 }
                 case -1: {
