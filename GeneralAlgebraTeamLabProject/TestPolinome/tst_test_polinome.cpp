@@ -194,7 +194,16 @@ void TestPolinome::testPolinomeToString() {
     }
     QVERIFY(caught);
 
-    writtenPolinome = "2x + 1 +";
+    writtenPolinome = "3xx + 1";
+    caught = false;
+    try {
+        Polinome(writtenPolinome).toString();
+    } catch (const std::exception& e) {
+        caught = true;
+    }
+    QVERIFY(caught);
+
+    writtenPolinome = "3xxx + 1";
     caught = false;
     try {
         Polinome(writtenPolinome).toString();
