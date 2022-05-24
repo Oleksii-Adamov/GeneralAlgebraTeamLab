@@ -184,6 +184,24 @@ void TestPolinome::testPolinomeToString() {
 
     writtenPolinome = "15x^4 + 2x^2 + x + 150";
     QCOMPARE(writtenPolinome, Polinome(writtenPolinome).toString());
+
+    writtenPolinome = "2x + 1 -";
+    bool caught = false;
+    try {
+        Polinome(writtenPolinome).toString();
+    } catch (const std::exception& e) {
+        caught = true;
+    }
+    QVERIFY(caught);
+
+    writtenPolinome = "2x + 1 +";
+    caught = false;
+    try {
+        Polinome(writtenPolinome).toString();
+    } catch (const std::exception& e) {
+        caught = true;
+    }
+    QVERIFY(caught);
 }
 
 // Task12 tests
