@@ -33,11 +33,16 @@ private slots:
 
     void on_pushButton_is_prime_clicked();
 
+    void on_pushButton_euler_clicked();
+
+    void on_pushButton_carmichael_clicked();
+
 private:
     void read_and_mod(IntModulo& first, IntModulo& second, unsigned long long& modulus);
     void read_and_mod(IntModulo& first, unsigned long long& modulus);
     void set_ans(const QString& ans);
-    void set_ans(IntModulo& ans);
+    void set_ans(const IntModulo& ans);
+    void set_ans(long long ans);
     Ui::FiniteFieldWindow *ui;
 };
 

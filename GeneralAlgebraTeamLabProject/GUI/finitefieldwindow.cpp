@@ -40,8 +40,12 @@ void FiniteFieldWindow::set_ans(const QString& ans) {
     ui->lineEdit_ans->setText(ans);
 }
 
-void FiniteFieldWindow::set_ans(IntModulo& ans) {
+void FiniteFieldWindow::set_ans(const IntModulo& ans) {
     ui->lineEdit_ans->setText(QString::number(ans.get_num()));
+}
+
+void FiniteFieldWindow::set_ans(long long ans) {
+    ui->lineEdit_ans->setText(QString::number(ans));
 }
 
 void FiniteFieldWindow::on_pushButton_add_clicked()
@@ -153,5 +157,35 @@ void FiniteFieldWindow::on_pushButton_is_prime_clicked()
     else {
         set_ans("Ні, число не є простим");
     }
+}
+
+
+void FiniteFieldWindow::on_pushButton_euler_clicked()
+{
+    IntModulo first;
+    unsigned long long modulus;
+    read_and_mod(first, modulus);
+    try {
+        long long ans = first.phi();
+        set_ans(ans);
+    }
+    catch(std::exception& e) {
+        if (std::string(e.what()) == std::string("Num can`t be less than 1.")) {
+            set_ans("Число не може бути меньшим за 1");
+        }
+        else {
+            set_ans(e.what());
+        }
+    }
+}
+
+
+void FiniteFieldWindow::on_pushButton_carmichael_clicked()
+{
+    IntModulo first;
+    unsigned long long modulus;
+    read_and_mod(first, modulus);
+    long long ans = first.carmichael();
+    set_ans(ans);
 }
 
