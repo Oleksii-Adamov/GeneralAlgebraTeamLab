@@ -30,17 +30,21 @@ TestFactorization::~TestFactorization()
 
 void TestFactorization::test_case1()
 {
-    std::vector<long long> pn1 = PollardFactorization::factorize(91);
-    std::vector<long long> ans1{7, 13};
+    std::map<long long, int> pn1 = PollardFactorization::factorize(91);
+    std::map<long long, int> ans1{std::pair(7, 1), std::pair(13, 1)};
     QCOMPARE(ans1, pn1);
 
-    std::vector<long long> pn2 = PollardFactorization::factorize(4642135);
-    std::vector<long long> ans2{5, 928427};
+    std::map<long long, int> pn2 = PollardFactorization::factorize(4642135);
+    std::map<long long, int> ans2{std::pair(5, 1), std::pair(928427, 1)};
     QCOMPARE(ans2, pn2);
 
-    std::vector<long long> pn3 = PollardFactorization::factorize(4641);
-    std::vector<long long> ans3{3, 7, 13, 17};
+    std::map<long long, int> pn3 = PollardFactorization::factorize(4641);
+    std::map<long long, int> ans3{std::pair(3, 1), std::pair(7, 1), std::pair(13, 1), std::pair(17, 1)};
     QCOMPARE(ans3, pn3);
+
+    std::map<long long, int> pn4 = PollardFactorization::factorize(12);
+    std::map<long long, int> ans4{std::pair(3, 1), std::pair(2, 2)};
+    QCOMPARE(ans4, pn4);
 }
 
 void TestFactorization::test_case2()
@@ -48,7 +52,7 @@ void TestFactorization::test_case2()
     for (long long i = 2; i <= 100000; ++i) {
         bool isExceptionThrown = false;
         try {
-            std::vector<long long> pn = PollardFactorization::factorize(i);
+            std::map<long long, int> pn = PollardFactorization::factorize(i);
         } catch(std::exception e) {
             isExceptionThrown = true;
         }
