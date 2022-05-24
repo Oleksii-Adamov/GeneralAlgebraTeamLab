@@ -119,7 +119,7 @@ void FiniteFieldWindow::on_pushButton_factorization_Pollard_clicked()
     IntModulo first;
     unsigned long long modulus;
     read_and_mod(first, modulus);
-    std::vector<int> vec_ans = PollardFactorization::factorize(first.get_num());
+    std::vector<long long> vec_ans = PollardFactorization::factorize(first.get_num());
     QString ans = "";
     for (std::size_t i = 0; i < vec_ans.size(); i++) {
         ans += QString::number(vec_ans[i]);
