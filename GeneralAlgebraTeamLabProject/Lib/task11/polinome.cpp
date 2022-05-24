@@ -158,6 +158,11 @@ std::vector<PolinomeItem> getPolinomCoefs(const std::string& writtenPolinome) {
                 ++i;
             }
         } else {
+            if (writtenPolinome[i] == 'x' || (writtenPolinome[i] >= '0' && writtenPolinome[i] <= '9')) {
+                std::string exception_message = "invalid argument: ";
+                exception_message += writtenPolinome[i];
+                throw std::invalid_argument(exception_message);
+            }
             item.power = 1;
         }
         if (item.coefficient == -1) item.coefficient = 1;
@@ -193,7 +198,43 @@ int coefOfPower(std::vector<PolinomeItem> coefficients, int power) {
         return result;
 }
 
+/**
+ * @brief isWrittenPolinomeCorrect return -1 if the polinome is correct.
+ * Or return index were error is.
+ * @param writtenPolinome
+ * @return
+ */
+int isWrittenPolinomeCorrect(const std::string& writtenPolinome) {
+    for (int i = 0; i < writtenPolinome.size(); i++) {
+        if (
+            writtenPolinome[i] == ' ' ||
+            writtenPolinome[i] == '+' ||
+            writtenPolinome[i] == 'x' ||
+            writtenPolinome[i] == '^' ||
+            (writtenPolinome[i] >= '0' && writtenPolinome[i] <= '9')
+        ) {} else {
+            return i;
+        }
+    }
+    for (int i = writtenPolinome.size() - 1; i >= 0; i--) {
+        if (writtenPolinome[i] == '+') {
+            return i;
+        }
+        if (writtenPolinome[i] != ' ') {
+            break;
+        }
+    }
+    return -1;
+}
+
 std::vector<IntModulo>* convert(const std::string& writtenPolinome) {
+    int isPolinomeCorrect = isWrittenPolinomeCorrect(writtenPolinome);
+    if (isPolinomeCorrect >= 0) {
+        std::string exception_message = "invalid argument: ";
+        exception_message += writtenPolinome[isPolinomeCorrect];
+        throw std::invalid_argument(exception_message);
+    }
+
     std::vector<PolinomeItem> coefficients = getPolinomCoefs(writtenPolinome);
     std::vector<IntModulo>* answer = new std::vector<IntModulo>();
     int power = maxPower(coefficients);

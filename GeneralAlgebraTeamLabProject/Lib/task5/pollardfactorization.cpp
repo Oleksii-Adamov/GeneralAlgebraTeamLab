@@ -22,7 +22,7 @@ static long long F(long long x, long long a, long long mod) {
 
 static std::vector<long long> rhoPollard(long long N) {
     if (N < 1) {
-        throw std::invalid_argument(N + " is less than 1");
+        throw std::invalid_argument(std::to_string(N) + " is less than 1");
     }
     if (N == 1) {
         return std::vector<long long>{1};
@@ -61,8 +61,19 @@ static std::vector<long long> rhoPollard(long long N) {
     return ans;
 }
 
-std::vector<long long> PollardFactorization::factorize(long long number) {
+std::map<long long, int> PollardFactorization::factorize(long long number) {
     std::vector<long long> primeNumbers = rhoPollard(number);
     sort(primeNumbers.begin(), primeNumbers.end());
-    return primeNumbers;
+    std::map<long long, int> primeNumbersMap;
+    for (long long i : primeNumbers) {
+        if (i != 1) {
+            // if the element is not found
+            if (primeNumbersMap.find(i) == primeNumbersMap.end()) {
+                primeNumbersMap.insert(std::pair(i, 1));
+            } else {
+                primeNumbersMap[i]++;
+            }
+        }
+    }
+    return primeNumbersMap;
 }
