@@ -11,12 +11,14 @@ CONFIG += c++17 staticlib
 
 SOURCES += \
     lib.cpp \
+    utils.cpp \
     task1/intmodulo.cpp \
     task11/polinome.cpp
 
 HEADERS += \
     Lib_global.h \
     lib.h \
+    utils.h \
     task1/intmodulo.h \
     task11/polinome.h
 
