@@ -22,7 +22,7 @@ static long long F(long long x, long long a, long long mod) {
 
 static std::vector<long long> rhoPollard(long long N) {
     if (N < 1) {
-        throw std::invalid_argument(N + " is less than 1");
+        throw std::invalid_argument(std::to_string(N) + " is less than 1");
     }
     if (N == 1) {
         return std::vector<long long>{1};

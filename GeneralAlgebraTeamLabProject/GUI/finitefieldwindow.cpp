@@ -119,12 +119,17 @@ void FiniteFieldWindow::on_pushButton_factorization_Pollard_clicked()
     IntModulo first;
     unsigned long long modulus;
     read_and_mod(first, modulus);
-    std::vector<long long> vec_ans = PollardFactorization::factorize(first.get_num());
-    QString ans = "";
-    for (std::size_t i = 0; i < vec_ans.size(); i++) {
-        ans += QString::number(vec_ans[i]);
-        if (i != vec_ans.size() - 1) ans += "*";
+    try {
+        std::map<long long, int> map_ans = PollardFactorization::factorize(first.get_num());
+        QString ans = "";
+        for (auto val : map_ans) {
+            ans += QString::number(val.first) + " " + QString::number(val.second);
+        }
+        set_ans(ans);
     }
-    set_ans(ans);
+    catch(std::invalid_argument& e) {
+        set_ans("Число меньше 1");
+    }
+
 }
 
