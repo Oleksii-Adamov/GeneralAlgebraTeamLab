@@ -32,6 +32,8 @@ private slots:
     void test_case_isPrime();
     void test_case_isPrime_helper(int optimal_iterations_num);
     void test_case_comparision_operators();
+    void test_case_phi();    
+    void test_case_carmichael();
 };
 
 TestNumberModulo::TestNumberModulo()
@@ -456,6 +458,82 @@ void TestNumberModulo::test_case_comparision_operators()
     QCOMPARE(test_num1 <= test_num2, false);
     QCOMPARE(test_num1 > test_num2, true);
     QCOMPARE(test_num1 < test_num2, false);
+}
+
+void TestNumberModulo::test_case_phi()
+{
+    IntModulo test_num;
+
+    // checking incorrect values of IntModulo
+    test_num.set_num(0);
+    QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.phi());
+    test_num.set_num(-1);
+    QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.phi());
+    test_num.set_num(-8);
+    QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.phi());
+    test_num.set_num(-36);
+    QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.phi());
+
+    // checking Euler's Totient function Values
+    test_num.set_num(1);
+    QCOMPARE(test_num.phi(), 1);
+    test_num.set_num(2);
+    QCOMPARE(test_num.phi(), 1);
+    test_num.set_num(3);
+    QCOMPARE(test_num.phi(), 2);
+    test_num.set_num(4);
+    QCOMPARE(test_num.phi(), 2);
+    test_num.set_num(5);
+    QCOMPARE(test_num.phi(), 4);
+    test_num.set_num(8);
+    QCOMPARE(test_num.phi(), 4);
+    test_num.set_num(12);
+    QCOMPARE(test_num.phi(), 4);
+    test_num.set_num(30);
+    QCOMPARE(test_num.phi(), 8);
+    test_num.set_num(31);
+    QCOMPARE(test_num.phi(), 30);
+    test_num.set_num(101);
+    QCOMPARE(test_num.phi(), 100);
+}
+
+void TestNumberModulo::test_case_carmichael()
+{
+    IntModulo test_num;
+
+    // checking incorrect values of IntModulo
+    test_num.set_num(0);
+    QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.carmichael());
+    test_num.set_num(-1);
+    QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.carmichael());
+    test_num.set_num(-8);
+    QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.carmichael());
+    test_num.set_num(-36);
+    QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.carmichael());
+
+    // checking Carmichael function values
+    test_num.set_num(1);
+    QCOMPARE(test_num.carmichael(), 1);
+    test_num.set_num(2);
+    QCOMPARE(test_num.carmichael(), 1);
+    test_num.set_num(3);
+    QCOMPARE(test_num.carmichael(), 2);
+    test_num.set_num(4);
+    QCOMPARE(test_num.carmichael(), 2);
+    test_num.set_num(5);
+    QCOMPARE(test_num.carmichael(), 4);
+    test_num.set_num(8);
+    QCOMPARE(test_num.carmichael(), 2);
+    test_num.set_num(12);
+    QCOMPARE(test_num.carmichael(), 2);
+    test_num.set_num(30);
+    QCOMPARE(test_num.carmichael(), 4);
+    test_num.set_num(35);
+    QCOMPARE(test_num.carmichael(), 12);
+    test_num.set_num(36);
+    QCOMPARE(test_num.carmichael(), 6);
+    test_num.set_num(101);
+    QCOMPARE(test_num.carmichael(), 100);
 }
 
 QTEST_APPLESS_MAIN(TestNumberModulo)
