@@ -77,7 +77,6 @@ public:
 private:
     // methods
     static bool miillerTest(long long d, long long n);
-    std::map<long long, int> prime_factor();
 };
 
 

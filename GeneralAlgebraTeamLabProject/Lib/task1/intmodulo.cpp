@@ -1,4 +1,5 @@
 #include "intmodulo.h"
+#include "task5/pollardfactorization.h"
 #include <numeric>
 #include <stdexcept>
 
@@ -247,44 +248,13 @@ long long IntModulo::phi()
     return result;
 }
 
-std::map<long long, int> IntModulo::prime_factor()
-{
-    if(num < 1) throw std::invalid_argument("Num can`t be less than 1.");
-    std::map<long long, int> result;
-    long long number = num;
-
-    // Consider all prime factors of num and subtract
-    // their multiples from number. Prime numbers with their powers
-    // are added to the table
-    for (long long i = 2; i * i <= number; i += 2) {
-        if (number % i == 0) {
-            // Counts power of prime number
-            int counter = 0;
-            while (number % i == 0) {
-                ++counter;
-                number /= i;
-            }
-            // Adds number and it`s power to map.
-            result[i] = counter;
-        }
-        if(i == 2) {
-            --i;
-            i += 1;
-            i -= 1;
-        }
-    }
-    if (number != 1) result[number] = 1;
-
-    return result;
-}
-
 long long IntModulo::carmichael()
 {
-    long long ret = 1;
-    for (auto [p, e] : prime_factor()) {
+    long long result = 1;
+    for (auto [p, e] : PollardFactorization::factorize(this->num)) {
         long long lambda = std::pow(p, e - 1) * (p - 1);
         if (p == 2 && e >= 3) lambda /= 2;
-        ret = ret / std::gcd(ret, lambda) * lambda;
+        result = result / std::gcd(result, lambda) * lambda;
     }
-    return ret;
+    return result;
 }
