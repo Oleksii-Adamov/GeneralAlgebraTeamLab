@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>954</width>
-    <height>699</height>
+    <width>999</width>
+    <height>750</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -144,9 +144,10 @@
           </widget>
          </item>
          <item row="11" column="0">
-          <widget class="QPushButton" name="pushButton_14">
+          <widget class="QPushButton" name="pushButton_is_prime">
            <property name="text">
-            <string>Чи є простим (ймовірнісна перевірка - тест Міллера-Рабіна)</string>
+            <string>Чи є простим (ймовірнісна перевірка - тест Міллера-Рабіна) 
+ (кількість ітерацій у другому полі)</string>
            </property>
           </widget>
          </item>

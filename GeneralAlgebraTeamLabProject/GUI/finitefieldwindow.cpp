@@ -132,3 +132,26 @@ void FiniteFieldWindow::on_pushButton_factorization_Pollard_clicked()
     }
 }
 
+
+void FiniteFieldWindow::on_pushButton_is_prime_clicked()
+{
+    IntModulo first;
+    unsigned long long modulus;
+    read_and_mod(first, modulus);
+    int iterations_num;
+    try {
+        iterations_num = std::stoi(ui->lineEdit_second->text().toStdString());
+    }
+    catch(std::exception& e) {
+        set_ans("Кількість ітерацій не введена (друге поле)");
+        return;
+    }
+
+    if(first.isPrime(iterations_num)) {
+        set_ans("Так, число є простим");
+    }
+    else {
+        set_ans("Ні, число не є простим");
+    }
+}
+
