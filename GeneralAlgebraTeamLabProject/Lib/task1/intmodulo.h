@@ -69,14 +69,12 @@ public:
 
     // checks if this number is prime using Miller–Rabin primality test
     bool isPrime(int iterationsNum);
-private:
-    // methods
-    static bool miillerTest(long long d, long long n);
 
     long long phi();
     long long carmichael();
-
 private:
+    // methods
+    static bool miillerTest(long long d, long long n);
     std::map<long long, int> prime_factor(long long n);
 };
 

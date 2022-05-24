@@ -164,7 +164,8 @@ void IntModulo::pow(unsigned long long exponent, unsigned long long modulus)
 }
 
 // optimal to use > 5 iterations
-bool IntModulo::isPrime(int iterationsNum) {
+bool IntModulo::isPrime(int iterationsNum)
+{
     if(iterationsNum < 1) throw std::invalid_argument("iterationsNum can`t be negative.");
 
     unsigned long long n = this->get_num();
@@ -193,7 +194,8 @@ bool IntModulo::isPrime(int iterationsNum) {
 }
 
 // Private methods
-bool IntModulo::miillerTest(long long d, long long n) {
+bool IntModulo::miillerTest(long long d, long long n)
+{
     // Pick a random number in [2..n-2]
     unsigned long long a = 2 + rand() % (n - 4);
 
@@ -220,4 +222,28 @@ bool IntModulo::miillerTest(long long d, long long n) {
     }
 
     return false;
+}
+
+long long IntModulo::phi()
+{
+    if(num < 1) throw std::invalid_argument("Num can`t be less than 1.");
+    int result = num, tmp = num;
+
+    // Consider all prime factors of n
+    // and subtract their multiples
+    // from result
+    for(int p = 2; p * p <= tmp; ++p) {
+        // Check if p is a prime factor.
+        if (tmp % p == 0) {
+            // If yes, then update n and result
+            while (tmp % p == 0) tmp /= p;
+            result -= result / p;
+        }
+    }
+
+    // If n has a prime factor greater than sqrt(n)
+    // (There can be at-most one such prime factor)
+    if (tmp > 1) result -= result / tmp;
+
+    return result;
 }
