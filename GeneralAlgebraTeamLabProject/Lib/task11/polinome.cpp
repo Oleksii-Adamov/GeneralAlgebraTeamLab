@@ -158,6 +158,11 @@ std::vector<PolinomeItem> getPolinomCoefs(const std::string& writtenPolinome) {
                 ++i;
             }
         } else {
+            if (writtenPolinome[i] == 'x' || (writtenPolinome[i] >= '0' && writtenPolinome[i] <= '9')) {
+                std::string exception_message = "invalid argument: ";
+                exception_message += writtenPolinome[i];
+                throw std::invalid_argument(exception_message);
+            }
             item.power = 1;
         }
         if (item.coefficient == -1) item.coefficient = 1;
