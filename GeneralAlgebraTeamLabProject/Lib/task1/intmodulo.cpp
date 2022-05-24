@@ -227,17 +227,16 @@ bool IntModulo::miillerTest(long long d, long long n)
 long long IntModulo::phi()
 {
     if(num < 1) throw std::invalid_argument("Num can`t be less than 1.");
-    int result = num, tmp = num;
+    long long result = num, tmp = num;
 
-    // Consider all prime factors of n
-    // and subtract their multiples
-    // from result
-    for(int p = 2; p * p <= tmp; ++p) {
+    // Consider all prime factors of n and subtract
+    // their multiples from result
+    for(int i = 2; i * i <= tmp; ++i) {
         // Check if p is a prime factor.
-        if (tmp % p == 0) {
+        if (tmp % i == 0) {
             // If yes, then update n and result
-            while (tmp % p == 0) tmp /= p;
-            result -= result / p;
+            while (tmp % i == 0) tmp /= i;
+            result -= result / i;
         }
     }
 
@@ -246,4 +245,46 @@ long long IntModulo::phi()
     if (tmp > 1) result -= result / tmp;
 
     return result;
+}
+
+std::map<long long, int> IntModulo::prime_factor()
+{
+    if(num < 1) throw std::invalid_argument("Num can`t be less than 1.");
+    std::map<long long, int> result;
+    long long number = num;
+
+    // Consider all prime factors of num and subtract
+    // their multiples from number. Prime numbers with their powers
+    // are added to the table
+    for (long long i = 2; i * i <= number; i += 2) {
+        if (number % i == 0) {
+            // Counts power of prime number
+            int counter = 0;
+            while (number % i == 0) {
+                ++counter;
+                number /= i;
+            }
+            // Adds number and it`s power to map.
+            result[i] = counter;
+        }
+        if(i == 2) {
+            --i;
+            i += 1;
+            i -= 1;
+        }
+    }
+    if (number != 1) result[number] = 1;
+
+    return result;
+}
+
+long long IntModulo::carmichael()
+{
+    long long ret = 1;
+    for (auto [p, e] : prime_factor()) {
+        long long lambda = std::pow(p, e - 1) * (p - 1);
+        if (p == 2 && e >= 3) lambda /= 2;
+        ret = ret / std::gcd(ret, lambda) * lambda;
+    }
+    return ret;
 }
