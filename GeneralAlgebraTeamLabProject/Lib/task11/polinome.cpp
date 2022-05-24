@@ -234,7 +234,7 @@ std::vector<long long> Eratosthene(long long M)
 // Function to check whether the three
 // conditions of Eisenstein's
 // Irreducibility criterion for prime P
-bool check(std::vector<IntModulo>* coefficients, long long P, long long N)
+bool check(std::vector<IntModulo> coefficients, long long P, long long N)
 {
     if (coefficients[0].get_num() % P == 0)
         return 0;
@@ -250,24 +250,24 @@ bool check(std::vector<IntModulo>* coefficients, long long P, long long N)
 }
 // Function to check for Eisensteins
 // Irreducubility Criterion
-bool checkIrreducibilty(std::vector<IntModulo>* coefficients, long long N)
+bool checkIrreducibilty(std::vector<IntModulo> coefficients, long long N)
 {
     std::reverse(coefficients.begin(), coefficients.end());
     // Stores the largest element in A
-    int M = -1;
+    long long M = -1;
 
     // Find the maximum element in A
     for (int i = 0; i < N; i++) {
-        M = max(M, coefficients[i].get_num());
+        M = fmax(M, coefficients[i].get_num());
     }
 
     // Stores all the prime numbers
-    vector<long long> primes
+    std::vector<long long> primes
         = Eratosthene(M + 1);
 
     // Check if any prime
     // satisfies the conditions
-    for (int i = 0;
+    for (long long i = 0;
         i < primes.size(); i++) {
 
         // Function Call to check
