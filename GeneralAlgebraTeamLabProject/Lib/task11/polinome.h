@@ -8,6 +8,7 @@
 
 #include <vector>
 #include <string>
+#include <algorithm>
 
 class LIB_EXPORT Polinome {
 private:
@@ -43,5 +44,10 @@ public:
 
     bool operator== (const Polinome& polinome) const;
 };
+
+// Function to check for Eisensteins
+// Irreducubility Criterion
+LIB_EXPORT bool checkIrreducibilty(std::vector<IntModulo> coefficients, long long N);
+
 
 #endif // POLINOME_H
