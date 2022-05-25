@@ -3,6 +3,7 @@
 
 #include "Lib_global.h"
 #include "task1/intmodulo.h"
+#include "task13/division_result.hpp"
 #include <vector>
 #include <string>
 
@@ -33,6 +34,9 @@ public:
     // task12 methods
     Polinome derivative(unsigned long long modulus);
     IntModulo evaluate(IntModulo x, unsigned long long modulus);
+
+    // task13 methods
+    DivisionResult<Polinome> divide(const Polinome& divider);
 
     bool operator== (const Polinome& polinome) const;
 };

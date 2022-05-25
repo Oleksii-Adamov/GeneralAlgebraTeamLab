@@ -20,6 +20,8 @@ HEADERS += \
     lib.h \
     task1/intmodulo.h \
     task11/polinome.h \
+    task13/division_result.hpp \
+    task13/polinome_division.hpp \
     task5/pollardfactorization.h
 
 # Default rules for deployment.
