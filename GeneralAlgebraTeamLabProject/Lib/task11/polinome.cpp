@@ -223,7 +223,7 @@ std::vector<long long> Eratosthene(long long M)
     }
     //prime numbers<M
     std::vector<long long> prime;
-    for(int i=2; i<=M;i++){
+    for(long long i=2; i<=M;i++){
         if(isPrime[i]){
             prime.push_back(i);
         }
@@ -239,7 +239,7 @@ bool check(std::vector<IntModulo> coefficients, long long P, long long N)
     if (coefficients[0].get_num() % P == 0)
         return 0;
 
-    for (int i = 1; i < N; i++)
+    for (long long i = 1; i < N; i++)
         if (coefficients[i].get_num() % P)
             return 0;
 
@@ -257,19 +257,19 @@ bool checkIrreducibilty(std::vector<IntModulo> coefficients, long long N)
     long long M = -1;
 
     // Find the maximum element in A
-    for (int i = 0; i < N; i++) {
+    for (long long i = 0; i < N; i++) {
         M = fmax(M, coefficients[i].get_num());
     }
 
     // Stores all the prime numbers
     std::vector<long long> primes
         = Eratosthene(M + 1);
-
+    
     // Check if any prime
     // satisfies the conditions
-    for (long long i = 0;
+    for (std::size_t i = 0;
         i < primes.size(); i++) {
-
+        
         // Function Call to check
         // for the three conditions
         if (check(coefficients, primes[i], N)) {
