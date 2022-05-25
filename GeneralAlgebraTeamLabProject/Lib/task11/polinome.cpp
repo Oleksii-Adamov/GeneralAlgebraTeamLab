@@ -252,6 +252,9 @@ bool check(std::vector<IntModulo> coefficients, long long P, long long N)
 // Irreducubility Criterion
 bool checkIrreducibilty(std::vector<IntModulo> coefficients, long long N)
 {
+    if (N <= 0) {
+        throw std::invalid_argument("N <= 0");
+    }
     std::reverse(coefficients.begin(), coefficients.end());
     // Stores the largest element in A
     long long M = -1;
