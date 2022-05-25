@@ -22,6 +22,18 @@ public:
     IntModulo(const IntModulo& other);
     // copy assignment operator
     IntModulo& operator=(const IntModulo& other);
+    // == operator (same modulus is implied, just lhs.get_num() == rhs.get_num())
+    friend inline bool operator==(const IntModulo& lhs, const IntModulo& rhs){return lhs.get_num() == rhs.get_num();};
+    // != operator
+    friend inline bool operator!=(const IntModulo& lhs, const IntModulo& rhs){return !(lhs == rhs);};
+    // < operator
+    friend inline bool operator<(const IntModulo& lhs, const IntModulo& rhs){return lhs.get_num() < rhs.get_num();};
+    // > operator
+    friend inline bool operator>(const IntModulo& lhs, const IntModulo& rhs){return lhs.get_num() > rhs.get_num();};
+    // <= operator
+    friend inline bool operator<=(const IntModulo& lhs, const IntModulo& rhs){return lhs.get_num() <= rhs.get_num();};
+    // >= operator
+    friend inline bool operator>=(const IntModulo& lhs, const IntModulo& rhs){return lhs.get_num() >= rhs.get_num();};
 private:
     // fields
 
