@@ -26,7 +26,7 @@ Polinome::~Polinome() {
     delete coefficients;
 }
 
-Polinome Polinome::add(const Polinome& polinome, unsigned long long modulus) {
+Polinome Polinome::add(const Polinome& polinome, unsigned long long modulus) const {
     Polinome result = Polinome();
     unsigned long long maxPower = std::max(this->coefficients->size(), polinome.coefficients->size());
     for(unsigned long long i = 0; i < maxPower; ++i) {
@@ -38,7 +38,7 @@ Polinome Polinome::add(const Polinome& polinome, unsigned long long modulus) {
     return result;
 }
 
-Polinome Polinome::subtract(const Polinome &polinome, unsigned long long modulus) {
+Polinome Polinome::subtract(const Polinome &polinome, unsigned long long modulus) const {
     Polinome result = Polinome();
     unsigned long long maxPower = std::max(this->coefficients->size(), polinome.coefficients->size());
     for(unsigned long long i = 0; i < maxPower; ++i) {
@@ -50,7 +50,7 @@ Polinome Polinome::subtract(const Polinome &polinome, unsigned long long modulus
     return result;
 }
 
-Polinome Polinome::multiply(const Polinome& polinome, unsigned long long modulus) {
+Polinome Polinome::multiply(const Polinome& polinome, unsigned long long modulus) const {
     Polinome result = Polinome(this->coefficients->size() + polinome.coefficients->size());
     for(unsigned long long i = 0; i < this->coefficients->size(); ++i) {
         for(unsigned long long j = 0; j < polinome.coefficients->size(); ++j) {
