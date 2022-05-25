@@ -3,6 +3,9 @@
 
 #include "Lib_global.h"
 #include "task1/intmodulo.h"
+#include "task13/division_result.h"
+#include "task13/degree_result.h"
+
 #include <vector>
 #include <string>
 
@@ -25,14 +28,18 @@ public:
     ~Polinome();
 
     //Methods
-    Polinome add(const Polinome& polinome, unsigned long long modulus);
-    Polinome subtract(const Polinome& polinome, unsigned long long modulus);
-    Polinome multiply(const Polinome& polinome, unsigned long long modulus);
+    Polinome add(const Polinome& polinome, unsigned long long modulus) const;
+    Polinome subtract(const Polinome& polinome, unsigned long long modulus) const;
+    Polinome multiply(const Polinome& polinome, unsigned long long modulus) const;
     std::string toString();
 
     // task12 methods
     Polinome derivative(unsigned long long modulus);
     IntModulo evaluate(IntModulo x, unsigned long long modulus);
+
+    // task13 methods
+    DegreeResult degree() const;
+    DivisionResult<Polinome> divide(const Polinome& divider, unsigned long long modulus) const;
 
     bool operator== (const Polinome& polinome) const;
 };

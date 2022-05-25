@@ -1,6 +1,8 @@
 #include <QTest>
 
 #include "task11/polinome.h"
+#include "task13/polinome_degree.h"
+#include "task13/polinome_division.h"
 #include <stdexcept>
 
 class TestPolinome : public QObject {
@@ -20,6 +22,10 @@ private slots:
     // Task12 tests
     void testPolinomeDerivative();
     void testPolinomeEvaluate();
+
+    // Task13 tests
+    void testPolinomeDegree();
+    void testPolinomeDivision();
 };
 
 TestPolinome::TestPolinome() {}
@@ -269,6 +275,26 @@ void TestPolinome::testPolinomeEvaluate() {
    QCOMPARE(Polinome("3x^7 + 9x^5 + 9x^4 + 4x^3 + 1x^2 + 7x + 5").evaluate(IntModulo(25), 7).get_num(), 0);
    QCOMPARE(Polinome("1x^2 + 7x").evaluate(IntModulo(1), 27).get_num(), 8);
    QCOMPARE(Polinome("7x^3 + 2x^2 + 5x + 4").evaluate(IntModulo(26), 17).get_num(), 10);
+}
+
+void TestPolinome::testPolinomeDegree() {
+    QCOMPARE(Polinome("0").degree().zero, true);
+    QCOMPARE(Polinome("4").degree().value, 0);
+    QCOMPARE(Polinome("x^3 + 12x^2 + 38x + 17").degree().value, 3);
+}
+
+void TestPolinome::testPolinomeDivision() {
+    auto r3 = Polinome("3x^4 + x^3 + 2x^2 + 1").divide(Polinome("x^2 + 4x + 2"), 5);
+    QCOMPARE(*r3.quotient, Polinome("3x^2 + 4x"));
+    QCOMPARE(*r3.remainder, Polinome("2x + 1"));
+
+    auto r1 = Polinome("12x + 4").divide(Polinome("x + 1"), 7);
+    QCOMPARE(*r1.quotient, Polinome("5"));
+    QCOMPARE(*r1.remainder, Polinome("6"));
+
+    auto r2 = Polinome("12x^3 + 3").divide(Polinome("5x + 1"), 7);
+    QCOMPARE(*r2.quotient, Polinome("x^2 + 4x + 2"));
+    QCOMPARE(*r2.remainder, Polinome("1"));
 }
 
 QTEST_APPLESS_MAIN(TestPolinome)
