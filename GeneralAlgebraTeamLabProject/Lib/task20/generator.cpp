@@ -8,7 +8,8 @@ int orderOfPolinome(int modulus, const Polinome p1, const Polinome p2) {
     Polinome result = p2;
      while (!found){
          result = p2.multiply(p2, modulus);
-         if (result.getRemainder(p1, modulus) == 1)
+
+         if (*result.divide(p1,modulus).remainder == Polinome("1"))
          {
              return order;
         }
@@ -16,11 +17,11 @@ int orderOfPolinome(int modulus, const Polinome p1, const Polinome p2) {
     }
 }
 
-int degreeOfPolinome(const Polinome p) {
+int degreeOfPolinome(Polinome p) {
     int degree = 0;
-    for (int i = p.coefficients->size()-1; i >= 0; i--)
+    for (int i = p.getCoefficients()->size()-1; i >= 0; i--)
     {
-        if ((*p.coefficients)[i] != 0)
+        if ((*p.getCoefficients())[i] != 0)
         {
             degree = i;
         }

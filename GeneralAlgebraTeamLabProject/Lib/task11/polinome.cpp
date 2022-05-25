@@ -26,6 +26,11 @@ Polinome::~Polinome() {
     delete coefficients;
 }
 
+std::vector<IntModulo>* Polinome::getCoefficients()
+        {
+            return this->coefficients;
+        }
+
 Polinome Polinome::add(const Polinome& polinome, unsigned long long modulus) const {
     Polinome result = Polinome();
     unsigned long long maxPower = std::max(this->coefficients->size(), polinome.coefficients->size());

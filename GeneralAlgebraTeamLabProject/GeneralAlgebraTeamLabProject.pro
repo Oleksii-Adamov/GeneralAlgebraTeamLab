@@ -5,4 +5,5 @@ SUBDIRS += \
     Lib \
     TestFactorization \
     TestNumberModulo \
-    TestPolinome
+    TestPolinome \
+    TestGenerator
