@@ -1,8 +1,4 @@
-#ifndef POLINOME_DEGREE_HPP
-#define POLINOME_DEGREE_HPP
-
-#include "../task11/polinome.h"
-#include "degree_result.hpp"
+#include "polinome_degree.h"
 
 DegreeResult Polinome::degree() const {
     auto coeffs = this->coefficients;
@@ -13,5 +9,3 @@ DegreeResult Polinome::degree() const {
     }
     return {true, 0};
 }
-
-#endif // POLINOME_DEGREE_HPP

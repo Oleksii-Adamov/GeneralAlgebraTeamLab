@@ -1,8 +1,8 @@
 #include <QTest>
 
 #include "task11/polinome.h"
-#include "task13/polinome_degree.hpp"
-#include "task13/polinome_division.hpp"
+#include "task13/polinome_degree.h"
+#include "task13/polinome_division.h"
 #include <stdexcept>
 
 class TestPolinome : public QObject {
@@ -284,13 +284,17 @@ void TestPolinome::testPolinomeDegree() {
 }
 
 void TestPolinome::testPolinomeDivision() {
+    auto r3 = Polinome("3x^4 + x^3 + 2x^2 + 1").divide(Polinome("x^2 + 4x + 2"), 5);
+    QCOMPARE(*r3.quotient, Polinome("3x^2 + 4x"));
+    QCOMPARE(*r3.remainder, Polinome("2x + 1"));
+
     auto r1 = Polinome("12x + 4").divide(Polinome("x + 1"), 7);
-    QCOMPARE(r1.quotient, Polinome("5"));
-    QCOMPARE(r1.remainder, Polinome("6"));
+    QCOMPARE(*r1.quotient, Polinome("5"));
+    QCOMPARE(*r1.remainder, Polinome("6"));
 
     auto r2 = Polinome("12x^3 + 3").divide(Polinome("5x + 1"), 7);
-    QCOMPARE(r2.quotient, Polinome("x^2 + 4x + 2"));
-    QCOMPARE(r2.remainder, Polinome("1"));
+    QCOMPARE(*r2.quotient, Polinome("x^2 + 4x + 2"));
+    QCOMPARE(*r2.remainder, Polinome("1"));
 }
 
 QTEST_APPLESS_MAIN(TestPolinome)

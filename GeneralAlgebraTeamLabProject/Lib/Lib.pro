@@ -13,6 +13,8 @@ SOURCES += \
     lib.cpp \
     task1/intmodulo.cpp \
     task11/polinome.cpp \
+    task13/polinome_division.cpp \
+    task13/polynome_degree.cpp \
     task5/pollardfactorization.cpp
 
 HEADERS += \
@@ -20,10 +22,10 @@ HEADERS += \
     lib.h \
     task1/intmodulo.h \
     task11/polinome.h \
-    task13/degree_result.hpp \
-    task13/division_result.hpp \
-    task13/polinome_degree.hpp \
-    task13/polinome_division.hpp \
+    task13/degree_result.h \
+    task13/division_result.h \
+    task13/polinome_degree.h \
+    task13/polinome_division.h \
     task5/pollardfactorization.h
 
 # Default rules for deployment.
