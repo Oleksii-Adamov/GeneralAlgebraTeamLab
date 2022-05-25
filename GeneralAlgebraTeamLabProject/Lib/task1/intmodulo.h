@@ -4,6 +4,7 @@
 #include "Lib_global.h"
 #include <string>
 #include <iostream>
+#include <map>
 
 class LIB_EXPORT IntModulo
 {
@@ -65,6 +66,17 @@ public:
     void FromString(const std::string& input);
     // overload of >> for streams
     LIB_EXPORT friend std::istream &operator>>(std::istream& in, IntModulo& obj);
+
+    // checks if this number is prime using Miller–Rabin primality test
+    bool isPrime(int iterationsNum);
+
+    // counts the positive integers up to num that are relatively prime to num.
+    long long phi();
+    // finds the smallest positive m for every integer between 1 and num that is coprime to n
+    long long carmichael();
+private:
+    // methods
+    static bool miillerTest(long long d, long long n);
 };
 
 
