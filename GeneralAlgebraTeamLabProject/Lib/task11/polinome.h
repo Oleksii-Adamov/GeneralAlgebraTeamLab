@@ -38,4 +38,9 @@ public:
     bool operator== (const Polinome& polinome) const;
 };
 
+// Function to check for Eisensteins
+// Irreducubility Criterion
+LIB_EXPORT bool checkIrreducibilty(std::vector<IntModulo> coefficients, long long N);
+
+
 #endif // POLINOME_H
