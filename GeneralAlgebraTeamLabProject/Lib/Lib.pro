@@ -14,10 +14,9 @@ SOURCES += \
     utils.cpp \
     task1/intmodulo.cpp \
     task11/polinome.cpp \
-    task8/findgroup.cpp
+    task8/findgroup.cpp \
     task13/polinome_division.cpp \
-    task13/polynome_degree.cpp \
-    task5/pollardfactorization.cpp
+    task13/polynome_degree.cpp
 
 HEADERS += \
     Lib_global.h \
@@ -25,12 +24,12 @@ HEADERS += \
     utils.h \
     task1/intmodulo.h \
     task11/polinome.h \
-    task8/findgroup.h
+    task8/findgroup.h \
     task13/degree_result.h \
     task13/division_result.h \
     task13/polinome_degree.h \
-    task13/polinome_division.h \
-    task5/pollardfactorization.h
+    task13/polinome_division.h
+
 
 # Default rules for deployment.
 unix {
