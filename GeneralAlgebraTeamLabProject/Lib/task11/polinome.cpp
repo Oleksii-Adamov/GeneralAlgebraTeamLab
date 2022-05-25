@@ -1,5 +1,6 @@
 #include "polinome.h"
 #include "../utils.h"
+#include "task13/polinome_division.h"
 
 std::vector<IntModulo>* convert(const std::string& writtenPolinome);
 
@@ -182,10 +183,12 @@ std::vector<IntModulo>* convert(const std::string& writtenPolinome) {
     return answer;
 }
 
-Polinome CyclotomicPolynomial(unsigned long long n) {
+DivisionResult<Polinome> CyclotomicPolynomial(unsigned long long n) {
 
-    Polinome result = Polinome(n);
-
+    Polinome numerator = Polinome(n);
+    Polinome denominator = Polinome(n);
+    bool numerator_init = false;
+    bool denominator_init = false;
     for(unsigned long long d = 1; d <= n; d++) {
         if (n % d == 0) {
             std::vector<IntModulo> pol(n, 0);
@@ -193,16 +196,26 @@ Polinome CyclotomicPolynomial(unsigned long long n) {
             pol[0] = -1;
             switch(mobius(n/d)){
                 case 1: {
-                    result.multiply(Polinome(&pol), 2);
+                    if(!numerator_init) {
+                        numerator = Polinome(&pol);
+                        numerator_init = true;
+                        break;
+                    }
+                    numerator.multiply(Polinome(&pol), 2);
                     break;
                 }
                 case -1: {
-                    //result.divide(Polinome(pol), 2);  TODO
+                    if(!denominator_init) {
+                        denominator = Polinome(&pol);
+                        denominator_init = true;
+                        break;
+                    }
+                    denominator.multiply(Polinome(&pol), 2);
                     break;
                 }
             }
         }
     }
 
-    return result;
+    return numerator.divide(&denominator, 2);
 } 

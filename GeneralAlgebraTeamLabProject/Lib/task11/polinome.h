@@ -36,6 +36,6 @@ public:
     bool operator== (const Polinome& polinome) const;
 };
 
-Polinome CyclotomicPolynomial(unsigned long long n);
+DivisionResult<Polinome> CyclotomicPolynomial(unsigned long long n);
 
 #endif // POLINOME_H
