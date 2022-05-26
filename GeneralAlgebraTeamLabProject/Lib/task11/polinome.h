@@ -19,6 +19,7 @@ public:
     Polinome();
     Polinome(int power);
     Polinome(std::vector<IntModulo>* coefficients);
+    Polinome(const Polinome& other);
     Polinome(const Polinome& other) : coefficients(other.coefficients) {}
     /**
      * The string should be like this: " 3x^2 + 35x^4 + 22x + 321".

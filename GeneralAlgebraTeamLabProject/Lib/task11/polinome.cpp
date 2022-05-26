@@ -29,10 +29,18 @@ Polinome::~Polinome() {
     delete coefficients;
 }
 
+Polinome::Polinome(const Polinome& other) {
+    this->coefficients = new std::vector<IntModulo>(other.coefficients->size());
+    for(size_t i=0;i<other.coefficients->size();i++){
+       (*this->coefficients)[i]= (*other.coefficients)[i];
+    }
+}
+
+
 std::vector<IntModulo>* Polinome::getCoefficients()
-        {
-            return this->coefficients;
-        }
+{
+    return this->coefficients;
+}
 
 Polinome Polinome::add(const Polinome& polinome, unsigned long long modulus) const {
     Polinome result = Polinome();
