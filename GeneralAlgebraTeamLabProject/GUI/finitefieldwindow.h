@@ -41,13 +41,10 @@ private:
     void read_and_mod(IntModulo& first, IntModulo& second, unsigned long long& modulus);
     void read_and_mod(IntModulo& first, unsigned long long& modulus);
     Ui::FiniteFieldWindow *ui;
-    //void set_ans(const IntModulo& ans);
-    //void set_ans(long long ans);
-public:
-    //void set_ans(const QString& ans);
-
+    void set_ans(const IntModulo& ans);
+    void set_ans(long long ans);
     void set_ans(const std::string& ans);
-
+    void evaluate_func(void (*func)());
 };
 
 #endif // FINITEFIELDWINDOW_H
