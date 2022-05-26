@@ -346,6 +346,10 @@ std::optional<std::pair<IntModulo, IntModulo>> IntModulo::sqrt(unsigned long lon
             }
         }
 
+        if (p == 0 || q == 0) {
+            throw "Strange";
+        }
+
         //find roots
         auto p_roots = IntModulo(n, p).sqrt_prime(p);
         auto q_roots = IntModulo(n, q).sqrt_prime(q);
