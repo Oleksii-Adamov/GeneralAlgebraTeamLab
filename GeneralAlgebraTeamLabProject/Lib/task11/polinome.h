@@ -43,6 +43,8 @@ public:
     // task13 methods
     DegreeResult degree() const;
     DivisionResult<Polinome> divide(const Polinome& divider, unsigned long long modulus) const;
+    Polinome* copy() const;
+    Polinome* gcd(const Polinome& p, unsigned long long modulo) const;
 
     bool operator== (const Polinome& polinome) const;
     Polinome& operator= (const Polinome& polinome);
