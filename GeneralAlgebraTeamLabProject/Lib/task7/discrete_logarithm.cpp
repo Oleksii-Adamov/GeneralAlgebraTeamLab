@@ -15,18 +15,18 @@ void print(const std::string_view rem, const M& mmap)
     std::cout << '\n';
 }
 */
-int discreteLogarithm(double a, double b, int p)
+long long discreteLogarithm(long long a, long long b, long long p)
 {
-    int h = floor(sqrt(p)) + 1;
-    int c = IntModulo(std::pow(a, h), p).get_num();
+    long long h = floor(sqrt(p)) + 1;
+    long long c = IntModulo(std::pow(a, h), p).get_num();
 
     std::multimap<int, int> cu;
     std::multimap<int, int> bav;
 
-    for(int u = 1; u <= h; u++)
+    for (long long u = 1; u <= h; u++)
         cu.insert(decltype(cu)::value_type(IntModulo(std::pow(c, u), p).get_num(), u));
 
-    for(int v = 0; v<= h; v++)
+    for (long long v = 0; v <= h; v++)
         bav.insert(decltype(bav)::value_type(IntModulo(b * std::pow(a, v), p).get_num(), v));
 
     for(auto el_cu = cu.begin(); el_cu != cu.end(); el_cu++) {
@@ -40,18 +40,19 @@ int discreteLogarithm(double a, double b, int p)
     return -1;
 }
 
+long long discreteLogarithm2(long long base, long long result, long long module)
+{
+    long long n = (long long)sqrt(module) + 1;
 
-int discreteLogarithm2(int base, int result, int module) {
-    int n = (int)sqrt(module) + 1;
-
-    int baseInNPower = 1;
-    for (int i = 0; i < n; i++) {
+    long long baseInNPower = 1;
+    for (long long i = 0; i < n; i++)
+    {
         baseInNPower = (baseInNPower * base) % module;
     }
 
-    std::map<int, int>  table;
+    std::map<long long, long long> table;
 
-    for (int i = 1, current = baseInNPower; i <= n; i++) {
+    for (long long i = 1, current = baseInNPower; i <= n; i++) {
         if (!table[current]) {
             table[current] = i;
         }
@@ -59,9 +60,10 @@ int discreteLogarithm2(int base, int result, int module) {
         current = (current * baseInNPower) % module;
     }
 
-   for (int j = 0, current = result; j <= n; j++) {
+    for (long long j = 0, current = result; j <= n; j++)
+    {
         if (table[current]) {
-            int answer = table[current] * n - j;
+            long long answer = table[current] * n - j;
             if (answer < module) {
                 return answer;
             }
