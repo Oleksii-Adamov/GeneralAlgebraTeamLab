@@ -1,4 +1,6 @@
 #include "polinome.h"
+#include "../utils.h"
+#include "task13/polinome_division.h"
 
 std::vector<IntModulo>* convert(const std::string& writtenPolinome);
 
@@ -6,6 +8,7 @@ Polinome::Polinome() {
     std::vector<IntModulo>* vec = new std::vector<IntModulo>();
     coefficients = vec;
 }
+
 
 Polinome::Polinome(int power) {
     coefficients = new std::vector<IntModulo>();
@@ -102,7 +105,14 @@ IntModulo Polinome::evaluate(IntModulo x, unsigned long long modulus){
 
     return res;
 }
-
+Polinome& Polinome::operator= (const Polinome& polinome) {
+    delete this->coefficients;
+    this->coefficients= new std::vector<IntModulo>(polinome.coefficients->size());
+  for(size_t i=0;i<polinome.coefficients->size();i++){
+       (*this->coefficients)[i]= (*polinome.coefficients)[i];
+   }
+    return *this;
+    }
 bool Polinome::operator== (const Polinome& polinome) const {
     unsigned long long i = 0;
     for(; i < std::min(this->coefficients->size(), polinome.coefficients->size()); ++i) {
@@ -321,4 +331,44 @@ bool checkIrreducibilty(std::vector<IntModulo> coefficients, long long N)
         }
     }
     return 0;
+}
+
+
+DivisionResult<Polinome> CyclotomicPolynomial(unsigned long long n, unsigned long long module) {
+    Polinome numerator = Polinome(n+1);
+    Polinome denominator = Polinome(n+1);
+    bool numerator_init = false;
+    bool denominator_init = false;
+    for(unsigned long long d = 1; d <= n; d++) {
+        if (n % d == 0) {
+           // std::vector<IntModulo> pol(n+1, 0);
+           auto pol= new std::vector<IntModulo>(n+1,0);
+            (*pol)[d] = 1;
+           (*pol)[0] = -1;
+            switch(mobius(n/d)){
+                case 1: {
+                    if(!numerator_init) {
+                        numerator = Polinome(pol);
+                        numerator_init = true;
+                        break;
+                    }
+                 numerator = numerator.multiply(Polinome(pol), module);
+                    break;
+                }
+                case -1: {
+                    if(!denominator_init) {
+                        denominator = Polinome(pol);
+                        denominator_init = true;
+                        break;
+                    }
+                  denominator = denominator.multiply(Polinome(pol), module);
+                    break;
+                }
+            }
+        }
+    }
+    if(!denominator_init){
+           return numerator.divide(Polinome("1"),module);
+    }
+    return numerator.divide(denominator, module);
 }

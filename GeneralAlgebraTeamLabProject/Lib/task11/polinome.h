@@ -19,6 +19,7 @@ public:
     Polinome();
     Polinome(int power);
     Polinome(std::vector<IntModulo>* coefficients);
+    Polinome(const Polinome& other) : coefficients(other.coefficients) {}
     /**
      * The string should be like this: " 3x^2 + 35x^4 + 22x + 321".
      * There could be whitespaces between numbers, variables and powers (" 3x^ 2 + 35  x ^ 4   + 22 x  + 321 " ).
@@ -41,13 +42,14 @@ public:
     // task13 methods
     DegreeResult degree() const;
     DivisionResult<Polinome> divide(const Polinome& divider, unsigned long long modulus) const;
-
+    Polinome& operator= (const Polinome& polinome);
     bool operator== (const Polinome& polinome) const;
 };
-
+LIB_EXPORT DivisionResult<Polinome> CyclotomicPolynomial(unsigned long long n, unsigned long long module);
 // Function to check for Eisensteins
 // Irreducubility Criterion
 LIB_EXPORT bool checkIrreducibilty(std::vector<IntModulo> coefficients, long long N);
+
 
 
 #endif // POLINOME_H

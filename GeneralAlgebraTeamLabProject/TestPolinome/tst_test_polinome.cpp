@@ -26,6 +26,8 @@ private slots:
     // Task13 tests
     void testPolinomeDegree();
     void testPolinomeDivision();
+    //Task14 test
+    void testPolinomeCyclotomicPolynomial();
 };
 
 TestPolinome::TestPolinome() {}
@@ -297,6 +299,11 @@ void TestPolinome::testPolinomeDivision() {
     QCOMPARE(*r2.remainder, Polinome("1"));
 }
 
+void TestPolinome::testPolinomeCyclotomicPolynomial() {
+    auto r1 = CyclotomicPolynomial(12,11);
+    QCOMPARE(*r1.quotient, Polinome("x^4 - x^2 + 1"));
+
+}
 QTEST_APPLESS_MAIN(TestPolinome)
 
 #include "tst_test_polinome.moc"
