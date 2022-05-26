@@ -3,6 +3,8 @@ TEMPLATE = subdirs
 SUBDIRS += \
     GUI \
     Lib \
+    TestDiscreteLogarithm \
     TestFactorization \
     TestNumberModulo \
-    TestPolinome
+    TestPolinome \
+    TestGenerator
