@@ -81,7 +81,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit_modulus_2"/>
+        <widget class="QLineEdit" name="lineEdit_irreducible"/>
        </item>
       </layout>
      </item>
@@ -146,7 +146,7 @@
         </widget>
        </item>
        <item row="7" column="0">
-        <widget class="QPushButton" name="pushButton_2">
+        <widget class="QPushButton" name="pushButton_order">
          <property name="text">
           <string> Порядок многочлена</string>
          </property>

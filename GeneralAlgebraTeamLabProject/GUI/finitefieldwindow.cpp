@@ -6,6 +6,7 @@
 #include <limits>
 #include "task1/intmodulo.h"
 #include "task5/pollardfactorization.h"
+#include "task8/findgroup.h"
 
 FiniteFieldWindow::FiniteFieldWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -223,5 +224,16 @@ void FiniteFieldWindow::on_pushButton_carmichael_clicked()
 void FiniteFieldWindow::on_pushButton_discreteLogarithm_clicked()
 {
 
+}
+
+
+void FiniteFieldWindow::on_pushButton_elementOrder_clicked()
+{
+    IntModulo first;
+    unsigned long long modulus;
+    read_and_mod(first, modulus);
+    FindGroup group(modulus);
+    IntModulo ans = group.ElementOrder(first);
+    set_ans(ans);
 }
 

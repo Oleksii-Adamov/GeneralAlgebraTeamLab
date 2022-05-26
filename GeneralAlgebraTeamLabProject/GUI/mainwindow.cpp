@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "finitefieldwindow.h"
 #include "polynomialringwindow.h"
+#include "polynomialfieldwindow.h"
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -34,6 +35,7 @@ void MainWindow::on_pushButton_FiniteField_clicked()
 
 void MainWindow::on_pushButton_PolynomialField_clicked()
 {
-
+    PolynomialFieldWindow* new_window = new PolynomialFieldWindow(this);
+    new_window->show();
 }
 

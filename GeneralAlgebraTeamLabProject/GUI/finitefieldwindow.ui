@@ -96,7 +96,7 @@
           <number>0</number>
          </property>
          <item row="7" column="0">
-          <widget class="QPushButton" name="pushButton_9">
+          <widget class="QPushButton" name="pushButton_elementOrder">
            <property name="text">
             <string> Порядок елемента групи</string>
            </property>
