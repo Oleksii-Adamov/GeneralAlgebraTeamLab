@@ -45,6 +45,7 @@ public:
 
     bool operator== (const Polinome& polinome) const;
     Polinome& operator= (const Polinome& polinome);
+    Polinome(const Polinome& other);
 };
 
 // Function to check for Eisensteins
