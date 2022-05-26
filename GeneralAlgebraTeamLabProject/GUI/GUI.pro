@@ -22,7 +22,8 @@ SOURCES += \
 HEADERS += \
     finitefieldwindow.h \
     mainwindow.h \
-    polynomialringwindow.h
+    polynomialringwindow.h \
+    validation.h
 
 FORMS += \
     finitefieldwindow.ui \

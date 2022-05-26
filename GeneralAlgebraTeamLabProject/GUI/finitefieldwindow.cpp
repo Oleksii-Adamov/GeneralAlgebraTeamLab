@@ -2,6 +2,8 @@
 #include "ui_finitefieldwindow.h"
 #include <string>
 #include <QRegularExpressionValidator>
+#include <QIntValidator>
+#include <limits>
 #include "task1/intmodulo.h"
 #include "task5/pollardfactorization.h"
 
@@ -23,48 +25,76 @@ FiniteFieldWindow::~FiniteFieldWindow()
 }
 
 void FiniteFieldWindow::read_and_mod(IntModulo& first, IntModulo& second, unsigned long long& modulus) {
-    first.FromString(ui->lineEdit_first->text().toStdString());
-    second.FromString(ui->lineEdit_second->text().toStdString());
-    modulus = std::stoull(ui->lineEdit_modulus->text().toStdString());
-    first.mod(modulus);
-    second.mod(modulus);
+    //try {
+        first.FromString(ui->lineEdit_first->text().toStdString());
+        second.FromString(ui->lineEdit_second->text().toStdString());
+        modulus = std::stoull(ui->lineEdit_modulus->text().toStdString());
+        first.mod(modulus);
+        second.mod(modulus);
+    //}
+   // catch(std::exception& e) {
+     //   set_ans(e.what());
+    //}
 }
 
 void FiniteFieldWindow::read_and_mod(IntModulo& first, unsigned long long& modulus) {
-    first.FromString(ui->lineEdit_first->text().toStdString());
-    modulus = std::stoull(ui->lineEdit_modulus->text().toStdString());
-    first.mod(modulus);
+    try {
+        first.FromString(ui->lineEdit_first->text().toStdString());
+        modulus = std::stoull(ui->lineEdit_modulus->text().toStdString());
+        first.mod(modulus);
+    }
+    catch(std::exception& e) {
+        set_ans(e.what());
+    }
 }
 
-void FiniteFieldWindow::set_ans(const QString& ans) {
+void FiniteFieldWindow::set_ans(const std::string& ans) {
+    ui->lineEdit_ans->setText(QString::fromStdString(ans));
+}
+
+/*void FiniteFieldWindow::set_ans(const QString& ans) {
     ui->lineEdit_ans->setText(ans);
-}
+}*/
 
-void FiniteFieldWindow::set_ans(const IntModulo& ans) {
+/*void FiniteFieldWindow::set_ans(const IntModulo& ans) {
     ui->lineEdit_ans->setText(QString::number(ans.get_num()));
 }
 
 void FiniteFieldWindow::set_ans(long long ans) {
     ui->lineEdit_ans->setText(QString::number(ans));
-}
+}*/
 
 void FiniteFieldWindow::on_pushButton_add_clicked()
 {
-    IntModulo first, second;
-    unsigned long long modulus;
-    read_and_mod(first, second, modulus);
-    first.add(second, modulus);
-    set_ans(first);
+    try {
+        IntModulo first, second;
+        unsigned long long modulus;
+        read_and_mod(first, second, modulus);
+        first.add(second, modulus);
+//        set_ans(first);
+    }
+    catch(std::exception& e) {
+        std::string message = e.what();
+        if (message == "modulus = 0") {
+            message = "Модуль = 0";
+        }
+        set_ans(message);
+    }
 }
 
 
 void FiniteFieldWindow::on_pushButton_substract_clicked()
 {
-    IntModulo first, second;
-    unsigned long long modulus;
-    read_and_mod(first, second, modulus);
-    first.subtract(second, modulus);
-    set_ans(first);
+    try {
+        IntModulo first, second;
+        unsigned long long modulus;
+        read_and_mod(first, second, modulus);
+        first.subtract(second, modulus);
+ //       set_ans(first);
+    }
+    catch(std::exception& e) {
+        set_ans(e.what());
+    }
 }
 
 
@@ -74,7 +104,7 @@ void FiniteFieldWindow::on_pushButton_multiply_clicked()
     unsigned long long modulus;
     read_and_mod(first, second, modulus);
     first.multiply(second, modulus);
-    set_ans(first);
+//    set_ans(first);
 }
 
 
@@ -84,7 +114,7 @@ void FiniteFieldWindow::on_pushButton_pow_clicked()
     unsigned long long modulus, exponent = std::stoull(ui->lineEdit_second->text().toStdString());
     read_and_mod(first, modulus);
     first.pow(exponent, modulus);
-    set_ans(first);
+ //   set_ans(first);
 }
 
 
@@ -95,10 +125,10 @@ void FiniteFieldWindow::on_pushButton_divide_clicked()
     read_and_mod(first, second, modulus);
     try {
         first.divide(second, modulus);
-        set_ans(first);
+//        set_ans(first);
     }
     catch(std::logic_error& e) {
-        set_ans("Дільник немає оберненого");
+       set_ans("Дільник немає оберненого");
     }
 }
 
@@ -113,7 +143,7 @@ void FiniteFieldWindow::on_pushButton_reverse_clicked()
         set_ans("Елемент немає оберненого");
     }
     else {
-        set_ans(ans);
+//        set_ans(ans);
     }
 }
 
@@ -129,7 +159,7 @@ void FiniteFieldWindow::on_pushButton_factorization_Pollard_clicked()
         for (auto val : map_ans) {
             ans += QString::number(val.first) + " " + QString::number(val.second);
         }
-        set_ans(ans);
+        set_ans(ans.toStdString());
     }
     catch(std::invalid_argument& e) {
         set_ans("Число меньше 1");
@@ -167,7 +197,7 @@ void FiniteFieldWindow::on_pushButton_euler_clicked()
     read_and_mod(first, modulus);
     try {
         long long ans = first.phi();
-        set_ans(ans);
+//        set_ans(ans);
     }
     catch(std::exception& e) {
         if (std::string(e.what()) == std::string("Num can`t be less than 1.")) {
@@ -186,6 +216,6 @@ void FiniteFieldWindow::on_pushButton_carmichael_clicked()
     unsigned long long modulus;
     read_and_mod(first, modulus);
     long long ans = first.carmichael();
-    set_ans(ans);
+//    set_ans(ans);
 }
 
