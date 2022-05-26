@@ -55,8 +55,8 @@ Polinome Polinome::add(const Polinome& polinome, unsigned long long modulus) con
 }
 
 Polinome Polinome::add(const Polinome& polinome, const Polinome& irreducible, unsigned long long modulus) const {
-    Polinome p = this->add(polinome, modulus);
-    DivisionResult<Polinome> res = p->divide(irreducible, modulus);
+    Polinome p = this.add(polinome, modulus);
+    DivisionResult<Polinome> res = p.divide(irreducible, modulus);
     return res.remainder;
 }
 
@@ -73,8 +73,8 @@ Polinome Polinome::subtract(const Polinome &polinome, unsigned long long modulus
 }
 
 Polinome Polinome::subtract(const Polinome& polinome, const Polinome& irreducible, unsigned long long modulus) const {
-    Polinome p = this->subtract(polinome, modulus);
-    DivisionResult<Polinome> res = p->divide(irreducible, modulus);
+    Polinome p = this.subtract(polinome, modulus);
+    DivisionResult<Polinome> res = p.divide(irreducible, modulus);
     return res.remainder;
 }
 
@@ -91,19 +91,19 @@ Polinome Polinome::multiply(const Polinome& polinome, unsigned long long modulus
 }
 
 Polinome Polinome::multiply(const Polinome& polinome, const Polinome& irreducible, unsigned long long modulus) const {
-    Polinome p = this->multiply(polinome, modulus);
-    DivisionResult<Polinome> res = p->divide(irreducible, modulus);
+    Polinome p = this.multiply(polinome, modulus);
+    DivisionResult<Polinome> res = p.divide(irreducible, modulus);
     return res.remainder;
 }
 
 Polinome Polinome::pow(long long power, unsigned long long modulus) const {
     long long pow;
     Polinome res = this;
-    for (pow = 1; i*2 <= power; i*=2) {
-        res = res->multiply(res, modulus);
+    for (pow = 1; pow*2 <= power; pow*=2) {
+        res = res.multiply(res, modulus);
     }
     if (pow < power) {
-        res = res->multiply(this, modulus);
+        res = res.multiply(this, modulus);
     }
     return res;
 }
