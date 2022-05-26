@@ -54,6 +54,7 @@ void FindGroup::FindPrimeFactorization(){
     }    
 }
 
+//elem - position element of group masive
 IntModulo FindGroup::ElementOrder(IntModulo elem){
     
     if(elem.get_num() <= group.size() - 1){
