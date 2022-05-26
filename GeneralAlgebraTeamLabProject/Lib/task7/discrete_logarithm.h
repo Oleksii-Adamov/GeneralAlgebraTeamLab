@@ -7,4 +7,5 @@
 
 /*template<class M>
 void print(const std::string_view rem, const M& mmap);*/
-int discreteLogarithm(double a, double b, int p);
+LIB_EXPORT int discreteLogarithm(double a, double b, int p);
+LIB_EXPORT int discreteLogarithm2(int base, int result, int module);

@@ -39,3 +39,36 @@ int discreteLogarithm(double a, double b, int p)
 
     return -1;
 }
+
+
+int discreteLogarithm2(int base, int result, int module) {
+    int n = (int)sqrt(module) + 1;
+
+    int baseInNPower = 1;
+    for (int i = 0; i < n; i++) {
+        baseInNPower = (baseInNPower * base) % module;
+    }
+
+    std::map<int, int>  table;
+
+    for (int i = 1, current = baseInNPower; i <= n; i++) {
+        if (!table[current]) {
+            table[current] = i;
+        }
+
+        current = (current * baseInNPower) % module;
+    }
+
+   for (int j = 0, current = result; j <= n; j++) {
+        if (table[current]) {
+            int answer = table[current] * n - j;
+            if (answer < module) {
+                return answer;
+            }
+
+        }
+        current = (current * base) % module;
+    }
+
+    return -1;
+}
