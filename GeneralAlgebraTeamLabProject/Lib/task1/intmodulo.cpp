@@ -4,6 +4,7 @@
 #include <numeric>
 #include <stdexcept>
 #include <string>
+#include <algorithm>
 
 IntModulo::IntModulo()
 {
@@ -213,101 +214,107 @@ long long legendreSymbol(unsigned long long a, unsigned long long n)
     return 0;
 }
 
+std::optional<std::pair<IntModulo, IntModulo>> IntModulo::sqrt_prime(unsigned long long modulus) const {
+    if (this->get_num() > modulus-1)
+        throw std::invalid_argument("modulus-1 must be greater or equal to the number");
+    if (modulus % 1 != 0)
+        throw std::invalid_argument("modulus should be integer");
 
-std::optional<std::pair<IntModulo, IntModulo>> IntModulo::sqrt(unsigned long long p)
-{
-    if (isPrime(p))
-    {
+    if (legendreSymbol(this->get_num(), modulus) == -1)
+        return std::nullopt;
 
-        if (this->get_num() > p-1)
-            throw std::invalid_argument("modulus-1 must be greater or equal to the number");
-        if (p % 1 != 0)
-            throw std::invalid_argument("modulus should be integer");
-
-        if (legendreSymbol(this->get_num(), p) == -1)
-            return std::nullopt;
-
-        // case p == 3 (mod 4) (Algorithm 3.36)
-        if (p % 4 == 3) {
-            IntModulo r(*this);
-            r.pow((p+1)/4, p);
-            IntModulo neg(-r.get_num());
-            return std::make_pair(r, neg);
-        }
-
-        // case p == 5 (mod 8) (Algorithm 3.37)
-        if (p % 8 == 5) {
-            IntModulo d(*this);
-            d.pow((p-1)/4, p);
-            IntModulo r(*this);
-            if (d.get_num() == 1){
-                r.pow((p+3)/8, p);
-                IntModulo neg(-r.get_num());
-                return std::make_pair(r, neg);
-            } else if (d.get_num() == p-1) {
-                IntModulo r2(*this);
-                r.multiply(IntModulo(2ll), p);
-                r2.multiply(IntModulo(4ll), p);
-                r2.pow((p-5)/8, p);
-                r.multiply(r2, p);
-                IntModulo neg(-r.get_num());
-                return std::make_pair(r, neg);
-            }
-        }
-
-
-        // (Algorithm 3.34)
-
-        // random numbers
-        const int range_from  = 1;
-        const int range_to    = p-1;
-
-        std::random_device                        rand_dev;
-        std::mt19937                              generator(rand_dev());
-        std::uniform_int_distribution<long long>  distr(range_from, range_to);
-
-        IntModulo b;
-        do {
-            b.set_num(distr(generator));
-        } while (legendreSymbol(b.get_num(), p) != -1);
-
-        IntModulo s(0);
-        unsigned long long t = p - 1;
-        while (t % 2 == 0 && s.get_num() < 10) {
-            t /= 2;
-            s.add(IntModulo(1), LLONG_MAX);
-        }
-
-        IntModulo rev = this->findReversed(p);
-
-        IntModulo c;
-        IntModulo temp(b);
-        temp.pow(t, p);
-        c.set_num(temp.get_num());
-
-        IntModulo r(this->get_num());
-        r.pow((t+1)/2, p);
-
-        for (long long i = 1; i <= s.get_num()-1; i++)
-        {
-            IntModulo d(r);
-            d.pow(2, p);
-            d.multiply(rev, p);
-            d.pow(std::pow(2, s.get_num()-i-1), p);
-
-            if (p - d.get_num() == 1)
-                r.multiply(c, p);
-
-            c.pow(2, p);
-        }
-
+    // case p == 3 (mod 4) (Algorithm 3.36)
+    if (modulus % 4 == 3) {
+        IntModulo r(*this);
+        r.pow((modulus+1)/4, modulus);
         IntModulo neg(-r.get_num());
         return std::make_pair(r, neg);
     }
-    else
+
+    // case p == 5 (mod 8) (Algorithm 3.37)
+    if (modulus % 8 == 5) {
+        IntModulo d(*this);
+        d.pow((modulus-1)/4, modulus);
+        IntModulo r(*this);
+        if (d.get_num() == 1){
+            r.pow((modulus+3)/8, modulus);
+            IntModulo neg(-r.get_num());
+            return std::make_pair(r, neg);
+        } else if (d.get_num() == modulus-1) {
+            IntModulo r2(*this);
+            r.multiply(IntModulo(2ll), modulus);
+            r2.multiply(IntModulo(4ll), modulus);
+            r2.pow((modulus-5)/8, modulus);
+            r.multiply(r2, modulus);
+            IntModulo neg(-r.get_num());
+            return std::make_pair(r, neg);
+        }
+    }
+
+
+    // (Algorithm 3.34)
+
+    // random numbers
+    const int range_from  = 1;
+    const int range_to    = modulus-1;
+
+    std::random_device                        rand_dev;
+    std::mt19937                              generator(rand_dev());
+    std::uniform_int_distribution<long long>  distr(range_from, range_to);
+
+    IntModulo b;
+    do {
+        b.set_num(distr(generator));
+    } while (legendreSymbol(b.get_num(), modulus) != -1);
+
+    IntModulo s(0);
+    unsigned long long t = modulus - 1;
+    while (t % 2 == 0 && s.get_num() < 10) {
+        t /= 2;
+        s.add(IntModulo(1), LLONG_MAX);
+    }
+
+    IntModulo rev = this->findReversed(modulus);
+
+    IntModulo c;
+    IntModulo temp(b);
+    temp.pow(t, modulus);
+    c.set_num(temp.get_num());
+
+    IntModulo r(this->get_num());
+    r.pow((t+1)/2, modulus);
+
+    for (long long i = 1; i <= s.get_num()-1; i++)
     {
-        // АНДРЕЕЕЕЙ
+        IntModulo d(r);
+        d.pow(2, modulus);
+        d.multiply(rev, modulus);
+        d.pow(std::pow(2, s.get_num()-i-1), modulus);
+
+        if (modulus - d.get_num() == 1)
+            r.multiply(c, modulus);
+
+        c.pow(2, modulus);
+    }
+
+    IntModulo neg(-r.get_num());
+    return std::make_pair(r, neg);
+}
+
+std::optional<std::pair<IntModulo, IntModulo>> IntModulo::sqrt(unsigned long long modulus) const
+{
+    auto factors = PollardFactorization::factorize(modulus);
+
+    if (factors.size() == 0) {
         return std::nullopt;
+    }
+
+    if (factors.size() == 1 && factors.begin()->second == 1) {
+        // Case I: prime modulus
+        return this->sqrt_prime(modulus);
+    } else {
+        // Case II: composite modulus
+        throw "Unimplemented";
     }
 }
 

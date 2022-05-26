@@ -41,6 +41,11 @@ private:
     // I do not store modulus, because that would be a waste of memory (we will work in fields with some constant modulus, so
     // there is no sense to store it with every integer
     long long num = 0;
+
+    /**
+     * @param modulus - should be prime
+     */
+    std::optional<std::pair<IntModulo, IntModulo>> sqrt_prime(unsigned long long modulus) const;
 public:
     // methods
 
@@ -62,7 +67,7 @@ public:
     void pow(unsigned long long exponent, unsigned long long modulus);
     // operation of computing square roots modulo some number
     // if the square root exists, returns pair (+root, -root), else empty optional
-    std::optional<std::pair<IntModulo, IntModulo>> sqrt(unsigned long long modulus);
+    std::optional<std::pair<IntModulo, IntModulo>> sqrt(unsigned long long modulus) const;
     // return string representation of num
     std::string ToString() const;
     // read num from string (std::invalid_argument if contains non digits before digits, but if string is "123d", then num := 123)
