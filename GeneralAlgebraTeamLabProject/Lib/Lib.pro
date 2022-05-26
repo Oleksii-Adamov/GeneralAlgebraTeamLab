@@ -17,7 +17,8 @@ SOURCES += \
     task13/polinome_division.cpp \
     task13/polinome_gcd.cpp \
     task13/polynome_degree.cpp \
-    task5/pollardfactorization.cpp
+    task5/pollardfactorization.cpp \
+    task20/generator.cpp
 
 HEADERS += \
     Lib_global.h \
@@ -29,8 +30,11 @@ HEADERS += \
     task13/polinome_copy.h \
     task13/polinome_degree.h \
     task13/polinome_division.h \
-    task13/polinome_gcd.h \
-    task5/pollardfactorization.h
+    task5/pollardfactorization.h \
+    task20/generator.h \
+    task13/polinome_gcd.h 
+   
+
 
 # Default rules for deployment.
 unix {
