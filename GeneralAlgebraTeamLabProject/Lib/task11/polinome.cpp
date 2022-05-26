@@ -282,7 +282,7 @@ std::vector<long long> Eratosthene(long long M)
     for(long long k=2; k*k<=M;k++){
         if(isPrime[k]==true){
                //update all multiples if k non prime
-            for(int i=k*k; i<=M;i++){
+            for(int i=k*k; i<=M;i+=k){
                 isPrime[i]=false;
             }
         }
