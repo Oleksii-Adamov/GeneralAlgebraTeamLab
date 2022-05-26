@@ -301,6 +301,23 @@ std::optional<std::pair<IntModulo, IntModulo>> IntModulo::sqrt_prime(unsigned lo
     return std::make_pair(r, neg);
 }
 
+void extended_gcd_step(int r1, int r2, int x1, int x2, int y1, int y2, int &gcd, int &a, int &b) {
+    int r3 = r1 - r2 * (r1 / r2);
+    int x3 = x1 - x2 * (r1 / r2);
+    int y3 = y1 - y2 * (r1 / r2);
+    if (r3)
+        extended_gcd_step(r2, r3, x2, x3, y2, y3, gcd, a, b);
+    else {
+        gcd = r2;
+        a = x2;
+        b = y2;
+    }
+}
+
+void extended_gcd(int r1, int r2, int &gcd, int &a, int &b) {
+    extended_gcd_step(r1 > r2 ? r1 : r2, r1 < r2 ? r1 : r2, 1, 0, 0, 1, gcd, r1 > r2 ? a : b, r1 < r2 ? a : b);
+}
+
 std::optional<std::pair<IntModulo, IntModulo>> IntModulo::sqrt(unsigned long long modulus) const
 {
     auto factors = PollardFactorization::factorize(modulus);
@@ -309,12 +326,40 @@ std::optional<std::pair<IntModulo, IntModulo>> IntModulo::sqrt(unsigned long lon
         return std::nullopt;
     }
 
-    if (factors.size() == 1 && factors.begin()->second == 1) {
+    if (factors.size() == 1 /*&& factors.begin()->second == 1*/) {
         // Case I: prime modulus
-        return this->sqrt_prime(modulus);
+        return this->sqrt_prime(factors.begin()->first);
     } else {
         // Case II: composite modulus
-        throw "Unimplemented";
+        auto n = this->get_num();
+
+        // take any 2 factors, that are not divisors of n
+        long long p = 0, q = 0;
+        for (auto it = factors.begin(); it != factors.end(); it++) {
+            if (n % it->first != 0) {
+                if (p == 0) {
+                    p = it->first;
+                } else if (q == 0) {
+                    q = it->first;
+                    break;
+                }
+            }
+        }
+
+        //find roots
+        auto p_roots = IntModulo(n, p).sqrt_prime(p);
+        auto q_roots = IntModulo(n, q).sqrt_prime(q);
+        auto r = p_roots->first.get_num();
+        auto s = q_roots->first.get_num();
+
+        // find multipliers
+        int gcd, c, d;
+        extended_gcd(p, q, gcd, c, d);
+
+        //compute true roots
+        int x = (r*d*q + s*c*p) % modulus;
+        int y = (r*d*q - s*c*p) % modulus;
+        return std::make_pair(x, y);
     }
 }
 
