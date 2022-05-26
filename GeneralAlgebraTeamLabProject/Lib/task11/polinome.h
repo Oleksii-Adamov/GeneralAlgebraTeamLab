@@ -25,11 +25,13 @@ public:
      * There could be whitespaces between numbers, variables and powers (" 3x^ 2 + 35  x ^ 4   + 22 x  + 321 " ).
      * The variable should be only x.
      * No "*" sings.
+     * No same powers
      */
     Polinome(const std::string& writtenPolinome);
     ~Polinome();
 
     //Methods
+    std::vector<IntModulo>* getCoefficients();
     Polinome add(const Polinome& polinome, unsigned long long modulus) const;
     Polinome subtract(const Polinome& polinome, unsigned long long modulus) const;
     Polinome multiply(const Polinome& polinome, unsigned long long modulus) const;
@@ -43,7 +45,12 @@ public:
     DegreeResult degree() const;
     DivisionResult<Polinome> divide(const Polinome& divider, unsigned long long modulus) const;
     Polinome& operator= (const Polinome& polinome);
+    Polinome* copy() const;
+    Polinome* gcd(const Polinome& p, unsigned long long modulo) const;
+
     bool operator== (const Polinome& polinome) const;
+    Polinome& operator= (const Polinome& polinome);
+    Polinome(const Polinome& other);
 };
 LIB_EXPORT DivisionResult<Polinome> CyclotomicPolynomial(unsigned long long n, unsigned long long module);
 // Function to check for Eisensteins

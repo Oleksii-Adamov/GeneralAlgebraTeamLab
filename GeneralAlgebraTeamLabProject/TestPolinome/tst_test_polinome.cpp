@@ -3,6 +3,7 @@
 #include "task11/polinome.h"
 #include "task13/polinome_degree.h"
 #include "task13/polinome_division.h"
+#include "task13/polinome_gcd.h"
 #include <stdexcept>
 
 class TestPolinome : public QObject {
@@ -26,6 +27,8 @@ private slots:
     // Task13 tests
     void testPolinomeDegree();
     void testPolinomeDivision();
+    void testPolinomeGCD();
+
     //Task14 test
     void testPolinomeCyclotomicPolynomial();
 };
@@ -299,6 +302,13 @@ void TestPolinome::testPolinomeDivision() {
     QCOMPARE(*r2.remainder, Polinome("1"));
 }
 
+void TestPolinome::testPolinomeGCD() {
+    auto r1 = Polinome("3x^4 + x^3 + 2x^2 + 1").gcd(Polinome("x^2 + 4x + 2"), 5);
+    QCOMPARE(*r1, Polinome("4"));
+    auto r2 = Polinome("12x^3 + 3").gcd(Polinome("12x^3 + 3"), 7);
+    QCOMPARE(*r2, Polinome("12x^3 + 3"));
+}
+
 void TestPolinome::testPolinomeCyclotomicPolynomial() {
     auto r1 = CyclotomicPolynomial(12,11);
     QCOMPARE(*r1.quotient, Polinome("x^4 + 10x^2 + 1"));
@@ -311,6 +321,7 @@ void TestPolinome::testPolinomeCyclotomicPolynomial() {
 
 
 }
+
 QTEST_APPLESS_MAIN(TestPolinome)
 
 #include "tst_test_polinome.moc"
