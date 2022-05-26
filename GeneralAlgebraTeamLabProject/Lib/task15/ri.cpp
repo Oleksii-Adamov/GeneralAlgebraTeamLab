@@ -108,9 +108,6 @@ std::vector<Polinome> computePolynomialProductOfCyclotomicPlynomial(int q, int n
             if(p1.getCoefficients()->size() >= 1 && p1.getCoefficients()->size() < size)
             {
                 queue.push(p1);
-            }
-            {
-                queue.push(p1);
                 isDivisor = true;
             }
             Polinome p2 = PolynomialGCD(p,ri(q,n,i).add(Polinome("1"),q));

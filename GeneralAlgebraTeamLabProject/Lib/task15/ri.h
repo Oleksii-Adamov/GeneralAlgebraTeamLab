@@ -7,6 +7,7 @@
 #include "task11/polinome.h"
 #include <cmath>
 #include <queue>
+#include "task11/polinome_gcd.h"
 
 
 LIB_EXPORT int GCD(int a, int b);
