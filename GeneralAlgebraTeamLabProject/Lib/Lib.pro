@@ -13,21 +13,33 @@ SOURCES += \
     lib.cpp \
     task1/intmodulo.cpp \
     task11/polinome.cpp \
+    task7/discrete_logarithm.cpp \
+    task13/polinome_copy.cpp \
     task13/polinome_division.cpp \
+    task13/polinome_gcd.cpp \
     task13/polynome_degree.cpp \
     task5/pollardfactorization.cpp \
-    task15/ri.cpp
+    task15/ri.cpp \
+    task20/generator.cpp
 HEADERS += \
     Lib_global.h \
     lib.h \
     task1/intmodulo.h \
     task11/polinome.h \
+    task7/discrete_logarithm.h \
     task13/degree_result.h \
     task13/division_result.h \
+    task13/polinome_copy.h \
     task13/polinome_degree.h \
     task13/polinome_division.h \
     task5/pollardfactorization.h \
+<<<<<<< HEAD
     task15/ri.h
+=======
+    task20/generator.h \
+    task13/polinome_gcd.h 
+   
+>>>>>>> 5b064c2b3c6af050ef9d99d8f28e32308077785f
 
 # Default rules for deployment.
 unix {

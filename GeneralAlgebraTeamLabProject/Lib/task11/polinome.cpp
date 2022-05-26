@@ -335,3 +335,10 @@ Polinome& Polinome::operator= (const Polinome& polinome) {
     }
     return *this;
 }
+
+Polinome::Polinome(const Polinome& other) {
+    this->coefficients = new std::vector<IntModulo>(other.coefficients->size());
+    for(size_t i=0;i<other.coefficients->size();i++){
+       (*this->coefficients)[i]= (*other.coefficients)[i];
+    }
+}
