@@ -6,4 +6,5 @@ SUBDIRS += \
     TestDiscreteLogarithm \
     TestFactorization \
     TestNumberModulo \
-    TestPolinome
+    TestPolinome \
+    TestGenerator
