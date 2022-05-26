@@ -10,9 +10,9 @@ DEPENDPATH += . ../Lib
 
 INCLUDEPATH += ../Lib
 
-LIBS += ../Lib/libLib.a
+LIBS += -L../Lib/debug/ -lLib
 
-#LIBS += -L../Lib/release/ -lLib
+LIBS += -L../Lib/release/ -lLib
 
 
 SOURCES +=  tst_testfoundgroup.cpp
