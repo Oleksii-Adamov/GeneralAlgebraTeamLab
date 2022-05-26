@@ -301,7 +301,14 @@ void TestPolinome::testPolinomeDivision() {
 
 void TestPolinome::testPolinomeCyclotomicPolynomial() {
     auto r1 = CyclotomicPolynomial(12,11);
-    QCOMPARE(*r1.quotient, Polinome("x^4 - x^2 + 1"));
+    QCOMPARE(*r1.quotient, Polinome("x^4 + 10x^2 + 1"));
+    auto r2 = CyclotomicPolynomial(8,7);
+    QCOMPARE(*r2.quotient, Polinome("x^4 + 1"));
+    auto r3 = CyclotomicPolynomial(14,13);
+    QCOMPARE(*r3.quotient, Polinome("x^6 + 12x^5 + x^4 + 12x^3 + x^2 + 12x + 1"));
+    auto r4 = CyclotomicPolynomial(18,17);
+    QCOMPARE(*r4.quotient, Polinome("x^6 + 16x^3 + 1"));
+
 
 }
 QTEST_APPLESS_MAIN(TestPolinome)
