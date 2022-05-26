@@ -31,13 +31,13 @@ TestFoundGroup::~TestFoundGroup()
 
 void TestFoundGroup::testfindgroup()
 {
-    FindGroup group1(16);
-    IntModulo a = group1.ElementOrder(2);
+    FindGroup group1(13);
+    IntModulo a = group1.ElementOrder(6);
 
     FindGroup group2(15);
-    IntModulo b = group2.ElementOrder(1);
-    IntModulo c = group2.ElementOrder(3);
-    QCOMPARE(a.get_num(),4);
+    IntModulo b = group2.ElementOrder(2);
+    IntModulo c = group2.ElementOrder(7);
+    QCOMPARE(a.get_num(), 0);
     QCOMPARE(b.get_num(), 4);
     QCOMPARE(c.get_num(), 4);
 

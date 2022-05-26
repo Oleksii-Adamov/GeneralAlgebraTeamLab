@@ -55,20 +55,24 @@ void FindGroup::FindPrimeFactorization(){
 }
 
 //elem - position element of group masive
-IntModulo FindGroup::ElementOrder(IntModulo elem){
-    
-    if(elem.get_num() <= group.size() - 1){
-        IntModulo a = group[elem.get_num()];
+IntModulo FindGroup::ElementOrder(IntModulo elem){ 
+    if(std::find(group.begin(), group.end(), elem) != group.end()){
         int result = 0;
         int i = 1;
         while(result != 1){
-            result = (pow(a.get_num(), i));
+            result = (pow(elem.get_num(), i));
             result %= this->degree;
             i++;
+            if(i > this->degree){
+                return IntModulo(0);
+            }
         }
         this->groupOrder = IntModulo(i - 1);
+        return this->groupOrder;
+    } 
+    else {
+        return IntModulo(0);
     }
-    return this->groupOrder;
 }
 
 bool FindGroup::FindGroupGenerator(int elem){
