@@ -8,4 +8,5 @@ SUBDIRS += \
     TestNumberModulo \
     TestPolinome \
     TestGenerator \
+    TestFindGroup \
     TestRi
