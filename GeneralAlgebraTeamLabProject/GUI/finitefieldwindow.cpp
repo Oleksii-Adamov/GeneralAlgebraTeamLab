@@ -227,10 +227,18 @@ void FiniteFieldWindow::on_pushButton_discreteLogarithm_clicked()
     IntModulo base, arg;
     unsigned long long modulus;
     read_and_mod(arg, base, modulus);
-    int ans = discreteLogarithm2(base.get_num(), arg.get_num(), modulus);
+    int ans = discreteLogarithm(base.get_num(), arg.get_num(), modulus);
     set_ans(ans);
 }
 
+void FiniteFieldWindow::on_pushButton_discreteLogarithm2_clicked()
+{
+    IntModulo base, arg;
+    unsigned long long modulus;
+    read_and_mod(arg, base, modulus);
+    int ans = discreteLogarithm2(base.get_num(), arg.get_num(), modulus);
+    set_ans(ans);
+}
 
 void FiniteFieldWindow::on_pushButton_elementOrder_clicked()
 {
