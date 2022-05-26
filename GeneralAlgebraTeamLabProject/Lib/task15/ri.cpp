@@ -62,19 +62,6 @@ int d(int q, int n)
     return d;
 }
 
-int degreeOfPolinome(Polinome p) {
-    int degree = 0;
-    for (int i = p.getCoefficients()->size()-1; i >= 0; i--)
-    {
-        if ((*p.getCoefficients())[i] != 0)
-        {
-            degree = i;
-        }
-    }
-    return degree;
-}
-
-
 std::vector<Polinome> computePolynomialProductOfCyclotomicPlynomial(int q, int n)
 {
     std::vector<Polinome> res;

@@ -7,7 +7,8 @@
 #include "task11/polinome.h"
 #include <cmath>
 #include <queue>
-#include "task11/polinome_gcd.h"
+#include "task13/polinome_gcd.h"
+#include "task20/generator.h"
 
 
 LIB_EXPORT int GCD(int a, int b);
@@ -16,7 +17,6 @@ LIB_EXPORT int euler(int n);
 LIB_EXPORT int multCount(int q, int n, int i);
 LIB_EXPORT Polinome ri(int q, int n, int i);
 LIB_EXPORT int d(int q, int n);
-LIB_EXPORT int degreeOfPolinome(const Polinome p);;
 LIB_EXPORT std::vector<Polinome> computePolynomialProductOfCyclotomicPlynomial(int q, int n, int i);
 
 #endif 

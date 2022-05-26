@@ -36,11 +36,8 @@ HEADERS += \
     task13/polinome_degree.h \
     task13/polinome_division.h \
     task5/pollardfactorization.h \
-<<<<<<< HEAD
     task15/ri.h \
-=======
     utils.h \
->>>>>>> df29c283e11415ab60dc0732519de6919c3dd5a1
     task20/generator.h \
     task13/polinome_gcd.h 
    
