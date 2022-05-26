@@ -47,10 +47,7 @@ public:
     Polinome& operator= (const Polinome& polinome);
     Polinome* copy() const;
     Polinome* gcd(const Polinome& p, unsigned long long modulo) const;
-
     bool operator== (const Polinome& polinome) const;
-    Polinome& operator= (const Polinome& polinome);
-    Polinome(const Polinome& other);
 };
 LIB_EXPORT DivisionResult<Polinome> CyclotomicPolynomial(unsigned long long n, unsigned long long module);
 // Function to check for Eisensteins

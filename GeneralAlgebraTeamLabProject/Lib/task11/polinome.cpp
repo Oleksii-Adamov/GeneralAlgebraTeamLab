@@ -378,10 +378,3 @@ DivisionResult<Polinome> CyclotomicPolynomial(unsigned long long n, unsigned lon
 
     return numerator.divide(denominator, module);
 }
-
-Polinome::Polinome(const Polinome& other) {
-    this->coefficients = new std::vector<IntModulo>(other.coefficients->size());
-    for(size_t i=0;i<other.coefficients->size();i++){
-       (*this->coefficients)[i]= (*other.coefficients)[i];
-    }
-}
