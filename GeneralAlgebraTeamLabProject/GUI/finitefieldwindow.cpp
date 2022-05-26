@@ -7,6 +7,7 @@
 #include "task1/intmodulo.h"
 #include "task5/pollardfactorization.h"
 #include "task8/findgroup.h"
+#include "task7/discrete_logarithm.h"
 
 FiniteFieldWindow::FiniteFieldWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -223,7 +224,11 @@ void FiniteFieldWindow::on_pushButton_carmichael_clicked()
 
 void FiniteFieldWindow::on_pushButton_discreteLogarithm_clicked()
 {
-
+    IntModulo base, arg;
+    unsigned long long modulus;
+    read_and_mod(arg, base, modulus);
+    int ans = discreteLogarithm2(base.get_num(), arg.get_num(), modulus);
+    set_ans(ans);
 }
 
 
@@ -234,6 +239,26 @@ void FiniteFieldWindow::on_pushButton_elementOrder_clicked()
     read_and_mod(first, modulus);
     FindGroup group(modulus);
     IntModulo ans = group.ElementOrder(first);
-    set_ans(ans);
+    if (ans.get_num() == 0) {
+        set_ans("Елемент має нескінченний порядок");
+    }
+    else {
+        set_ans(ans);
+    }
+}
+
+
+void FiniteFieldWindow::on_pushButton_is_generator_clicked()
+{
+    IntModulo first;
+    unsigned long long modulus;
+    read_and_mod(first, modulus);
+    FindGroup group(modulus);
+    if(group.FindGroupGenerator(first.get_num())) {
+        set_ans("Так, є генератором");
+    }
+    else {
+        set_ans("Ні, не є генератором");
+    }
 }
 

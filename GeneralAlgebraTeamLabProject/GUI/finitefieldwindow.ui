@@ -152,7 +152,7 @@
           </widget>
          </item>
          <item row="8" column="0">
-          <widget class="QPushButton" name="pushButton_10">
+          <widget class="QPushButton" name="pushButton_is_generator">
            <property name="text">
             <string>Чи є елемент генератором мультиплікативної групи поля</string>
            </property>
@@ -161,7 +161,7 @@
          <item row="6" column="0">
           <widget class="QPushButton" name="pushButton_discreteLogarithm">
            <property name="text">
-            <string>Дискретний логарифм</string>
+            <string>Дискретний логарифм (друге поле - основа)</string>
            </property>
           </widget>
          </item>
