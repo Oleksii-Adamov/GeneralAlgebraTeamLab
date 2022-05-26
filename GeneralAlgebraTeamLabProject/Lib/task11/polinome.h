@@ -30,6 +30,7 @@ public:
     Polinome(const std::string& writtenPolinome);
     ~Polinome();
 
+
     //Methods
     std::vector<IntModulo>* getCoefficients();
     Polinome add(const Polinome& polinome, unsigned long long modulus) const;
