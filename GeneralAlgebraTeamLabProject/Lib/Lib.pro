@@ -19,6 +19,7 @@ SOURCES += \
     task13/polinome_gcd.cpp \
     task13/polynome_degree.cpp \
     task5/pollardfactorization.cpp \
+    utils.cpp \
     task20/generator.cpp
 
 HEADERS += \
@@ -33,6 +34,7 @@ HEADERS += \
     task13/polinome_degree.h \
     task13/polinome_division.h \
     task5/pollardfactorization.h \
+    utils.h \
     task20/generator.h \
     task13/polinome_gcd.h 
    
