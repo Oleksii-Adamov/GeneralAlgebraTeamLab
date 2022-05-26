@@ -118,7 +118,7 @@
           </widget>
          </item>
          <item row="3" column="0">
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="pushButton_CyclotomicPolynomial">
            <property name="text">
             <string>Круговий многочлен заданного порядку</string>
            </property>

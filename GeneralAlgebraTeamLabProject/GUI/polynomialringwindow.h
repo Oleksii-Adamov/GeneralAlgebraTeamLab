@@ -26,6 +26,8 @@ private slots:
 
     void on_pushButton_gcd_clicked();
 
+    void on_pushButton_CyclotomicPolynomial_clicked();
+
 private:
     Ui::PolynomialRingWindow *ui;
 };

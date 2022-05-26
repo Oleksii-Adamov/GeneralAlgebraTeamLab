@@ -17,17 +17,20 @@ SOURCES += \
     finitefieldwindow.cpp \
     main.cpp \
     mainwindow.cpp \
+    polynomialfieldwindow.cpp \
     polynomialringwindow.cpp
 
 HEADERS += \
     finitefieldwindow.h \
     mainwindow.h \
+    polynomialfieldwindow.h \
     polynomialringwindow.h \
     validation.h
 
 FORMS += \
     finitefieldwindow.ui \
     mainwindow.ui \
+    polynomialfieldwindow.ui \
     polynomialringwindow.ui
 
 # Default rules for deployment.
