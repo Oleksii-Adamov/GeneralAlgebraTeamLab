@@ -330,8 +330,14 @@ void TestPolinome::testCheckIrreducibility() {
     coefficientsVector->emplace_back(IntModulo(21));
     coefficientsVector->emplace_back(IntModulo(7));
     coefficientsVector->emplace_back(IntModulo(4));
-   // bool r1=checkIrreducibilty(coefficientsVector,4);
-  //  QCOMPARE(r1,true);
+    bool r1=checkIrreducibilty(*coefficientsVector,4);
+    QCOMPARE(r1,true);
+    coefficientsVector = new std::vector<IntModulo>();
+    coefficientsVector->emplace_back(IntModulo(1));
+    coefficientsVector->emplace_back(IntModulo(2));
+    coefficientsVector->emplace_back(IntModulo(1));
+    bool r2=checkIrreducibilty(*coefficientsVector,3);
+    QCOMPARE(r2,false);
 }
 QTEST_APPLESS_MAIN(TestPolinome)
 
