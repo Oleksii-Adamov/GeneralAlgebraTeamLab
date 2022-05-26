@@ -21,8 +21,7 @@ SOURCES += \
     task5/pollardfactorization.cpp \
     task15/ri.cpp \
     task20/generator.cpp \
-    utils.cpp \
-    task13/polinome_gcd.cpp
+    utils.cpp
     
 HEADERS += \
     Lib_global.h \
