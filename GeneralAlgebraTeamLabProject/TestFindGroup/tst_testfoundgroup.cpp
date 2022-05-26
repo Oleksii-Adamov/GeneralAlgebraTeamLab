@@ -1,6 +1,7 @@
 #include <QtTest>
 #include "task8/findgroup.h"
 #include <string>
+#include <iostream>
 
 // add necessary includes here
 
@@ -13,7 +14,7 @@ public:
     ~TestFoundGroup();
 
 private slots:
-    void test_case1();
+    void testfindgroup();
 
 };
 
@@ -27,13 +28,13 @@ TestFoundGroup::~TestFoundGroup()
 
 }
 
-void TestFoundGroup::test_case1()
+void TestFoundGroup::testfindgroup()
 {
-    std::string vec = "3 1 2 6 11 10 7 4 5 8 9 12";
-    FindGroup group1(vec);
+    FindGroup group1(16);
+    IntModulo a = group1.ElementOrder(2);
+//    bool b = group1.FindGroupGenerator(2);
 
-
-    QCOMPARE(1,1);
+    QCOMPARE(a.get_num(),4);
 
 
 }

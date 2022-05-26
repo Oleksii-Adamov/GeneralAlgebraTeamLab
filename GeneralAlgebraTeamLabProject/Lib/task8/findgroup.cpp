@@ -1,60 +1,42 @@
 #include "findgroup.h"
+#include <iostream>
 
-FindGroup::FindGroup(const std::string& multiplicativeGroup)
+FindGroup::FindGroup(IntModulo order)
 {
-    SetGroup(multiplicativeGroup);
-    FindPrimeFactorization();
-    IntModulo t = IntModulo(this->degree);
-    IntModulo a = group[0][0];
-
-    std::map<IntModulo, IntModulo>::iterator it;
-    for(it = this->factorizationMap.begin(); it != this->factorizationMap.end(); it++){
-        IntModulo b = it->first.get_num();
-        b.pow(it->second.get_num(), 1);
-        t = IntModulo(t.get_num() / b.get_num());
-        a.pow(t.get_num(), 1);
-        while(a.get_num() != 1){
-            a.pow(it->first.get_num(), 1);
-            t.multiply(it->first, 1);
-        }
-    }
-    groupOrder = t;
+    SetGroup(order.get_num());
+    FindPrimeFactorization();    
 }
 
-void FindGroup::SetGroup(const std::string& multiplicativeGroup){
+void FindGroup::SetGroup(int order){
     group.clear();
-    group.resize(2);
     
-    std::string substring = "";
-    for(int i = 0; i <= multiplicativeGroup.length(); i++){
-        if(multiplicativeGroup[i] != ' '){
-            substring += multiplicativeGroup[i];
+    for(int i = 1; i < order; i++){
+        int sum = 0;
+        for(int j = 1; j <= order; j++){
+            if(i % j == 0 && order % j == 0){
+                sum++;
+            }
         }
-        else{
-            group[1].push_back(IntModulo(substring));
-            substring.clear();
+        if(sum == 1){
+            group.push_back(i);
         }
     }
-    group[1].push_back(IntModulo(substring));
-
-    group[0].resize(group[1].size());
-    for(int i = 0; i < group[1].size(); i++){
-        group[0][i] = i + 1;
-    }
-    this->degree = group[1].size();
+    this->degree = order;
 }
 
 void FindGroup::FindPrimeFactorization(){
+    int degreeCopy = this->degree;
     std::vector<IntModulo> factorization;
-        
-    for (long long d = 2; d * d <= this->degree; d++) {
-        while (this->degree % d == 0) {
+    
+    for (long long d = 2; d * d <= degreeCopy; d++) {
+        while (degreeCopy % d == 0) {
             factorization.push_back(IntModulo(d));
-            this->degree /= d;
+            degreeCopy /= d;
         }
     }
-    if (this->degree > 1)
-        factorization.push_back(IntModulo(this->degree));
+    if (degreeCopy > 1)
+        factorization.push_back(IntModulo(degreeCopy));
+
 
     for(int i = 0; i < factorization.size(); i++){
         std::map<IntModulo, IntModulo>::iterator item;
@@ -62,20 +44,43 @@ void FindGroup::FindPrimeFactorization(){
 
         if(item == factorizationMap.end()){
             int sum = 0;
-            for(int j = i + 1; j < factorization.size(); j++){
+            for(int j = i; j < factorization.size(); j++){
                 if(factorization[i].get_num() == factorization[j].get_num()){
                     sum++;
                 }
             }
-            this->factorizationMap.insert(std::pair<IntModulo, IntModulo>(item->first, IntModulo(sum)));
+            this->factorizationMap.insert(std::pair<IntModulo, IntModulo>(IntModulo(factorization[i]), IntModulo(sum)));
         }
     }    
+}
+
+IntModulo FindGroup::ElementOrder(IntModulo elem){
+    
+    if(elem.get_num() <= group.size() - 1){
+        IntModulo a = group[elem.get_num()];
+        int result = 0;
+        int i = 1;
+        while(result != 1){
+            result = (pow(a.get_num(), i));
+            result %= this->degree;
+            i++;
+        }
+        this->groupOrder = IntModulo(i - 1);
+    }
+    return this->groupOrder;
+}
+
+bool FindGroup::FindGroupGenerator(int elem){
+    if(std::find(group.begin(), group.end(), IntModulo(elem)) != group.end())
+        return true;
+    else    
+        return false;
 }
 
 int FindGroup::get_degree(){
     return this->degree;
 }
 
-IntModulo FindGroup::get_groupOrder(){
-    return groupOrder;
+long long FindGroup::get_groupOrder(){
+    return groupOrder.get_num();
 }
