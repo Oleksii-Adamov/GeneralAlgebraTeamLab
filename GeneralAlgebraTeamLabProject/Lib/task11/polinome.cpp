@@ -95,7 +95,15 @@ Polinome Polinome::multiply(const Polinome& polinome, const Polinome& irreducibl
     DivisionResult<Polinome> res = p.divide(irreducible, modulus);
     return *res.remainder;
 }
-
+Polinome Polinome::reduce(unsigned long long modulus) const {
+    Polinome res=Polinome();
+    for (size_t i = 0; i < this->coefficients->size(); i += 1) {
+        IntModulo el = IntModulo((*this->coefficients)[i]);
+        el.mod(modulus);
+        res.coefficients->push_back(el);
+    }
+    return res;
+}
 Polinome Polinome::pow(long long power, unsigned long long modulus) const {
     long long pow;
     Polinome res = *this;
