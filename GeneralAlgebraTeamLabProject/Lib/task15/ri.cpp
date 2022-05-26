@@ -75,11 +75,11 @@ int degreeOfPolinome(Polinome p) {
 }
 
 
-std::vector<Polinome> computePolynomialProductOfCyclotomicPlynomial(int q, int n, int i)
+std::vector<Polinome> computePolynomialProductOfCyclotomicPlynomial(int q, int n)
 {
     std::vector<Polinome> res;
-    int j = 1;
-    Polinome cyclotomic = cyclotomicPolynomial(q,n);    
+    int i = 1;
+    Polinome cyclotomic = *CyclotomicPolynomial(n,q).quotient;
     int dValue = d(q,n);
 
     bool isDivisor = false;
@@ -104,20 +104,20 @@ std::vector<Polinome> computePolynomialProductOfCyclotomicPlynomial(int q, int n
         else
         {
             int size = p.getCoefficients()->size();
-            Polinome p1 = PolynomialGCD(p,ri(q,n,i));
+            Polinome p1 = *p.gcd(ri(q,n,i), q);
             if(p1.getCoefficients()->size() >= 1 && p1.getCoefficients()->size() < size)
             {
                 queue.push(p1);
                 isDivisor = true;
             }
-            Polinome p2 = PolynomialGCD(p,ri(q,n,i).add(Polinome("1"),q));
+            Polinome p2 = *p.gcd(ri(q,n,i).add(Polinome("1"),q),q);
             if(p2.getCoefficients()->size() >= 1 && p2.getCoefficients()->size() < size)
             {
                 queue.push(p2);
                 isDivisor = true;
             }
             
-            Polinome p3 = PolynomialGCD(p,ri(q,n,i).add(Polinome("-1"),q));
+            Polinome p3 = *p.gcd(ri(q,n,i).add(Polinome("-1"),q),q);
             if(p3.getCoefficients()->size() >= 1 && p3.getCoefficients()->size() < size)
             {
                 queue.push(p3);
@@ -132,4 +132,5 @@ std::vector<Polinome> computePolynomialProductOfCyclotomicPlynomial(int q, int n
             i++;
         }
     }   
+    return res;
 }
