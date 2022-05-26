@@ -31,6 +31,7 @@ private slots:
 
     //Task14 test
     void testPolinomeCyclotomicPolynomial();
+    void testCheckIrreducibility();
 };
 
 TestPolinome::TestPolinome() {}
@@ -322,6 +323,16 @@ void TestPolinome::testPolinomeCyclotomicPolynomial() {
 
 }
 
+void TestPolinome::testCheckIrreducibility() {
+     std::vector<IntModulo>* coefficientsVector = new std::vector<IntModulo>();
+    coefficientsVector = new std::vector<IntModulo>();
+    coefficientsVector->emplace_back(IntModulo(28));
+    coefficientsVector->emplace_back(IntModulo(21));
+    coefficientsVector->emplace_back(IntModulo(7));
+    coefficientsVector->emplace_back(IntModulo(4));
+   // bool r1=checkIrreducibilty(coefficientsVector,4);
+  //  QCOMPARE(r1,true);
+}
 QTEST_APPLESS_MAIN(TestPolinome)
 
 #include "tst_test_polinome.moc"
