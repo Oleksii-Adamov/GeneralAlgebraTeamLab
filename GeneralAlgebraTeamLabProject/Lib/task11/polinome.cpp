@@ -54,6 +54,12 @@ Polinome Polinome::add(const Polinome& polinome, unsigned long long modulus) con
     return result;
 }
 
+Polinome Polinome::add(const Polinome& polinome, const Polinome& irreducible, unsigned long long modulus) const {
+    Polinome p = this->add(polinome, modulus);
+    DivisionResult<Polinome> res = p->divide(irreducible, modulus);
+    return res.remainder;
+}
+
 Polinome Polinome::subtract(const Polinome &polinome, unsigned long long modulus) const {
     Polinome result = Polinome();
     unsigned long long maxPower = std::max(this->coefficients->size(), polinome.coefficients->size());
@@ -66,6 +72,12 @@ Polinome Polinome::subtract(const Polinome &polinome, unsigned long long modulus
     return result;
 }
 
+Polinome Polinome::subtract(const Polinome& polinome, const Polinome& irreducible, unsigned long long modulus) const {
+    Polinome p = this->subtract(polinome, modulus);
+    DivisionResult<Polinome> res = p->divide(irreducible, modulus);
+    return res.remainder;
+}
+
 Polinome Polinome::multiply(const Polinome& polinome, unsigned long long modulus) const {
     Polinome result = Polinome(this->coefficients->size() + polinome.coefficients->size());
     for(unsigned long long i = 0; i < this->coefficients->size(); ++i) {
@@ -76,6 +88,24 @@ Polinome Polinome::multiply(const Polinome& polinome, unsigned long long modulus
         }
     }
     return result;
+}
+
+Polinome Polinome::multiply(const Polinome& polinome, const Polinome& irreducible, unsigned long long modulus) const {
+    Polinome p = this->multiply(polinome, modulus);
+    DivisionResult<Polinome> res = p->divide(irreducible, modulus);
+    return res.remainder;
+}
+
+Polinome Polinome::pow(long long power, unsigned long long modulus) const {
+    long long pow;
+    Polinome res = this;
+    for (pow = 1; i*2 <= power; i*=2) {
+        res = res->multiply(res, modulus);
+    }
+    if (pow < power) {
+        res = res->multiply(this, modulus);
+    }
+    return res;
 }
 
 std::string Polinome::toString() {
