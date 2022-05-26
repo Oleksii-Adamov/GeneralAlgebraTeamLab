@@ -7,4 +7,5 @@ SUBDIRS += \
     TestFactorization \
     TestNumberModulo \
     TestPolinome \
-    TestGenerator
+    TestGenerator \
+    TestRi
