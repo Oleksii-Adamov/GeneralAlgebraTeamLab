@@ -7,9 +7,9 @@ int orderOfPolinome(int modulus, const Polinome p1, const Polinome p2) {
     bool found = false;
     Polinome result = p2;
      while (!found){
-         result = p2.multiply(p2, modulus);
-
-         if (*result.divide(p1,modulus).remainder == Polinome("1"))
+         result = result.multiply(p2, modulus);
+           std::cout << result.toString();
+         if (result.divide(p1, modulus).remainder->toString() == Polinome("1").toString())
          {
              return order;
         }
