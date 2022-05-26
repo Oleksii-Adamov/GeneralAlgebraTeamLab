@@ -21,6 +21,7 @@ SOURCES += \
     task5/pollardfactorization.cpp \
     task15/ri.cpp \
     task20/generator.cpp \
+    task8/findgroup.cpp \
     utils.cpp
     
 HEADERS += \
@@ -38,7 +39,8 @@ HEADERS += \
     task15/ri.h \
     utils.h \
     task20/generator.h \
-    task13/polinome_gcd.h 
+    task13/polinome_gcd.h \
+    task8/findgroup.h 
    
 
 # Default rules for deployment.
