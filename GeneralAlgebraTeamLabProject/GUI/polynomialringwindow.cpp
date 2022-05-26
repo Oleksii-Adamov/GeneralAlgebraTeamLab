@@ -22,8 +22,6 @@ PolynomialRingWindow::~PolynomialRingWindow()
 
 void PolynomialRingWindow::on_pushButton_add_clicked()
 {
-
-
     try {
         Polinome first(ui->lineEdit_first->text().toStdString());
         Polinome second(ui->lineEdit_second->text().toStdString());
@@ -54,5 +52,35 @@ void PolynomialRingWindow::on_pushButton_derivative_clicked()
     unsigned long long modulus = std::stoull(ui->lineEdit_modulus->text().toStdString());
     Polinome ans = first.derivative(modulus);
     ui->lineEdit_ans->setText(QString::fromStdString(ans.toString()));
+}
+
+
+void PolynomialRingWindow::on_pushButton_divide_clicked()
+{
+    Polinome first(ui->lineEdit_first->text().toStdString());
+    Polinome second(ui->lineEdit_second->text().toStdString());
+    unsigned long long modulus = std::stoull(ui->lineEdit_modulus->text().toStdString());
+    auto ans = first.divide(second, modulus);
+    ui->lineEdit_ans->setText("Частка: " + QString::fromStdString(ans.quotient->toString())
+                              + " Остача: " + QString::fromStdString(ans.remainder->toString()));
+}
+
+
+void PolynomialRingWindow::on_pushButton_gcd_clicked()
+{
+    Polinome first(ui->lineEdit_first->text().toStdString());
+    Polinome second(ui->lineEdit_second->text().toStdString());
+    unsigned long long modulus = std::stoull(ui->lineEdit_modulus->text().toStdString());
+    auto ans = first.gcd(second, modulus);
+    ui->lineEdit_ans->setText(QString::fromStdString(ans->toString()));
+    delete ans;
+}
+
+
+void PolynomialRingWindow::on_pushButton_CyclotomicPolynomial_clicked()
+{
+    unsigned long long n = std::stoull(ui->lineEdit_first->text().toStdString());
+    unsigned long long modulus = std::stoull(ui->lineEdit_modulus->text().toStdString());
+    auto ans = CyclotomicPolynomial(n,modulus);
 }
 

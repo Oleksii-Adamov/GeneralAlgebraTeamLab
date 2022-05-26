@@ -159,7 +159,7 @@
           </widget>
          </item>
          <item row="6" column="0">
-          <widget class="QPushButton" name="pushButton_log">
+          <widget class="QPushButton" name="pushButton_discreteLogarithm">
            <property name="text">
             <string>Дискретний логарифм</string>
            </property>

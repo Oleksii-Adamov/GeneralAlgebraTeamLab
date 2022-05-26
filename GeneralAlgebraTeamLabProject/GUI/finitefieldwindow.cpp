@@ -56,13 +56,13 @@ void FiniteFieldWindow::set_ans(const std::string& ans) {
     ui->lineEdit_ans->setText(ans);
 }*/
 
-/*void FiniteFieldWindow::set_ans(const IntModulo& ans) {
+void FiniteFieldWindow::set_ans(const IntModulo& ans) {
     ui->lineEdit_ans->setText(QString::number(ans.get_num()));
 }
 
 void FiniteFieldWindow::set_ans(long long ans) {
     ui->lineEdit_ans->setText(QString::number(ans));
-}*/
+}
 
 void FiniteFieldWindow::on_pushButton_add_clicked()
 {
@@ -71,7 +71,7 @@ void FiniteFieldWindow::on_pushButton_add_clicked()
         unsigned long long modulus;
         read_and_mod(first, second, modulus);
         first.add(second, modulus);
-//        set_ans(first);
+        set_ans(first);
     }
     catch(std::exception& e) {
         std::string message = e.what();
@@ -90,7 +90,7 @@ void FiniteFieldWindow::on_pushButton_substract_clicked()
         unsigned long long modulus;
         read_and_mod(first, second, modulus);
         first.subtract(second, modulus);
- //       set_ans(first);
+        set_ans(first);
     }
     catch(std::exception& e) {
         set_ans(e.what());
@@ -104,7 +104,7 @@ void FiniteFieldWindow::on_pushButton_multiply_clicked()
     unsigned long long modulus;
     read_and_mod(first, second, modulus);
     first.multiply(second, modulus);
-//    set_ans(first);
+    set_ans(first);
 }
 
 
@@ -114,7 +114,7 @@ void FiniteFieldWindow::on_pushButton_pow_clicked()
     unsigned long long modulus, exponent = std::stoull(ui->lineEdit_second->text().toStdString());
     read_and_mod(first, modulus);
     first.pow(exponent, modulus);
- //   set_ans(first);
+    set_ans(first);
 }
 
 
@@ -125,7 +125,7 @@ void FiniteFieldWindow::on_pushButton_divide_clicked()
     read_and_mod(first, second, modulus);
     try {
         first.divide(second, modulus);
-//        set_ans(first);
+        set_ans(first);
     }
     catch(std::logic_error& e) {
        set_ans("Дільник немає оберненого");
@@ -143,7 +143,7 @@ void FiniteFieldWindow::on_pushButton_reverse_clicked()
         set_ans("Елемент немає оберненого");
     }
     else {
-//        set_ans(ans);
+        set_ans(ans);
     }
 }
 
@@ -197,7 +197,7 @@ void FiniteFieldWindow::on_pushButton_euler_clicked()
     read_and_mod(first, modulus);
     try {
         long long ans = first.phi();
-//        set_ans(ans);
+        set_ans(ans);
     }
     catch(std::exception& e) {
         if (std::string(e.what()) == std::string("Num can`t be less than 1.")) {
@@ -216,6 +216,12 @@ void FiniteFieldWindow::on_pushButton_carmichael_clicked()
     unsigned long long modulus;
     read_and_mod(first, modulus);
     long long ans = first.carmichael();
-//    set_ans(ans);
+    set_ans(ans);
+}
+
+
+void FiniteFieldWindow::on_pushButton_discreteLogarithm_clicked()
+{
+
 }
 

@@ -22,6 +22,10 @@ private slots:
 
     void on_pushButton_derivative_clicked();
 
+    void on_pushButton_divide_clicked();
+
+    void on_pushButton_gcd_clicked();
+
 private:
     Ui::PolynomialRingWindow *ui;
 };

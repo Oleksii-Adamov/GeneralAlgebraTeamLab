@@ -37,6 +37,8 @@ private slots:
 
     void on_pushButton_carmichael_clicked();
 
+    void on_pushButton_discreteLogarithm_clicked();
+
 private:
     void read_and_mod(IntModulo& first, IntModulo& second, unsigned long long& modulus);
     void read_and_mod(IntModulo& first, unsigned long long& modulus);
