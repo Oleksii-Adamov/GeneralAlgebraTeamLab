@@ -354,12 +354,12 @@ std::optional<std::pair<IntModulo, IntModulo>> IntModulo::sqrt(unsigned long lon
 
         // find multipliers
         int gcd, c, d;
-        extended_gcd(p, q, gcd, c, d);
+        extended_gcd(r, s, gcd, c, d);
 
         //compute true roots
         int x = (r*d*q + s*c*p) % modulus;
-        int y = (r*d*q - s*c*p) % modulus;
-        return std::make_pair(x, y);
+        //int y = (r*d*q - s*c*p) % modulus;
+        return std::make_pair(x, -x);
     }
 }
 
