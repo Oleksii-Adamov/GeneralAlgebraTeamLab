@@ -327,3 +327,12 @@ bool checkIrreducibilty(std::vector<IntModulo> coefficients, long long N)
     }
     return 0;
 }
+
+Polinome& Polinome::operator= (const Polinome& polinome) {
+    delete this->coefficients;
+    this->coefficients = new std::vector<IntModulo>(polinome.coefficients->size());
+    for(size_t i=0;i<polinome.coefficients->size();i++){
+       (*this->coefficients)[i]= (*polinome.coefficients)[i];
+    }
+    return *this;
+}

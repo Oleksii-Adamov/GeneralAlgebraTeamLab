@@ -24,6 +24,7 @@ public:
      * There could be whitespaces between numbers, variables and powers (" 3x^ 2 + 35  x ^ 4   + 22 x  + 321 " ).
      * The variable should be only x.
      * No "*" sings.
+     * No same powers
      */
     Polinome(const std::string& writtenPolinome);
     ~Polinome();
@@ -44,6 +45,7 @@ public:
     DivisionResult<Polinome> divide(const Polinome& divider, unsigned long long modulus) const;
 
     bool operator== (const Polinome& polinome) const;
+    Polinome& operator= (const Polinome& polinome);
 };
 
 // Function to check for Eisensteins
