@@ -24,33 +24,37 @@ TestGenerator::~TestGenerator() {}
 
 
 void TestGenerator::testOrder() {
-//    int answer = orderOfPolinome(3, Polinome("x^2 + 1"), Polinome("x") );
-//    std::cout << answer;
-//     QCOMPARE(answer, 4);
-//    QCOMPARE(1,1);
+    int answer = orderOfPolinome(3, Polinome("x^2 + 1"), Polinome("x") );
+    int answer2 = orderOfPolinome(3, Polinome("x^2 + 1"), Polinome("2x + 1") );
+    QCOMPARE(answer, 4);
+    QCOMPARE(answer2, 8);
 }
 
 void TestGenerator::testDegree() {
+    auto p = Polinome("x");
     auto p1 = Polinome("x^4");
     auto p2 = Polinome("x^2 + 1");
-    auto p = Polinome("x");
-    auto p3 = Polinome("x^2");
-    auto result = p;
-    result = result.multiply(p, 5);
-    std::cout << result.toString() << std::endl;
-    std::cout << p3.multiply(p, 5).toString() << std::endl;
-//     result = result.multiply(p, 5);
-//     result = result.multiply(p, 5);
-//    std::cout << "RESULTTTTTTTTTTTTTTTTTTTTTTTTTTT: " << p1.divide(p2, 3).remainder->toString() << std::endl;
-    QCOMPARE(p1.divide(p2, 3).remainder->toString(), Polinome("1").toString());
+    auto p3 = Polinome("x^2 + x + 1");
+
+    QCOMPARE(degreeOfPolinome(p1), 4);
+    QCOMPARE(degreeOfPolinome(p2), 2);
+    QCOMPARE(degreeOfPolinome(p), 1);
+    QCOMPARE(degreeOfPolinome(p3), 2);
 }
 
 void TestGenerator::testMaxOrder() {
-    QCOMPARE(1,1);
+    auto p2 = Polinome("x^2 + 1");
+
+    QCOMPARE(maxOrderOfPolinome(3, p2), 8);
 }
 
 void TestGenerator::testIsGenerator() {
-    QCOMPARE(1,1);
+    auto p2 = Polinome("x^2 + 1");
+    auto p1 = Polinome("x");
+    auto p3 = Polinome("2x + 1");
+
+    QCOMPARE(isGenerator(3, p2, p1), false);
+    QCOMPARE(isGenerator(3, p2, p3), true);
 }
 
 QTEST_APPLESS_MAIN(TestGenerator)

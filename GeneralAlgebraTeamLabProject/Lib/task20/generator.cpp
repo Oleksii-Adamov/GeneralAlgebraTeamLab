@@ -5,15 +5,16 @@
 int orderOfPolinome(int modulus, const Polinome p1, const Polinome p2) {
     int order = 1;
     bool found = false;
-    Polinome result = p2;
+    Polinome result = Polinome();
+    result = p2;
      while (!found){
+         order++;
          result = result.multiply(p2, modulus);
-           std::cout << result.toString();
          if (result.divide(p1, modulus).remainder->toString() == Polinome("1").toString())
          {
              return order;
         }
-        order++;
+
     }
 }
 
@@ -21,9 +22,10 @@ int degreeOfPolinome(Polinome p) {
     int degree = 0;
     for (int i = p.getCoefficients()->size()-1; i >= 0; i--)
     {
-        if ((*p.getCoefficients())[i] != 0)
+
+        if ((*p.getCoefficients())[i].ToString() != "0")
         {
-            degree = i;
+            return i;
         }
     }
     return degree;
@@ -33,6 +35,6 @@ int maxOrderOfPolinome(int modulus, const Polinome p) {
    return pow(modulus, degreeOfPolinome(p))-1;
 }
 
-bool isGenerator(int modulus, const Polinome p) {
-    return degreeOfPolinome(p) == maxOrderOfPolinome(modulus, p);
+bool isGenerator(int modulus, const Polinome p1, const Polinome p2 ) {
+    return orderOfPolinome(modulus, p1, p2) == maxOrderOfPolinome(modulus, p1);
 }
