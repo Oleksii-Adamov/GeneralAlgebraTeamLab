@@ -37,27 +37,38 @@ void TestRi::testRi()
 
 void TestRi::testProductOfCyclotomic()
 {
-        auto res = computePolynomialProductOfCyclotomicPlynomial(3,52);
-        auto mult = Polinome("1");
-        for(auto i : res)
-        {
-            mult = mult.multiply(i,3);
-//            std::cout<<i.toString()<<std::endl;
-        }
-//        std::cout<<Polinome("x^24 + 2x^22 + x^20 + 2x^18 + x^16 + 2x^14 + x^12 + 2x^10 + x^8 + 2x^6 + x^4 + 2x^2 + 1").gcd(Polinome("x^18 + x^6 + x^2+1"),3)->toString()<<std::endl;
-//      std::cout<<Polinome("x^12+x^10+2x^8+x^6+x^4+x^2+1").gcd(Polinome("x^10+x^8+2x^6+2x^2"),3)->toString()<<std::endl;
-//        std::cout<<mult.toString()<<std::endl;
-//        std::cout<<CyclotomicPolynomial(52,3).quotient->toString()<<std::endl;
+     auto res = computePolynomialProductOfCyclotomicPlynomial(3,52);
+     auto mult = Polinome("1");
+     for(auto i : res)
+     {
+        mult = mult.multiply(i,3);
+        //std::cout<<i.toString()<<std::endl;
+     }
+     //std::cout<<std::endl;
+     QCOMPARE(degreeOfPolinome(*mult.divide(*CyclotomicPolynomial(52,3).quotient,3).quotient), 0);
+     QCOMPARE(mult.divide(*CyclotomicPolynomial(52,3).quotient,3).remainder->toString(), "0");
 
-     QCOMPARE(mult.toString(),CyclotomicPolynomial(52,3).quotient->toString());
 
      auto res2 = computePolynomialProductOfCyclotomicPlynomial(3,8);
      auto mult2 = Polinome("1");
      for(auto i : res2)
      {
-         mult2 = mult2.multiply(i,3);
+        mult2 = mult2.multiply(i,3);
+       // std::cout<<i.toString()<<std::endl;
      }
-     QCOMPARE(mult2.toString(),CyclotomicPolynomial(8,3).quotient->toString());
+     QCOMPARE(degreeOfPolinome(*mult2.divide(*CyclotomicPolynomial(8,3).quotient,3).quotient), 0);
+     QCOMPARE(mult2.divide(*CyclotomicPolynomial(8,3).quotient,3).remainder->toString(), "0");
+     //std::cout<<std::endl;
+
+     auto res3 = computePolynomialProductOfCyclotomicPlynomial(5,8);
+     auto mult3 = Polinome("1");
+     for(auto i : res3)
+     {
+        //std::cout<<i.toString()<<std::endl;
+        mult3 = mult3.multiply(i,5);
+     }
+     QCOMPARE(degreeOfPolinome(*mult3.divide(*CyclotomicPolynomial(8,5).quotient,5).quotient), 0);
+     QCOMPARE(mult3.divide(*CyclotomicPolynomial(8,5).quotient,5).remainder->toString(), "0");
 }
 
 
