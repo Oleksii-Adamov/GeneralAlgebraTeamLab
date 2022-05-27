@@ -81,6 +81,7 @@ void PolynomialRingWindow::on_pushButton_CyclotomicPolynomial_clicked()
 {
     unsigned long long n = std::stoull(ui->lineEdit_first->text().toStdString());
     unsigned long long modulus = std::stoull(ui->lineEdit_modulus->text().toStdString());
-    auto ans = CyclotomicPolynomial(n,modulus);
+    DivisionResult<Polinome> ans = CyclotomicPolynomial(n, modulus);
+    ui->lineEdit_ans->setText(QString::fromStdString(ans.quotient->toString()));
 }
 
