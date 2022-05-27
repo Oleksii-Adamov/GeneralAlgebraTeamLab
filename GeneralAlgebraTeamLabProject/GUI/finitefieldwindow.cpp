@@ -136,151 +136,144 @@ void FiniteFieldWindow::on_pushButton_pow_clicked()
 
 void FiniteFieldWindow::on_pushButton_divide_clicked()
 {
-    IntModulo first, second;
-    unsigned long long modulus;
-    read_and_mod(first, second, modulus);
-    try {
+    evaluate_func([](FiniteFieldWindow* window) {
+        IntModulo first, second;
+        unsigned long long modulus;
+        window->read_and_mod(first, second, modulus);
         first.divide(second, modulus);
-        set_ans(first);
-    }
-    catch(std::logic_error& e) {
-       set_ans("Дільник немає оберненого");
-    }
+        window->set_ans(first);
+    }, this);
 }
 
 
 void FiniteFieldWindow::on_pushButton_reverse_clicked()
 {
-    IntModulo first;
-    unsigned long long modulus;
-    read_and_mod(first, modulus);
-    IntModulo ans = first.findReversed(modulus);
-    if (ans.get_num() == 0) {
-        set_ans("Елемент немає оберненого");
-    }
-    else {
-        set_ans(ans);
-    }
+    evaluate_func([](FiniteFieldWindow* window) {
+        IntModulo first;
+        unsigned long long modulus;
+        window->read_and_mod(first, modulus);
+        IntModulo ans = first.findReversed(modulus);
+        if (ans.get_num() == 0) {
+            window->set_ans("Елемент немає оберненого");
+        }
+        else {
+            window->set_ans(ans);
+        }
+    }, this);
 }
 
 
 void FiniteFieldWindow::on_pushButton_factorization_Pollard_clicked()
 {
-    IntModulo first;
-    unsigned long long modulus;
-    read_and_mod(first, modulus);
-    try {
+    evaluate_func([](FiniteFieldWindow* window) {
+        IntModulo first;
+        unsigned long long modulus;
+        window->read_and_mod(first, modulus);
         std::map<long long, int> map_ans = PollardFactorization::factorize(first.get_num());
         QString ans = "";
         for (auto val : map_ans) {
-            ans += QString::number(val.first) + " " + QString::number(val.second);
+            ans += "(" + QString::number(val.first) + "^" + QString::number(val.second) + ")";
         }
-        set_ans(ans.toStdString());
-    }
-    catch(std::invalid_argument& e) {
-        set_ans("Число меньше 1");
-    }
+        window->set_ans(ans.toStdString());
+    }, this);
 }
 
 
 void FiniteFieldWindow::on_pushButton_is_prime_clicked()
 {
-    IntModulo first;
-    unsigned long long modulus;
-    read_and_mod(first, modulus);
-    int iterations_num;
-    try {
-        iterations_num = std::stoi(ui->lineEdit_second->text().toStdString());
-    }
-    catch(std::exception& e) {
-        set_ans("Кількість ітерацій не введена (друге поле)");
-        return;
-    }
-
-    if(first.isPrime(iterations_num)) {
-        set_ans("Так, число є простим");
-    }
-    else {
-        set_ans("Ні, число не є простим");
-    }
+    evaluate_func([](FiniteFieldWindow* window) {
+        IntModulo first;
+        unsigned long long modulus;
+        window->read_and_mod(first, modulus);
+        window->validate_second_field();
+        int iterations_num = std::stoi(window->ui->lineEdit_second->text().toStdString());
+        if(first.isPrime(iterations_num)) {
+            window->set_ans("Так, число є простим");
+        }
+        else {
+            window->set_ans("Ні, число не є простим");
+        }
+    }, this);
 }
 
 
 void FiniteFieldWindow::on_pushButton_euler_clicked()
 {
-    IntModulo first;
-    unsigned long long modulus;
-    read_and_mod(first, modulus);
-    try {
+    evaluate_func([](FiniteFieldWindow* window) {
+        IntModulo first;
+        unsigned long long modulus;
+        window->read_and_mod(first, modulus);
         long long ans = first.phi();
-        set_ans(ans);
-    }
-    catch(std::exception& e) {
-        if (std::string(e.what()) == std::string("Num can`t be less than 1.")) {
-            set_ans("Число не може бути меньшим за 1");
-        }
-        else {
-            set_ans(e.what());
-        }
-    }
+        window->set_ans(ans);
+    }, this);
 }
 
 
 void FiniteFieldWindow::on_pushButton_carmichael_clicked()
 {
-    IntModulo first;
-    unsigned long long modulus;
-    read_and_mod(first, modulus);
-    long long ans = first.carmichael();
-    set_ans(ans);
+    evaluate_func([](FiniteFieldWindow* window) {
+        IntModulo first;
+        unsigned long long modulus;
+        window->read_and_mod(first, modulus);
+        long long ans = first.carmichael();
+        window->set_ans(ans);
+    }, this);
 }
 
 
 void FiniteFieldWindow::on_pushButton_discreteLogarithm_clicked()
 {
-    IntModulo base, arg;
-    unsigned long long modulus;
-    read_and_mod(arg, base, modulus);
-    int ans = discreteLogarithm(base.get_num(), arg.get_num(), modulus);
-    set_ans(ans);
+    evaluate_func([](FiniteFieldWindow* window) {
+        IntModulo base, arg;
+        unsigned long long modulus;
+        window->read_and_mod(arg, base, modulus);
+        int ans = discreteLogarithm(base.get_num(), arg.get_num(), modulus);
+        window->set_ans(ans);
+    }, this);
 }
 
 void FiniteFieldWindow::on_pushButton_discreteLogarithm2_clicked()
 {
-    IntModulo base, arg;
-    unsigned long long modulus;
-    read_and_mod(arg, base, modulus);
-    int ans = discreteLogarithm2(base.get_num(), arg.get_num(), modulus);
-    set_ans(ans);
+    evaluate_func([](FiniteFieldWindow* window) {
+        IntModulo base, arg;
+        unsigned long long modulus;
+        window->read_and_mod(arg, base, modulus);
+        int ans = discreteLogarithm2(base.get_num(), arg.get_num(), modulus);
+        window->set_ans(ans);
+    }, this);
 }
 
 void FiniteFieldWindow::on_pushButton_elementOrder_clicked()
 {
-    IntModulo first;
-    unsigned long long modulus;
-    read_and_mod(first, modulus);
-    FindGroup group(modulus);
-    IntModulo ans = group.ElementOrder(first);
-    if (ans.get_num() == 0) {
-        set_ans("Елемент має нескінченний порядок");
-    }
-    else {
-        set_ans(ans);
-    }
+    evaluate_func([](FiniteFieldWindow* window) {
+        IntModulo first;
+        unsigned long long modulus;
+        window->read_and_mod(first, modulus);
+        FindGroup group(modulus);
+        IntModulo ans = group.ElementOrder(first);
+        if (ans.get_num() == 0) {
+            window->set_ans("Елемент має нескінченний порядок");
+        }
+        else {
+            window->set_ans(ans);
+        }
+    }, this);
 }
 
 
 void FiniteFieldWindow::on_pushButton_is_generator_clicked()
 {
-    IntModulo first;
-    unsigned long long modulus;
-    read_and_mod(first, modulus);
-    FindGroup group(modulus);
-    if(group.FindGroupGenerator(first.get_num())) {
-        set_ans("Так, є генератором");
-    }
-    else {
-        set_ans("Ні, не є генератором");
-    }
+    evaluate_func([](FiniteFieldWindow* window) {
+        IntModulo first;
+        unsigned long long modulus;
+        window->read_and_mod(first, modulus);
+        FindGroup group(modulus);
+        if(group.FindGroupGenerator(first.get_num())) {
+            window->set_ans("Так, є генератором");
+        }
+        else {
+            window->set_ans("Ні, не є генератором");
+        }
+    }, this);
 }
 

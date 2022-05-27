@@ -23,6 +23,9 @@ protected:
             if (message == "modulus = 0") {
                 message = "Модуль = 0";
             }
+            if (message == "divider has no reverse") {
+                message = "Дільник немає оберненого";
+            }
             show_exception(message);
         }
     }
