@@ -53,7 +53,7 @@ public:
 LIB_EXPORT DivisionResult<Polinome> CyclotomicPolynomial(unsigned long long n, unsigned long long module);
 // Function to check for Eisensteins
 // Irreducubility Criterion
-LIB_EXPORT bool checkIrreducibilty(std::vector<IntModulo> coefficients, long long N);
+LIB_EXPORT bool checkIrreducibilty(Polinome& polinome);
 
 
 
