@@ -277,9 +277,18 @@ void TestNumberModulo::test_case_pow() {
     QCOMPARE(test_num.get_num(), 1);
 
     QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.pow(2, 0));
-
     // negative
 
+    test_num.set_num(4); // inverse 3
+    test_num.pow(-2, 11);
+    QCOMPARE(test_num.get_num(), 9);
+
+    test_num.set_num(3); // inverse 9
+    test_num.pow(-3, 13);
+    QCOMPARE(test_num.get_num(), 1);
+
+    test_num.set_num(4);
+    QVERIFY_THROWS_EXCEPTION(std::logic_error, test_num.pow(-2, 16));
 }
 
 void TestNumberModulo::test_case_copy_constructor()
