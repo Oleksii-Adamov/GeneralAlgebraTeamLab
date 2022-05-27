@@ -52,7 +52,8 @@ private:
     void set_ans(const IntModulo& ans);
     void set_ans(long long ans);
     void set_ans(const std::string& ans);
-    void evaluate_func(void (*func)());
+    void evaluate_func(/*void (*func)(void*), void* context*/std::function<void(FiniteFieldWindow*)> func, FiniteFieldWindow* context);
+    void add();
 };
 
 #endif // FINITEFIELDWINDOW_H

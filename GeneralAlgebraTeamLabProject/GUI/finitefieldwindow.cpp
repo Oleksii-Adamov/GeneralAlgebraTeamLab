@@ -26,6 +26,19 @@ FiniteFieldWindow::~FiniteFieldWindow()
     delete ui;
 }
 
+void FiniteFieldWindow::evaluate_func(/*void (*func)(void*), void* context*/std::function<void(FiniteFieldWindow*)> func, FiniteFieldWindow* context) {
+    try {
+        func(context);
+    }
+    catch(std::exception& e) {
+        std::string message = e.what();
+        if (message == "modulus = 0") {
+            message = "Модуль = 0";
+        }
+        set_ans(message);
+    }
+}
+
 void FiniteFieldWindow::read_and_mod(IntModulo& first, IntModulo& second, unsigned long long& modulus) {
     //try {
         first.FromString(ui->lineEdit_first->text().toStdString());
@@ -66,9 +79,17 @@ void FiniteFieldWindow::set_ans(long long ans) {
     ui->lineEdit_ans->setText(QString::number(ans));
 }
 
+void FiniteFieldWindow::add() {
+    IntModulo first, second;
+    unsigned long long modulus;
+    read_and_mod(first, second, modulus);
+    first.add(second, modulus);
+    set_ans(first);
+}
+
 void FiniteFieldWindow::on_pushButton_add_clicked()
 {
-    try {
+    /*try {
         IntModulo first, second;
         unsigned long long modulus;
         read_and_mod(first, second, modulus);
@@ -81,7 +102,15 @@ void FiniteFieldWindow::on_pushButton_add_clicked()
             message = "Модуль = 0";
         }
         set_ans(message);
-    }
+    }*/
+    evaluate_func([](FiniteFieldWindow* ffw) {
+        IntModulo first, second;
+        unsigned long long modulus;
+        ffw->read_and_mod(first, second, modulus);
+        first.add(second, modulus);
+        ffw->set_ans(first);
+        return;
+    }, this);
 }
 
 

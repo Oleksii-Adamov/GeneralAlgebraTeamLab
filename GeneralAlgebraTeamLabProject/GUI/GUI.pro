@@ -21,6 +21,7 @@ SOURCES += \
     polynomialringwindow.cpp
 
 HEADERS += \
+    abstractguishowexceptionwindow.h \
     finitefieldwindow.h \
     mainwindow.h \
     polynomialfieldwindow.h \
