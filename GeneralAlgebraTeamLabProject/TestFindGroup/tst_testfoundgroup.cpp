@@ -46,7 +46,7 @@ void TestFoundGroup::testfindgroup()
 }
 void TestFoundGroup::testGenerator(){
     FindGroup group2(10);
-    bool b = group2.FindGroupGenerator(3);
+    bool b = group2.FindGroupGenerator(4);
     QVERIFY(b);
 }
 
