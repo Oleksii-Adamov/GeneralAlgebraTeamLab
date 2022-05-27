@@ -11,12 +11,11 @@
 #include "task20/generator.h"
 
 
-LIB_EXPORT int NumberGCD(int a, int b);
-LIB_EXPORT int m(int q, int n, int i);
-LIB_EXPORT int euler(int n);
-LIB_EXPORT int multCount(int q, int n, int i);
-LIB_EXPORT Polinome ri(int q, int n, int i);
-LIB_EXPORT int d(int q, int n);
-LIB_EXPORT std::vector<Polinome> computePolynomialProductOfCyclotomicPlynomial(int q, int n);
+LIB_EXPORT long long NumberGCD(long long a, long long b);
+LIB_EXPORT long long m(long long q, long long n, long long i);
+LIB_EXPORT long long multCount(long long q, long long n, long long i);
+LIB_EXPORT Polinome ri(long long q, long long n, long long i);
+LIB_EXPORT long long d(long long q, long long n);
+LIB_EXPORT std::vector<Polinome> computePolynomialProductOfCyclotomicPlynomial(long long q, long long n);
 
 #endif 

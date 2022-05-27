@@ -3,47 +3,28 @@
 
 //Fq Qn Ri
 
-int NumberGCD(int a, int b) {
+long long NumberGCD(long long a, long long b) {
     if (a == 0) {
         return b;
     }
     return NumberGCD(b % a, a);
 }
 
-int m(int q, int n, int i)
+long long m(long long q, long long n, long long i)
 {
-    int m = 1;
-    while((int)pow(q,m)%(n/NumberGCD(i,n)) != 1)
+    long long m = 1;
+    while((long long)pow(q,m)%(n/NumberGCD(i,n)) != 1)
     {
         m++;
     }
     return m;
 }
 
-//int euler(int n)
-//{
-//    int euler = 1;
-//    for(int i = 2; i <= n; i++)
-//    {
-//        if(NumberGCD(i,n) == 1)
-//        {
-//            euler++;
-//        }
-//    }
-//    return euler;
-//}
-
-//int multCount(int q, int n, int i)
-//{
-//    return euler(n)/m(q,n,i);
-//}
-
-
-Polinome ri(int q, int n, int i)
+Polinome ri(long long q, long long n, long long i)
 {
-    int mValue = m(q,n,i);
+    long long mValue = m(q,n,i);
     Polinome res = Polinome();
-    for(int j = 0; j < mValue; j++)
+    for(long long j = 0; j < mValue; j++)
     {
         Polinome t = Polinome(i*pow(q,j));
         t.getCoefficients()->emplace_back(IntModulo(1));
@@ -52,32 +33,37 @@ Polinome ri(int q, int n, int i)
     return res;
 }
 
-int d(int n, int q)
+long long d(long long n, long long q)
 {
-    int d=1;
-    while((int)pow(n,d)%q != 1)
+    long long d=1;
+    while((long long)pow(n,d)%q != 1)
     {
         d++;
     }
     return d;
 }
 
-std::vector<Polinome> computePolynomialProductOfCyclotomicPlynomial(int q, int n)
+std::vector<Polinome> computePolynomialProductOfCyclotomicPlynomial(long long q, long long n)
 {
     std::vector<Polinome> res;
-    int i = 1;
+    long long i = 1;
     Polinome cyclotomic = *CyclotomicPolynomial(n,q).quotient;
-    int dValue = d(q,n);
+    long long dValue = d(q,n);
 
     bool isDivisor = false;
 
     std::queue<Polinome> queue;
     queue.push(cyclotomic);
 
+
+
     while(!queue.empty())
     {
+        if(i%n == 0) i++;
         Polinome p = queue.front();
         
+        //std::cout<<"P: "<<p.toString()<<std::endl;
+
         if(degreeOfPolinome(p) == dValue)
         {
             res.push_back(p);
@@ -91,38 +77,23 @@ std::vector<Polinome> computePolynomialProductOfCyclotomicPlynomial(int q, int n
         }
         else
         {
-            int size = degreeOfPolinome(p);
-            int k = q-1;
+            long long size = degreeOfPolinome(p);
 
-//            std::cout<<"Ri: "<<ri(q,n,i).toString()<<std::endl;
-//            std::cout<<"Ri+1: "<<ri(q,n,i).add(Polinome("1").toString(),q).toString()<<std::endl;
-//            std::cout<<"Ri-1: "<<ri(q,n,i).add(Polinome(std::to_string(k)),q).toString()<<std::endl;
-//            std::cout<<"P: "<<p.toString()<<std::endl;
-//            std::cout<<std::endl;
-
-            Polinome p1 = *p.gcd(ri(q,n,i), q);
-            if(degreeOfPolinome(p1) >= 1 && degreeOfPolinome(p1) < size)
+            Polinome r = ri(q,n,i);
+            for(long long j = 0; j<q;j++)
             {
-                queue.push(p1);
-                isDivisor = true;
-            }
-            Polinome p2 = *p.gcd(ri(q,n,i).add(Polinome("1"),q),q);
-            p2=p2.add(p2,q);// :)
+                Polinome t = p;
+                Polinome r_t = r.add(Polinome(std::to_string(j)),q);
+                t = *p.gcd(r_t, q);
+                //std::cout<<"T"<<j<<": "<<t.toString()<<std::endl;
 
-            if(degreeOfPolinome(p2) >= 1 && degreeOfPolinome(p2) < size)
-            {
-                queue.push(p2);
-                isDivisor = true;
+                if(degreeOfPolinome(t) >= 1 && degreeOfPolinome(t) < size)
+                {
+                    queue.push(t);
+                    isDivisor = true;
+                }
             }
-            
-            Polinome p3 = *p.gcd(ri(q,n,i).add(Polinome(std::to_string(k)),q),q);
-            p3=p3.add(p3,q);// :)
-            if(degreeOfPolinome(p3) >= 1 && degreeOfPolinome(p3) < size)
-            {
-                queue.push(p3);
-                isDivisor = true;
-            }
-
+            //std::cout<<std::endl;
             if(isDivisor)
             {
                 queue.pop();
