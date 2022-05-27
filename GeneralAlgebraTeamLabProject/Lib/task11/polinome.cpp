@@ -97,9 +97,17 @@ Polinome Polinome::multiply(const Polinome& polinome, const Polinome& irreducibl
 }
 Polinome Polinome::reduce(unsigned long long modulus) const {
     Polinome res=Polinome();
-    for (size_t i = 0; i < this->coefficients->size(); i += 1) {
-        IntModulo el = IntModulo((*this->coefficients)[i]);
-        el.mod(modulus);
+    unsigned long long k = 0;
+    for (auto it = this->coefficients->rbegin(); it != this->coefficients->rend(); it++) {
+        k = it->get_num();
+        if (k != 0) {
+            break;
+        }
+    }
+    for (auto el : *this->coefficients) {
+        if (k > 1) {
+            el.divide(k, modulus);
+        }
         res.coefficients->push_back(el);
     }
     return res;
