@@ -1,5 +1,6 @@
 #include "findgroup.h"
 #include <iostream>
+#include <algorithm>
 
 FindGroup::FindGroup(IntModulo order)
 {
