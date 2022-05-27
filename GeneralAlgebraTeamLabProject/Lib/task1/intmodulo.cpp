@@ -215,19 +215,22 @@ long long legendreSymbol(unsigned long long a, unsigned long long n)
 }
 
 std::optional<std::pair<IntModulo, IntModulo>> IntModulo::sqrt_prime(unsigned long long modulus) const {
-    if (this->get_num() > modulus-1)
+    IntModulo a(*this);
+
+    if (a.get_num() > modulus-1)
         throw std::invalid_argument("modulus-1 must be greater or equal to the number");
     if (modulus % 1 != 0)
         throw std::invalid_argument("modulus should be integer");
 
-    if (legendreSymbol(this->get_num(), modulus) == -1)
+    if (legendreSymbol(a.get_num(), modulus) == -1)
         return std::nullopt;
 
     // case p == 3 (mod 4) (Algorithm 3.36)
     if (modulus % 4 == 3) {
         IntModulo r(*this);
         r.pow((modulus+1)/4, modulus);
-        IntModulo neg(-r.get_num());
+        IntModulo neg(r.get_num());
+        neg.multiply(IntModulo(-1), modulus);
         return std::make_pair(r, neg);
     }
 
@@ -238,7 +241,8 @@ std::optional<std::pair<IntModulo, IntModulo>> IntModulo::sqrt_prime(unsigned lo
         IntModulo r(*this);
         if (d.get_num() == 1){
             r.pow((modulus+3)/8, modulus);
-            IntModulo neg(-r.get_num());
+            IntModulo neg(r.get_num());
+            neg.multiply(IntModulo(-1), modulus);
             return std::make_pair(r, neg);
         } else if (d.get_num() == modulus-1) {
             IntModulo r2(*this);
@@ -246,7 +250,8 @@ std::optional<std::pair<IntModulo, IntModulo>> IntModulo::sqrt_prime(unsigned lo
             r2.multiply(IntModulo(4ll), modulus);
             r2.pow((modulus-5)/8, modulus);
             r.multiply(r2, modulus);
-            IntModulo neg(-r.get_num());
+            IntModulo neg(r.get_num());
+            neg.multiply(IntModulo(-1), modulus);
             return std::make_pair(r, neg);
         }
     }
@@ -274,14 +279,14 @@ std::optional<std::pair<IntModulo, IntModulo>> IntModulo::sqrt_prime(unsigned lo
         s.add(IntModulo(1), LLONG_MAX);
     }
 
-    IntModulo rev = this->findReversed(modulus);
+    IntModulo rev = a.findReversed(modulus);
 
     IntModulo c;
     IntModulo temp(b);
     temp.pow(t, modulus);
     c.set_num(temp.get_num());
 
-    IntModulo r(this->get_num());
+    IntModulo r(a.get_num());
     r.pow((t+1)/2, modulus);
 
     for (long long i = 1; i <= s.get_num()-1; i++)
@@ -297,7 +302,8 @@ std::optional<std::pair<IntModulo, IntModulo>> IntModulo::sqrt_prime(unsigned lo
         c.pow(2, modulus);
     }
 
-    IntModulo neg(-r.get_num());
+    IntModulo neg(r.get_num());
+    neg.multiply(IntModulo(-1), modulus);
     return std::make_pair(r, neg);
 }
 
