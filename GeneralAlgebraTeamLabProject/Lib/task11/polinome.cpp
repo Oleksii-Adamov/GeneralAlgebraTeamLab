@@ -316,18 +316,19 @@ bool check(std::vector<IntModulo> coefficients, long long P, long long N)
 }
 // Function to check for Eisensteins
 // Irreducubility Criterion
-bool checkIrreducibilty(std::vector<IntModulo> coefficients, long long N)
+bool checkIrreducibilty(Polinome& polinome)
 {
+    std::vector<IntModulo>* coefficients=polinome.getCoefficients();
+    long long N=coefficients->size();
     if (N <= 0) {
         throw std::invalid_argument("N <= 0");
     }
-    std::reverse(coefficients.begin(), coefficients.end());
-    // Stores the largest element in A
     long long M = -1;
 
+   std::reverse(coefficients->begin(),coefficients->end());
     // Find the maximum element in A
     for (long long i = 0; i < N; i++) {
-        M = fmax(M, coefficients[i].get_num());
+        M = fmax(M, (*coefficients)[i].get_num());
     }
 
     // Stores all the prime numbers
@@ -341,7 +342,7 @@ bool checkIrreducibilty(std::vector<IntModulo> coefficients, long long N)
         
         // Function Call to check
         // for the three conditions
-        if (check(coefficients, primes[i], N)) {
+        if (check(*coefficients, primes[i], N)) {
             return 1;
         }
     }
