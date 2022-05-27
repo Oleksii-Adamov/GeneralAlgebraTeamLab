@@ -415,14 +415,6 @@ void TestNumberModulo::test_case_isPrime_helper(int iterations_num)
     // checking for non-natural numbers.
     test_num.set_num(0);
     QVERIFY(!test_num.isPrime(iterations_num));
-    test_num.set_num(-1);
-    QVERIFY(!test_num.isPrime(iterations_num));
-    test_num.set_num(-2);
-    QVERIFY(!test_num.isPrime(iterations_num));
-    test_num.set_num(-8);
-    QVERIFY(!test_num.isPrime(iterations_num));
-    test_num.set_num(-36);
-    QVERIFY(!test_num.isPrime(iterations_num));
 
     // checking corner case.
     test_num.set_num(1);
