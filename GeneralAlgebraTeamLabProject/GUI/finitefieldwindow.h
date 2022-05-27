@@ -55,8 +55,10 @@ private:
     void set_ans(long long ans);
     void set_ans(const std::string& ans);
     void evaluate_func(std::function<void(FiniteFieldWindow*)> func, FiniteFieldWindow* context);
-    void add();
     void show_exception(const std::string& message) override;
+    void validate_first_field();
+    void validate_second_field();
+    void validate_modulus_field();
 };
 
 #endif // FINITEFIELDWINDOW_H
