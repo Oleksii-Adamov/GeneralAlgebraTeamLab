@@ -78,7 +78,7 @@ Polinome Polinome::multiply(const Polinome& polinome, unsigned long long modulus
     return result;
 }
 
-std::string Polinome::toString() {
+std::string Polinome::toString() const {
     std::string result = "";
     for (int power = coefficients->size() - 1; power >= 0; power--) {
         if ((*this->coefficients)[power].get_num() != 0) {

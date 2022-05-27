@@ -41,7 +41,6 @@ void PolynomialFieldWindow::on_pushButton_is_irreducible_clicked()
 {
     unsigned long long modulus = std::stoull(ui->lineEdit_modulus->text().toStdString());
     Polinome input(ui->lineEdit_first->text().toStdString());
-    //std::vector<Polinome> coefs =
     qDebug() << QString::fromStdString(input.toString());
     if(checkIrreducibilty(input, modulus)) {
         ui->lineEdit_ans->setText("Так, є незвідним");

@@ -1,9 +1,7 @@
 #include "finitefieldwindow.h"
 #include "ui_finitefieldwindow.h"
 #include <string>
-//#include <QRegularExpressionValidator>
 #include <limits>
-#include "task1/intmodulo.h"
 #include "task5/pollardfactorization.h"
 #include "task8/findgroup.h"
 #include "task7/discrete_logarithm.h"
@@ -14,11 +12,6 @@ FiniteFieldWindow::FiniteFieldWindow(QWidget *parent) :
     ui(new Ui::FiniteFieldWindow)
 {
     ui->setupUi(this);
-    /*QRegularExpression rx("^[0-9]+$");
-    QValidator* validator = new QRegularExpressionValidator(rx, this);
-    ui->lineEdit_modulus->setValidator(validator);
-    ui->lineEdit_first->setValidator(validator);
-    ui->lineEdit_second->setValidator(validator);*/
 }
 
 FiniteFieldWindow::~FiniteFieldWindow()

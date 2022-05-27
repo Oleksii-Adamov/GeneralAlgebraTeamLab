@@ -18,7 +18,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     polynomialfieldwindow.cpp \
-    polynomialringwindow.cpp
+    polynomialringwindow.cpp \
+    validation.cpp
 
 HEADERS += \
     abstractguishowexceptionwindow.h \

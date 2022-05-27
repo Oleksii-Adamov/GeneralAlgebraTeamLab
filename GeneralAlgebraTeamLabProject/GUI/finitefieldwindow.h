@@ -1,7 +1,6 @@
 #ifndef FINITEFIELDWINDOW_H
 #define FINITEFIELDWINDOW_H
 
-#include <QMainWindow>
 #include "abstractguishowexceptionwindow.h"
 #include "task1/intmodulo.h"
 
