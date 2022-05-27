@@ -1,4 +1,9 @@
 README.md.backup
+
+# Cline IDE
+.DS_Store
+/.idea
+
 # C++ objects and libs
 *.slo
 *.lo
