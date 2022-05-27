@@ -26,8 +26,15 @@ TestGenerator::~TestGenerator() {}
 void TestGenerator::testOrder() {
     int answer = orderOfPolinome(3, Polinome("x^2 + 1"), Polinome("x") );
     int answer2 = orderOfPolinome(3, Polinome("x^2 + 1"), Polinome("2x + 1") );
+    int answer3 = orderOfPolinome(7, Polinome("x^2 + 1"), Polinome("x^4 + x + 1") );
+    int answer4 = orderOfPolinome(5, Polinome("x^2 + 1"), Polinome("x^3"));
+    int answer5 = orderOfPolinome(5, Polinome("x^2 + 3x + 3"), Polinome("x"));
+
     QCOMPARE(answer, 4);
     QCOMPARE(answer2, 8);
+    QCOMPARE(answer3, 48);
+    QCOMPARE(answer4, 4);
+    QCOMPARE(answer5, 24);
 }
 
 void TestGenerator::testDegree() {

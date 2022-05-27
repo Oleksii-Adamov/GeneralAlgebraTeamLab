@@ -31,6 +31,7 @@ public:
     Polinome(const std::string& writtenPolinome);
     ~Polinome();
 
+
     //Methods
     std::vector<IntModulo>* getCoefficients();
     Polinome add(const Polinome& polinome, unsigned long long modulus) const;
@@ -59,7 +60,7 @@ public:
 LIB_EXPORT DivisionResult<Polinome> CyclotomicPolynomial(unsigned long long n, unsigned long long module);
 // Function to check for Eisensteins
 // Irreducubility Criterion
-LIB_EXPORT bool checkIrreducibilty(std::vector<IntModulo> coefficients, long long N);
+LIB_EXPORT bool checkIrreducibilty(Polinome& polinome, unsigned long long modulus);
 
 
 

@@ -324,20 +324,15 @@ void TestPolinome::testPolinomeCyclotomicPolynomial() {
 }
 
 void TestPolinome::testCheckIrreducibility() {
-     std::vector<IntModulo>* coefficientsVector = new std::vector<IntModulo>();
-    coefficientsVector = new std::vector<IntModulo>();
-    coefficientsVector->emplace_back(IntModulo(28));
-    coefficientsVector->emplace_back(IntModulo(21));
-    coefficientsVector->emplace_back(IntModulo(7));
-    coefficientsVector->emplace_back(IntModulo(4));
-    bool r1=checkIrreducibilty(*coefficientsVector,4);
+    auto pol1= Polinome("4x^3 + 7x^2 + 21x +28");
+    bool r1=checkIrreducibilty(pol1,30);
     QCOMPARE(r1,true);
-    coefficientsVector = new std::vector<IntModulo>();
-    coefficientsVector->emplace_back(IntModulo(1));
-    coefficientsVector->emplace_back(IntModulo(2));
-    coefficientsVector->emplace_back(IntModulo(1));
-    bool r2=checkIrreducibilty(*coefficientsVector,3);
+    auto pol2=Polinome("x^2 + 2x + 1");
+    bool r2=checkIrreducibilty(pol2,30);
     QCOMPARE(r2,false);
+    auto pol3=Polinome("3x + 1");
+    bool r3=checkIrreducibilty(pol3,30);
+    QCOMPARE(r3,true);
 }
 QTEST_APPLESS_MAIN(TestPolinome)
 
