@@ -10,7 +10,7 @@
 #include "task7/discrete_logarithm.h"
 
 FiniteFieldWindow::FiniteFieldWindow(QWidget *parent) :
-    QMainWindow(parent),
+    AbstractGuiShowExceptionWindow(parent),
     ui(new Ui::FiniteFieldWindow)
 {
     ui->setupUi(this);
@@ -26,8 +26,12 @@ FiniteFieldWindow::~FiniteFieldWindow()
     delete ui;
 }
 
-void FiniteFieldWindow::evaluate_func(/*void (*func)(void*), void* context*/std::function<void(FiniteFieldWindow*)> func, FiniteFieldWindow* context) {
-    try {
+void FiniteFieldWindow::show_exception(const std::string& message) {
+    set_ans(message);
+}
+
+void FiniteFieldWindow::evaluate_func(std::function<void(FiniteFieldWindow*)> func, FiniteFieldWindow* context) {
+    /*try {
         func(context);
     }
     catch(std::exception& e) {
@@ -36,7 +40,9 @@ void FiniteFieldWindow::evaluate_func(/*void (*func)(void*), void* context*/std:
             message = "Модуль = 0";
         }
         set_ans(message);
-    }
+    }*/
+    std::function<void(AbstractGuiShowExceptionWindow*)>& base_func = reinterpret_cast<std::function<void(AbstractGuiShowExceptionWindow*)>&>(func);
+    evaluate_base_func(base_func, context);
 }
 
 void FiniteFieldWindow::read_and_mod(IntModulo& first, IntModulo& second, unsigned long long& modulus) {

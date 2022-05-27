@@ -2,13 +2,15 @@
 #define FINITEFIELDWINDOW_H
 
 #include <QMainWindow>
+#include "abstractguishowexceptionwindow.h"
 #include "task1/intmodulo.h"
+
 
 namespace Ui {
 class FiniteFieldWindow;
 }
 
-class FiniteFieldWindow : public QMainWindow
+class FiniteFieldWindow : public AbstractGuiShowExceptionWindow
 {
     Q_OBJECT
 
@@ -52,8 +54,9 @@ private:
     void set_ans(const IntModulo& ans);
     void set_ans(long long ans);
     void set_ans(const std::string& ans);
-    void evaluate_func(/*void (*func)(void*), void* context*/std::function<void(FiniteFieldWindow*)> func, FiniteFieldWindow* context);
+    void evaluate_func(std::function<void(FiniteFieldWindow*)> func, FiniteFieldWindow* context);
     void add();
+    void show_exception(const std::string& message) override;
 };
 
 #endif // FINITEFIELDWINDOW_H
