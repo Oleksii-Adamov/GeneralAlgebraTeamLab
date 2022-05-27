@@ -52,7 +52,7 @@ public:
 LIB_EXPORT DivisionResult<Polinome> CyclotomicPolynomial(unsigned long long n, unsigned long long module);
 // Function to check for Eisensteins
 // Irreducubility Criterion
-LIB_EXPORT bool checkIrreducibilty(Polinome& polinome);
+LIB_EXPORT bool checkIrreducibilty(Polinome& polinome, unsigned long long modulus);
 
 
 

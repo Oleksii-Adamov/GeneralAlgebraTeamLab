@@ -269,27 +269,27 @@ std::vector<IntModulo>* convert(const std::string& writtenPolinome) {
     return answer;
 }
 
-std::vector<long long> Eratosthene(long long M)
+std::vector<long long> Eratosthene(unsigned long long M)
 {
     //store prime numbers
     bool isPrime[M+1];
 
 //initialize prime numbers
-    for (long long i = 0; i <= M + 1; i++) {
+    for (unsigned long long i = 0; i <= M + 1; i++) {
         isPrime[i] = true;
     }
 
-    for(long long k=2; k*k<=M;k++){
+    for(unsigned long long k=2; k*k<=M;k++){
         if(isPrime[k]==true){
                //update all multiples if k non prime
-            for(int i=k*k; i<=M;i+=k){
+            for(unsigned long long i=k*k; i<=M;i+=k){
                 isPrime[i]=false;
             }
         }
     }
     //prime numbers<M
     std::vector<long long> prime;
-    for(long long i=2; i<=M;i++){
+    for(unsigned long long i=2; i<=M;i++){
         if(isPrime[i]){
             prime.push_back(i);
         }
@@ -300,55 +300,56 @@ std::vector<long long> Eratosthene(long long M)
 // Function to check whether the three
 // conditions of Eisenstein's
 // Irreducibility criterion for prime P
-bool check(std::vector<IntModulo> coefficients, long long P, long long N)
+bool check(std::vector<IntModulo> coefficients, long long P, long long N, unsigned long long modulus)
 {
-    if (coefficients[0].get_num() % P == 0)
+    if (coefficients[0].get_num()!=0 && coefficients[0].get_num() % P == 0)
         return 0;
 
-    for (long long i = 1; i < N; i++)
-        if (coefficients[i].get_num() % P)
+    for (long long i = 1; i < N; i++){
+        if (coefficients[i].get_num()!=0 && coefficients[i].get_num()% P!=0)
             return 0;
-
-    if (coefficients[N - 1].get_num() % (P * P) == 0)
+    }
+        long long q=(P*P)%modulus;
+    if (coefficients[N-1].get_num()!=0 && coefficients[N-1].get_num() % q == 0)
         return 0;
 
     return 1;
 }
 // Function to check for Eisensteins
 // Irreducubility Criterion
-bool checkIrreducibilty(Polinome& polinome)
+bool checkIrreducibilty(Polinome& polinome, unsigned long long modulus)
 {
     std::vector<IntModulo>* coefficients=polinome.getCoefficients();
     long long N=coefficients->size();
     if (N <= 0) {
         throw std::invalid_argument("N <= 0");
     }
-    long long M = -1;
+  //  long long M = -1;
 
    std::reverse(coefficients->begin(),coefficients->end());
     // Find the maximum element in A
-    for (long long i = 0; i < N; i++) {
+  /*  for (long long i = 0; i < N; i++) {
         M = fmax(M, (*coefficients)[i].get_num());
     }
-
+*/
     // Stores all the prime numbers
     std::vector<long long> primes
-        = Eratosthene(M + 1);
-    
+        = Eratosthene(modulus-1);
+if(coefficients->size()==2)
+    return true;
     // Check if any prime
     // satisfies the conditions
-    for (std::size_t i = 0;
-        i < primes.size(); i++) {
-        
+else{
+    for (std::size_t i = 0; i < primes.size(); i++) {
         // Function Call to check
         // for the three conditions
-        if (check(*coefficients, primes[i], N)) {
+        if (check(*coefficients, primes[i], N, modulus)) {
             return 1;
         }
     }
     return 0;
 }
-
+}
 
 DivisionResult<Polinome> CyclotomicPolynomial(unsigned long long n, unsigned long long module) {
     Polinome numerator   = Polinome(n + 1);
