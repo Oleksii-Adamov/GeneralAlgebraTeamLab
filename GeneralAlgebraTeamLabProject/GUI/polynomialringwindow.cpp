@@ -7,11 +7,6 @@ PolynomialRingWindow::PolynomialRingWindow(QWidget *parent) :
     ui(new Ui::PolynomialRingWindow)
 {
     ui->setupUi(this);
-    //QRegularExpression rx(/*"^[0-9x ]+$"*/"/[0-9]*[ ]*[x]+[ ]*[+]?[ ]*/");
-    //QValidator* validator = new QRegularExpressionValidator(rx, this);
-    //ui->lineEdit_modulus->setValidator(validator);
-    //ui->lineEdit_first->setValidator(validator);
-    //ui->lineEdit_second->setValidator(validator);
 }
 
 PolynomialRingWindow::~PolynomialRingWindow()

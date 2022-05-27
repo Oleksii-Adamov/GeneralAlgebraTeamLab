@@ -1,13 +1,14 @@
 #ifndef POLYNOMIALFIELDWINDOW_H
 #define POLYNOMIALFIELDWINDOW_H
 
-#include <QMainWindow>
+#include "abstractguishowexceptionwindow.h"
+#include "task11/polinome.h"
 
 namespace Ui {
 class PolynomialFieldWindow;
 }
 
-class PolynomialFieldWindow : public QMainWindow
+class PolynomialFieldWindow : public AbstractGuiShowExceptionWindow
 {
     Q_OBJECT
 
@@ -24,6 +25,14 @@ private slots:
 
 private:
     Ui::PolynomialFieldWindow *ui;
+    void evaluate_func(std::function<void(PolynomialFieldWindow*)> func, PolynomialFieldWindow* context);
+    void show_exception(const std::string& message) override;
+    void set_ans(const int ans);
+    void set_ans(const Polinome& ans);
+    void set_ans(const std::string& ans);
+    void validate_modulus_field();
+    void read_and_mod(Polinome& first, Polinome& second, Polinome& irreducible, unsigned long long& modulus);
+    void read_and_mod(Polinome& first, Polinome& irreducible, unsigned long long& modulus);
 };
 
 #endif // POLYNOMIALFIELDWINDOW_H
