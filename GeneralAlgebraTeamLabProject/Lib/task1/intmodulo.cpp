@@ -1,4 +1,5 @@
 #include "intmodulo.h"
+#include "task5/pollardfactorization.h"
 #include <numeric>
 #include <stdexcept>
 
@@ -170,4 +171,99 @@ void IntModulo::pow(long long exponent, unsigned long long modulus)
         exponent = exponent >> 1;
     }
     num = result;
+}
+
+// optimal to use > 5 iterations
+bool IntModulo::isPrime(int iterationsNum)
+{
+    if(iterationsNum < 1) throw std::invalid_argument("iterationsNum can`t be negative.");
+
+    unsigned long long n = this->get_num();
+
+    // Corner cases
+    if (n <= 1 || n == 4)
+        return false;
+
+    if (n <= 3)
+        return true;
+
+    // Find r such that n = 2^d * r + 1 for some r >= 1
+    unsigned long long d = this->get_num() - 1;
+
+    while (d % 2 == 0) {
+        d /= 2;
+    }
+
+    for (int i = 0; i < iterationsNum; i++) {
+        if (!this->miillerTest(d, n)) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+// Private methods
+bool IntModulo::miillerTest(long long d, long long n)
+{
+    // Pick a random number in [2..n-2]
+    unsigned long long a = 2 + rand() % (n - 4);
+
+    // Compute x^d % n
+    IntModulo x = IntModulo(a);
+    x.pow(d, n);
+
+    if (x.get_num() == 1 || x.get_num() == n - 1)
+        return true;
+
+    // Keep squaring x while one of the following doesn't happen
+    // (i)   d does not reach n-1
+    // (ii)  (x^2) % n is not 1
+    // (iii) (x^2) % n is not n-1
+    while (d != n - 1) {
+        x.multiply(x, n);
+
+        d *= 2;
+
+        if (x.get_num() == 1)
+            return false;
+        if (x.get_num() == n - 1)
+            return true;
+    }
+
+    return false;
+}
+
+long long IntModulo::phi()
+{
+    if(num < 1) throw std::invalid_argument("Num can`t be less than 1.");
+    long long result = num, tmp = num;
+
+    // Consider all prime factors of n and subtract
+    // their multiples from result
+    for(int i = 2; i * i <= tmp; ++i) {
+        // Check if p is a prime factor.
+        if (tmp % i == 0) {
+            // If yes, then update n and result
+            while (tmp % i == 0) tmp /= i;
+            result -= result / i;
+        }
+    }
+
+    // If n has a prime factor greater than sqrt(n)
+    // (There can be at-most one such prime factor)
+    if (tmp > 1) result -= result / tmp;
+
+    return result;
+}
+
+long long IntModulo::carmichael()
+{
+    long long result = 1;
+    for (auto [p, e] : PollardFactorization::factorize(this->num)) {
+        long long lambda = std::pow(p, e - 1) * (p - 1);
+        if (p == 2 && e >= 3) lambda /= 2;
+        result = result / std::gcd(result, lambda) * lambda;
+    }
+    return result;
 }
