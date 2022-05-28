@@ -170,3 +170,15 @@ void PolynomialFieldWindow::on_pushButton_pow_clicked()
     }, this);
 }
 
+
+void PolynomialFieldWindow::on_pushButton_reduce_clicked()
+{
+    evaluate_func([](PolynomialFieldWindow* window) {
+        window->validate_modulus_field();
+        unsigned long long modulus = std::stoull(window->ui->lineEdit_modulus->text().toStdString());
+        Polinome input = Polinome(window->ui->lineEdit_first->text().toStdString());
+        Polinome ans = input.reduce(modulus);
+        window->set_ans(ans);
+    }, this);
+}
+

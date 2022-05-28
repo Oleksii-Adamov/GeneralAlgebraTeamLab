@@ -31,6 +31,8 @@ private slots:
 
     void on_pushButton_pow_clicked();
 
+    void on_pushButton_reduce_clicked();
+
 private:
     Ui::PolynomialFieldWindow *ui;
     void evaluate_func(std::function<void(PolynomialFieldWindow*)> func, PolynomialFieldWindow* context);
