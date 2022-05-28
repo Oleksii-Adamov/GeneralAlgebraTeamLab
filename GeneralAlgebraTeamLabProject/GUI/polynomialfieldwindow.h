@@ -23,6 +23,12 @@ private slots:
 
     void on_pushButton_is_irreducible_clicked();
 
+    void on_pushButton_add_clicked();
+
+    void on_pushButton_subtract_clicked();
+
+    void on_pushButton_multiply_clicked();
+
 private:
     Ui::PolynomialFieldWindow *ui;
     void evaluate_func(std::function<void(PolynomialFieldWindow*)> func, PolynomialFieldWindow* context);
