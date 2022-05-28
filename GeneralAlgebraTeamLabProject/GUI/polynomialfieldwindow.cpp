@@ -51,6 +51,7 @@ void PolynomialFieldWindow::read_and_mod(Polinome& first, Polinome& second, Poli
 {
     read_and_mod(first, irreducible, modulus);
     second = Polinome(ui->lineEdit_second->text().toStdString());
+    second = second.add(Polinome("0"), modulus);
 }
 
 void PolynomialFieldWindow::read_and_mod(Polinome& first, Polinome& irreducible, unsigned long long& modulus)
@@ -58,7 +59,9 @@ void PolynomialFieldWindow::read_and_mod(Polinome& first, Polinome& irreducible,
     validate_modulus_field();
     modulus = std::stoull(ui->lineEdit_modulus->text().toStdString());
     first = Polinome(ui->lineEdit_first->text().toStdString());
+    first = first.add(Polinome("0"), modulus);
     irreducible = Polinome(ui->lineEdit_irreducible->text().toStdString());
+    irreducible = irreducible.add(Polinome("0"), modulus);
 }
 
 void PolynomialFieldWindow::on_pushButton_order_clicked()
@@ -106,18 +109,6 @@ void PolynomialFieldWindow::on_pushButton_is_irreducible_clicked()
         }
     }, this);
 }
-
-
-/*void PolynomialFieldWindow::on_pushButton_pow_clicked()
-{
-    evaluate_func([](PolynomialFieldWindow* window) {
-        Polinome firsе, irreducible;
-        unsigned long long modulus;
-        window->read_and_mod(first, irreducible, modulus);
-        Polinome ans = first.multiply(second, irreducible, modulus);
-        window->set_ans(ans);
-    }, this);
-}*/
 
 
 void PolynomialFieldWindow::on_pushButton_add_clicked()

@@ -49,12 +49,14 @@ void PolynomialRingWindow::read_and_mod(Polinome& first, Polinome& second, unsig
 {
     read_and_mod(first, modulus);
     second = Polinome(ui->lineEdit_second->text().toStdString());
+    second = second.add(Polinome("0"), modulus);
 }
 void PolynomialRingWindow::read_and_mod(Polinome& first, unsigned long long& modulus)
 {
     validate_modulus_field();
     modulus = std::stoull(ui->lineEdit_modulus->text().toStdString());
     first = Polinome(ui->lineEdit_first->text().toStdString());
+    first = first.add(Polinome("0"), modulus);
 }
 
 void PolynomialRingWindow::on_pushButton_add_clicked()
