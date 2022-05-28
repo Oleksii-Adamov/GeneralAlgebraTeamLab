@@ -111,7 +111,7 @@
         </widget>
        </item>
        <item row="5" column="1">
-        <widget class="QPushButton" name="pushButton_evaluate">
+        <widget class="QPushButton" name="pushButton_pow">
          <property name="text">
           <string>Піднести у степінь</string>
          </property>
