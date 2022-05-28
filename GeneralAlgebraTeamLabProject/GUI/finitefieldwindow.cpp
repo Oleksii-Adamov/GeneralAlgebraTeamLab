@@ -231,8 +231,12 @@ void FiniteFieldWindow::on_pushButton_discreteLogarithm2_clicked()
         IntModulo base, arg;
         unsigned long long modulus;
         window->read_and_mod(arg, base, modulus);
-        int ans = discreteLogarithm2(base.get_num(), arg.get_num(), modulus);
-        window->set_ans(ans);
+        std::vector<long long> answers = discreteLogarithm2(12, 24, 150);
+        QString ans = "";
+        for(std::size_t i = 0; i < answers.size(); i++) {
+          ans += QString::number(answers[i]) + " ";
+        }
+        window->set_ans(ans.toStdString());
     }, this);
 }
 
