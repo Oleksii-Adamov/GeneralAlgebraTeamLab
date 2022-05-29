@@ -5,6 +5,7 @@
 #include <map>
 #include <algorithm>
 #include <vector>
+#include "../task5/pollardfactorization.h"
 
 using ll = long long;
 
@@ -100,11 +101,10 @@ ll mod_inv(ll a, ll n) {
   throw std::runtime_error("mod_inv args not coprime.");
 }
 
-template<typename T>
 void cartesian_product_helper(
-  std::vector<std::vector<T>> const& v,
-  std::vector<std::vector<T>>& result,
-  std::vector<T>& path,
+  std::vector<std::vector<std::pair<ll, ll>>> const& v,
+  std::vector<std::vector<std::pair<ll, ll>>>& result,
+  std::vector<std::pair<ll, ll>>& path,
   size_t i)
 {
   if (i == v.size()) {
@@ -118,10 +118,9 @@ void cartesian_product_helper(
   }
 }
 
-template<typename T>
-std::vector<std::vector<T>> cartesian_product(std::vector<std::vector<T>> const& v) {
-  std::vector<std::vector<T>> result;
-  std::vector<T> path;
+std::vector<std::vector<std::pair<ll, ll>>> cartesian_product(std::vector<std::vector<std::pair<ll, ll>>> const& v) {
+  std::vector<std::vector<std::pair<ll, ll>>> result;
+  std::vector<std::pair<ll, ll>> path;
   result.reserve(50);
   cartesian_product_helper(v, result, path, 0);
   return result;
@@ -145,56 +144,10 @@ ll chinese_remainder_theorem(const std::vector<std::pair<ll, ll>>& pr) {
   return x;
 }
 
-ll smallest_prime_factor(ll n) {
-  static const ll sieve_limit = 20000000;
-  static std::vector<ll> smf;
-  static std::vector<ll> primes;
-
-  // Perform the sieve on the first
-  // call to this function.
-  if (smf.size() == 0) {
-    smf.resize(sieve_limit + 1);
-    std::fill(smf.begin(), smf.end(), sieve_limit);
-    std::vector<bool> composite(sieve_limit + 1, false);
-    composite[0] = composite[1] = true;
-    smf[0] = smf[1] = 1;
-    for (ll i{2}; i <= sieve_limit; ++i) {
-      if (!composite[i]) {
-        primes.push_back(i);
-        smf[i] = i;
-        for (ll j{2*i}; j <= sieve_limit; j += i) {
-          composite[j] = true;
-          smf[j] = std::min(smf[j], i);
-        }
-      }
-    }
-  }
-
-  if (n <= sieve_limit) return smf[n];
-
-  if (IntModulo(n).isPrime(6)) return n;
-
-  // Try small primes.
-  for (auto p : primes) {
-    if (n % p == 0) return p;
-  }
-
-  ll p = sieve_limit + ((sieve_limit & 1)? 0 : 1);
-  while (n % p) p += 2;
-  return p;
-}
-
 std::vector<std::pair<ll, ll>> factorize(ll n) {
   std::vector<std::pair<ll, ll>> result;
-  result.reserve(9);
-  while (n > 1) {
-    ll p{smallest_prime_factor(n)};
-    ll e{0};
-    while (n % p == 0) {
-      n /= p;
-      ++e;
-    }
-    result.push_back(std::make_pair(p, e));
+  for (auto factor : PollardFactorization::factorize(n)) {
+      result.push_back(std::make_pair(factor.first, factor.second));
   }
   return result;
 }
