@@ -281,9 +281,22 @@ void TestNumberModulo::test_case_pow() {
     QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.pow(2, 0));
 }
 
+bool invoke_sqrt_test(long long a, long long n, bool no_roots) {
+    auto anss = IntModulo(a).sqrt(n);
+    if (no_roots) {
+        return anss.size() == 0;
+    } else {
+        for (auto ans : anss) {
+            if (ans*ans%n != a%n) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 void TestNumberModulo::test_case_sqrt() {
-    auto ans = IntModulo(246).sqrt(1955);
-    auto f = ans.find(226);
+    invoke_sqrt_test(312, 683, false);
 
 //    // prime modulo
 //    IntModulo test_num(5);
