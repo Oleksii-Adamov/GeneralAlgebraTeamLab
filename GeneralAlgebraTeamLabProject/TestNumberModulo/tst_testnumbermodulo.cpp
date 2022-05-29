@@ -279,6 +279,18 @@ void TestNumberModulo::test_case_pow() {
     QCOMPARE(test_num.get_num(), 1);
 
     QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.pow(2, 0));
+    // negative
+
+    test_num.set_num(4); // inverse 3
+    test_num.pow(-2, 11);
+    QCOMPARE(test_num.get_num(), 9);
+
+    test_num.set_num(3); // inverse 9
+    test_num.pow(-3, 13);
+    QCOMPARE(test_num.get_num(), 1);
+
+    test_num.set_num(4);
+    QVERIFY_THROWS_EXCEPTION(std::logic_error, test_num.pow(-2, 16));
 }
 
 bool invoke_sqrt_test(long long a, long long n, bool no_roots) {
@@ -475,14 +487,6 @@ void TestNumberModulo::test_case_isPrime_helper(int iterations_num)
     // if iterations numbers are correct.
     // checking for non-natural numbers.
     test_num.set_num(0);
-    QVERIFY(!test_num.isPrime(iterations_num));
-    test_num.set_num(-1);
-    QVERIFY(!test_num.isPrime(iterations_num));
-    test_num.set_num(-2);
-    QVERIFY(!test_num.isPrime(iterations_num));
-    test_num.set_num(-8);
-    QVERIFY(!test_num.isPrime(iterations_num));
-    test_num.set_num(-36);
     QVERIFY(!test_num.isPrime(iterations_num));
 
     // checking corner case.
