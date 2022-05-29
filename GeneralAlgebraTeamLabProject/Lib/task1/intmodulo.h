@@ -47,7 +47,7 @@ private:
     /**
      * @param modulus - should be prime
      */
-    std::optional<std::pair<IntModulo, IntModulo>> sqrt_prime(unsigned long long modulus) const;
+    std::set<long long> sqrt_prime(unsigned long long modulus) const;
 public:
     // methods
 

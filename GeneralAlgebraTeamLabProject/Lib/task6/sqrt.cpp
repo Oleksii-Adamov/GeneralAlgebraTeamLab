@@ -1,5 +1,6 @@
 #include "sqrt.h"
 
+#include <random>
 #include <set>
 #include <cstdint>
 #include <map>
@@ -43,9 +44,23 @@ ll mod_pow(ll a, ll b, ll m) {
   return k.get_num();
 }
 
-ll legendre_symbol(ll a, ll p) {
-  return mod_pow(a, (p - 1)/2, p);
+ll legendre_symbol(unsigned long long a, unsigned long long n)
+{
+    if (a == 1)
+    {
+        return 1;
+    }
+    if ((a % 2 == 0) && (a != 0))
+    {
+        return legendre_symbol(a / 2, n) * pow(-1, (n * n - 1) / 8);
+    }
+    if (a % 2 != 0)
+    {
+        return legendre_symbol(n % a, a) * pow(-1, (a - 1) * (n - 1) / 4);
+    }
+    return 0;
 }
+
 
 ll is_quadratic_residue(ll a, ll p) {
   return legendre_symbol(a, p) == 1;
@@ -93,6 +108,103 @@ std::vector<ll> tonelli_shanks(ll n, ll p) {
   }
   return {r, p - r};
 }
+
+
+std::set<long long> IntModulo::sqrt_prime(unsigned long long modulus) const {
+    IntModulo a(*this);
+    a.mod(modulus);
+
+    if (modulus % 1 != 0)
+        throw std::invalid_argument("modulus should be integer");
+
+    if (legendre_symbol(a.get_num(), modulus) == -1)
+        return {};
+
+    // case p == 3 (mod 4) (Algorithm 3.36)
+    if (modulus % 4 == 3) {
+        IntModulo r(*this);
+        r.pow((modulus+1)/4, modulus);
+        IntModulo neg(r.get_num());
+        neg.multiply(IntModulo(-1), modulus);
+        return {r.get_num(), neg.get_num()};
+    }
+
+    // case p == 5 (mod 8) (Algorithm 3.37)
+    if (modulus % 8 == 5) {
+        IntModulo d(*this);
+        d.pow((modulus-1)/4, modulus);
+        IntModulo r(*this);
+        if (d.get_num() == 1){
+            r.pow((modulus+3)/8, modulus);
+            IntModulo neg(r.get_num());
+            neg.multiply(IntModulo(-1), modulus);
+            return {r.get_num(), neg.get_num()};
+        } else if ((unsigned) d.get_num() == modulus-1) {
+            IntModulo r2(*this);
+            r.multiply(IntModulo(2ll), modulus);
+            r2.multiply(IntModulo(4ll), modulus);
+            r2.pow((modulus-5)/8, modulus);
+            r.multiply(r2, modulus);
+            IntModulo neg(r.get_num());
+            neg.multiply(IntModulo(-1), modulus);
+            return {r.get_num(), neg.get_num()};
+        }
+    }
+
+
+    // (Algorithm 3.34)
+
+    // random numbers
+    const int range_from  = 1;
+    const int range_to    = modulus-1;
+
+    std::random_device                        rand_dev;
+    std::mt19937                              generator(rand_dev());
+    std::uniform_int_distribution<long long>  distr(range_from, range_to);
+
+    IntModulo b;
+
+    do {
+        b.set_num(distr(generator));
+    } while (legendre_symbol(b.get_num(), modulus) != -1);
+
+    IntModulo s(0);
+    unsigned long long t = modulus - 1;
+
+    while (t % 2 == 0 && s.get_num() < 10) {
+        t /= 2;
+        s.add(IntModulo(1), LLONG_MAX);
+    }
+
+
+    IntModulo rev = a.findReversed(modulus);
+
+    IntModulo c;
+    IntModulo temp(b);
+    temp.pow(t, modulus);
+    c.set_num(temp.get_num());
+
+    IntModulo r(a.get_num());
+    r.pow((t+1)/2, modulus);
+
+    for (long long i = 1; i <= s.get_num()-1; i++)
+    {
+        IntModulo d(r);
+        d.pow(2, modulus);
+        d.multiply(rev, modulus);
+        d.pow(std::pow(2, s.get_num()-i-1), modulus);
+
+        if (modulus - d.get_num() == 1)
+            r.multiply(c, modulus);
+
+        c.pow(2, modulus);
+    }
+
+    IntModulo neg(r.get_num());
+    neg.multiply(IntModulo(-1), modulus);
+    return {r.get_num(), neg.get_num()};
+}
+
 
 ll mod_inv(ll a, ll n) {
   IntModulo k(a);
@@ -157,6 +269,7 @@ ll ipow(ll a, ll b) {
 }
 
 std::set<long long> IntModulo::sqrt(unsigned long long modulus) const {
+
   ll a = this->get_num();
   ll n = modulus;
 
@@ -194,8 +307,10 @@ std::set<long long> IntModulo::sqrt(unsigned long long modulus) const {
           return memo[pr] = roots;
         }
       } else if (IntModulo(n).isPrime(6)) {
+
         std::set<ll> roots;
-        for (const auto& r : tonelli_shanks(a, n)) {
+
+        for (const auto& r : this->sqrt_prime(n)) {
           roots.insert(r);
         }
         return memo[pr] = roots;
