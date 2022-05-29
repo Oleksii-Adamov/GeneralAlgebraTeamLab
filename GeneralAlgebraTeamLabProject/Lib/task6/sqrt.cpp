@@ -66,50 +66,6 @@ ll is_quadratic_residue(ll a, ll p) {
   return legendre_symbol(a, p) == 1;
 }
 
-std::vector<ll> tonelli_shanks(ll n, ll p) {
-  if (!is_quadratic_residue(n, p)) return {};
-
-  ll q{p - 1};
-  ll s{0};
-  while (~q & 1) {
-    q >>= 1;
-    s += 1;
-  }
-
-  if (s == 1) {
-    const auto x{mod_pow(n, (p + 1)/4, p)};
-    return {x, p - x};
-  }
-
-  ll z{0};
-  for (ll k{1}; k < p; ++k) {
-    if (!is_quadratic_residue(k, p)) {
-      z = k;
-      break;
-    }
-  }
-
-  auto c{mod_pow(z, q, p)};
-  auto r{mod_pow(n, (q + 1)/2, p)};
-  auto t{mod_pow(n, q, p)};
-  auto m{s};
-  while (t != 1) {
-    auto i{1};
-    auto x{mod_mul(t, t, p)};
-    while (x != 1) {
-      x = mod_mul(x, x, p);
-      i += 1;
-    }
-    const auto b{mod_pow(c, (1ll << (m - i - 1)), p)};
-    r = mod_mul(r, b, p);
-    c = mod_mul(b, b, p);
-    t = mod_mul(t, c, p);
-    m = i;
-  }
-  return {r, p - r};
-}
-
-
 std::set<long long> IntModulo::sqrt_prime(unsigned long long modulus) const {
     IntModulo a(*this);
     a.mod(modulus);
@@ -151,7 +107,6 @@ std::set<long long> IntModulo::sqrt_prime(unsigned long long modulus) const {
         }
     }
 
-
     // (Algorithm 3.34)
 
     // random numbers
@@ -175,7 +130,6 @@ std::set<long long> IntModulo::sqrt_prime(unsigned long long modulus) const {
         t /= 2;
         s.add(IntModulo(1), LLONG_MAX);
     }
-
 
     IntModulo rev = a.findReversed(modulus);
 
@@ -283,36 +237,8 @@ std::set<long long> IntModulo::sqrt(unsigned long long modulus) const {
   if (it != memo.end()) return it->second;
 
   if (gcd(a, n) == 1) {
-      if (is_power_of_two(n)) {
-        if (a % std::min(n, ll{8}) == 1) {
-          ll k{0};
-          ll t{n};
-          while (t > 1) {
-            t >>= 1;
-            k += 1;
-          }
-          if (k == 1) return memo[pr] = {ll{1}};
-          if (k == 2) return memo[pr] = {ll{1}, ll{3}};
-          if (k == 3) return memo[pr] = {ll{1}, ll{3}, ll{5}, ll{7}};
-          if (a == 1)
-            return memo[pr] = {ll{1}, (n >> 1) - 1ll, (n >> 1) + 1ll, n - 1ll};
-
-          std::set<ll> roots;
-          for (const auto x : IntModulo(a).sqrt(n >> 1)) {
-            const ll i = ((x*x - a) >> (k - 1)) & 1;
-            const ll r = x + (i << (k - 2));
-            roots.insert(r);
-            roots.insert(n - r);
-          }
-          return memo[pr] = roots;
-        }
-      } else if (IntModulo(n).isPrime(6)) {
-
-        std::set<ll> roots;
-
-        for (const auto& r : this->sqrt_prime(n)) {
-          roots.insert(r);
-        }
+      if (is_power_of_two(n) || IntModulo(n).isPrime(6)) {
+        std::set<ll> roots =this->sqrt_prime(n);
         return memo[pr] = roots;
       } else {
         const auto pe = factorize(n);
@@ -321,7 +247,8 @@ std::set<long long> IntModulo::sqrt(unsigned long long modulus) const {
           ll p{pe[0].first};
           ll k{pe[0].second};
 
-          auto roots = tonelli_shanks(a, p);
+          auto roots_vec = IntModulo(a).sqrt_prime(p);
+          std::vector<ll> roots(roots_vec.begin(), roots_vec.end());
           ll pk{p};
           ll pi{p*p};
           for (int i{2}; i <= k; ++i) {
