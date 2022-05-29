@@ -209,17 +209,15 @@ ll chinese_remainder_theorem(const std::vector<std::pair<ll, ll>>& pr) {
 }
 
 std::vector<std::pair<ll, ll>> factorize(ll n) {
-  std::vector<std::pair<ll, ll>> result;
-  for (auto factor : PollardFactorization::factorize(n)) {
-      result.push_back(std::make_pair(factor.first, factor.second));
-  }
+  auto factors_map = PollardFactorization::factorize(n);
+  std::vector<std::pair<ll, ll>> result(factors_map.begin(), factors_map.end());
   return result;
 }
 
-ll ipow(ll a, ll b) {
+ll bin_pow(ll a, ll b) {
   if (b == 0) return 1;
-  else if (b & 1) return a*ipow(a, b - 1);
-  else return ipow(a*a, b >> 1);
+  else if (b & 1) return a*bin_pow(a, b - 1);
+  else return bin_pow(a*a, b >> 1);
 }
 
 std::set<long long> IntModulo::sqrt(unsigned long long modulus) const {
@@ -263,7 +261,7 @@ std::set<long long> IntModulo::sqrt(unsigned long long modulus) const {
         } else {
           std::vector<std::vector<std::pair<ll, ll>>> solutions(pe.size());
           for (size_t i{0}; i < pe.size(); ++i) {
-            const auto m = ipow(pe[i].first, pe[i].second);
+            const auto m = bin_pow(pe[i].first, pe[i].second);
             const auto r = IntModulo(a).sqrt(m);
             solutions[i].reserve(r.size());
             for (auto&& r0 : r) {
