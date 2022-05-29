@@ -95,10 +95,8 @@ std::vector<ll> tonelli_shanks(ll n, ll p) {
 }
 
 ll mod_inv(ll a, ll n) {
-  auto result = extended_gcd(a, n);
-  if (std::get<0>(result) == 1)
-    return (n + std::get<1>(result)) % n;
-  throw std::runtime_error("mod_inv args not coprime.");
+  IntModulo k(a);
+  return k.findReversed(n).get_num();
 }
 
 void cartesian_product_helper(
