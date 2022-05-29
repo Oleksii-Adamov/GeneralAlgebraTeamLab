@@ -5,6 +5,8 @@
 #include <string>
 #include <iostream>
 #include <map>
+#include <set>
+#include <cstdint>
 
 class LIB_EXPORT IntModulo
 {
@@ -65,9 +67,6 @@ public:
     IntModulo findReversed(unsigned long long modulus) const;
     // num = num^(exponent) (mod modulus > 0) complexity O(log exponent) using Right-to-left binary method
     void pow(unsigned long long exponent, unsigned long long modulus);
-    // operation of computing square roots modulo some number
-    // if the square root exists, returns pair (+root, -root), else empty optional
-    std::optional<std::pair<IntModulo, IntModulo>> sqrt(unsigned long long modulus) const;
     // return string representation of num
     std::string ToString() const;
     // read num from string (std::invalid_argument if contains non digits before digits, but if string is "123d", then num := 123)
@@ -82,6 +81,8 @@ public:
     long long phi();
     // finds the smallest positive m for every integer between 1 and num that is coprime to n
     long long carmichael();
+
+    std::set<long long> sqrt(unsigned long long modulus) const;
 private:
     // methods
     static bool miillerTest(long long d, long long n);
