@@ -274,3 +274,24 @@ void FiniteFieldWindow::on_pushButton_is_generator_clicked()
     }, this);
 }
 
+
+void FiniteFieldWindow::on_pushButton_sqrt_clicked()
+{
+    evaluate_func([](FiniteFieldWindow* window) {
+        IntModulo input;
+        unsigned long long modulus;
+        window->read_and_mod(input, modulus);
+        std::set<long long> answers = IntModulo(input).sqrt(modulus);
+        if (answers.size() == 0) {
+            window->set_ans("Коренів немає");
+        }
+        else {
+            QString ans_str =  "";
+            for (auto ans : answers) {
+                ans_str += QString::number(ans) + " ";
+            }
+            window->set_ans(ans_str.toStdString());
+        }
+    }, this);
+}
+

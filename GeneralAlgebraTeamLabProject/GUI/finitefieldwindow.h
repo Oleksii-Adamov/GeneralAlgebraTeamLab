@@ -46,6 +46,8 @@ private slots:
 
     void on_pushButton_discreteLogarithm2_clicked();
 
+    void on_pushButton_sqrt_clicked();
+
 private:
     void read_and_mod(IntModulo& first, IntModulo& second, unsigned long long& modulus);
     void read_and_mod(IntModulo& first, unsigned long long& modulus);
