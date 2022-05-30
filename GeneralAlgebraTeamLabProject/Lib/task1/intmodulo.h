@@ -5,6 +5,8 @@
 #include <string>
 #include <iostream>
 #include <map>
+#include <set>
+#include <cstdint>
 
 class LIB_EXPORT IntModulo
 {
@@ -41,6 +43,11 @@ private:
     // I do not store modulus, because that would be a waste of memory (we will work in fields with some constant modulus, so
     // there is no sense to store it with every integer
     long long num = 0;
+
+    /**
+     * @param modulus - should be prime
+     */
+    std::set<long long> sqrt_prime(unsigned long long modulus) const;
 public:
     // methods
 
@@ -74,6 +81,8 @@ public:
     long long phi();
     // finds the smallest positive m for every integer between 1 and num that is coprime to n
     long long carmichael();
+
+    std::set<long long> sqrt(unsigned long long modulus) const;
 private:
     // methods
     static bool miillerTest(long long d, long long n);
