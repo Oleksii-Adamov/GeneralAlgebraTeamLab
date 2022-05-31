@@ -236,6 +236,15 @@ std::set<long long> IntModulo::sqrt(unsigned long long modulus) const {
 
   if (gcd(a, n) == 1) {
       if (is_power_of_two(n) || IntModulo(n).isPrime(6)) {
+          // case modulus = 2
+        if (modulus == 2) {
+          if (a % 2 == 1) {
+              return {1};
+          } else {
+              return {};
+          }
+        }
+
         std::set<ll> roots =this->sqrt_prime(n);
         return memo[pr] = roots;
       } else {

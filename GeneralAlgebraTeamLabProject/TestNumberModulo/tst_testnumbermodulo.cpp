@@ -311,6 +311,7 @@ bool invoke_sqrt_test(long long a, long long n, bool no_roots) {
 
 void TestNumberModulo::test_case_sqrt() {
     // prime n
+    invoke_sqrt_test(1, 2, false);
     invoke_sqrt_test(312, 683, false);
     invoke_sqrt_test(169, 1801, false);
     invoke_sqrt_test(420, 1237, false);
