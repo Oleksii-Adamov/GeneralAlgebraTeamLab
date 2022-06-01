@@ -11,6 +11,9 @@ CONFIG += c++17 staticlib
 
 SOURCES += \
     lib.cpp \
+    task13/polinome_copy.cpp \
+    task13/polinome_gcd.cpp \
+    task5/pollardfactorization.cpp \
     utils.cpp \
     task1/intmodulo.cpp \
     task11/polinome.cpp \
@@ -22,6 +25,9 @@ SOURCES += \
 HEADERS += \
     Lib_global.h \
     lib.h \
+    task13/polinome_copy.h \
+    task13/polinome_gcd.h \
+    task5/pollardfactorization.h \
     utils.h \
     task1/intmodulo.h \
     task11/polinome.h \
