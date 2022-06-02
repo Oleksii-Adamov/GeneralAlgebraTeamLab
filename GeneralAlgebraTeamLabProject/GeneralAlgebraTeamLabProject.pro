@@ -9,4 +9,5 @@ SUBDIRS += \
     TestPolinome \
     TestGenerator \
     TestFindGroup \
-    TestRi
+    TestRi \
+    TestReversedPolinome
