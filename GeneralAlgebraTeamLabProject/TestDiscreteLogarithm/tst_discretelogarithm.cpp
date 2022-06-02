@@ -33,17 +33,17 @@ void DiscreteLogarithm::testDiscreteLogarithm()
 {
      std::vector<int> result =  {4};
      QCOMPARE(discreteLogarithm(3, 13, 17), result);
-     std::vector<int> result =  {9};
+     result =  {9};
      QCOMPARE(discreteLogarithm(2, 18, 19), result);
-     std::vector<int> result =  {13};
+     result =  {13};
      QCOMPARE(discreteLogarithm(3, 12, 17), result);
-     std::vector<int> result =  {2};
+     result =  {2};
      QCOMPARE(discreteLogarithm(5,  4,  7), result);
-     std::vector<int> result =  {3,8};
+     result =  {3,8};
      QCOMPARE(discreteLogarithm(5,  4, 11), result);
-     std::vector<int> result =  {2};
+     result =  {2};
      QCOMPARE(discreteLogarithm(3,  4,  5), result);
-     std::vector<int> result =  {10,30,50,70,90,110,130,150,170,190};
+     result =  {10,30,50,70,90,110,130,150,170,190};
      QCOMPARE(discreteLogarithm(8, 24, 200), result);
 
 }

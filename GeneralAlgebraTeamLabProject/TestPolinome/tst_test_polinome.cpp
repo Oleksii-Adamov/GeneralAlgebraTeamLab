@@ -28,6 +28,10 @@ private slots:
     void testPolinomeDegree();
     void testPolinomeDivision();
     void testPolinomeGCD();
+
+    //Task14 test
+    void testPolinomeCyclotomicPolynomial();
+    void testCheckIrreducibility();
 };
 
 TestPolinome::TestPolinome() {}
@@ -306,6 +310,30 @@ void TestPolinome::testPolinomeGCD() {
     QCOMPARE(*r2, Polinome("12x^3 + 3"));
 }
 
+void TestPolinome::testPolinomeCyclotomicPolynomial() {
+    auto r1 = CyclotomicPolynomial(12,11);
+    QCOMPARE(*r1.quotient, Polinome("x^4 + 10x^2 + 1"));
+    auto r2 = CyclotomicPolynomial(8,7);
+    QCOMPARE(*r2.quotient, Polinome("x^4 + 1"));
+    auto r3 = CyclotomicPolynomial(14,13);
+    QCOMPARE(*r3.quotient, Polinome("x^6 + 12x^5 + x^4 + 12x^3 + x^2 + 12x + 1"));
+    auto r4 = CyclotomicPolynomial(18,17);
+    QCOMPARE(*r4.quotient, Polinome("x^6 + 16x^3 + 1"));
+
+
+}
+
+void TestPolinome::testCheckIrreducibility() {
+    auto pol1= Polinome("4x^3 + 7x^2 + 21x +28");
+    bool r1=checkIrreducibilty(pol1,30);
+    QCOMPARE(r1,true);
+    auto pol2=Polinome("x^2 + 2x + 1");
+    bool r2=checkIrreducibilty(pol2,30);
+    QCOMPARE(r2,false);
+    auto pol3=Polinome("3x + 1");
+    bool r3=checkIrreducibilty(pol3,30);
+    QCOMPARE(r3,true);
+}
 QTEST_APPLESS_MAIN(TestPolinome)
 
 #include "tst_test_polinome.moc"

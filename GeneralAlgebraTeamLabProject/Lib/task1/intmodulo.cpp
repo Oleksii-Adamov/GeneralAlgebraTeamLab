@@ -1,7 +1,10 @@
 #include "intmodulo.h"
+#include <random>
 #include "task5/pollardfactorization.h"
 #include <numeric>
 #include <stdexcept>
+#include <string>
+#include <algorithm>
 
 IntModulo::IntModulo()
 {
@@ -136,7 +139,7 @@ IntModulo::IntModulo(const std::string& input)
     FromString(input);
 }
 
-void IntModulo::pow(unsigned long long exponent, unsigned long long modulus)
+void IntModulo::pow(long long exponent, unsigned long long modulus)
 {
     // fast modular exponentiation O(log exponent) using Right-to-left binary method
     //https://en.wikipedia.org/wiki/Modular_exponentiation#Right-to-left_binary_method
@@ -144,8 +147,17 @@ void IntModulo::pow(unsigned long long exponent, unsigned long long modulus)
         num = 0;
         return;
     }
-    // throw expeption if modulus = 0
+    // throws exception if modulus = 0
     mod(modulus);
+    // negative exponentiation is positive exponentiation of inverse element
+    if (exponent < 0) {
+        IntModulo reversed = this->findReversed(modulus);
+        if (reversed.get_num() == 0) {
+            throw std::logic_error("element has no reverse");
+        }
+        num = reversed.get_num();
+        exponent *= -1;
+    }
     // base_in_pow = base^(2^i)
     unsigned long long base_in_pow = num;
     unsigned long long result = 1;
@@ -192,6 +204,23 @@ bool IntModulo::isPrime(int iterationsNum)
     }
 
     return true;
+}
+
+long long legendreSymbol(unsigned long long a, unsigned long long n)
+{
+    if (a == 1)
+    {
+        return 1;
+    }
+    if ((a % 2 == 0) && (a != 0))
+    {
+        return legendreSymbol(a / 2, n) * pow(-1, (n * n - 1) / 8);
+    }
+    if (a % 2 != 0)
+    {
+        return legendreSymbol(n % a, a) * pow(-1, (a - 1) * (n - 1) / 4);
+    }
+    return 0;
 }
 
 // Private methods

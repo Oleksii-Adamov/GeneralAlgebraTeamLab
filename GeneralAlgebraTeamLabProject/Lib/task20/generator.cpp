@@ -2,20 +2,15 @@
 #include <cmath>
 
 //x^2 + 1 , x
-int orderOfPolinome(int modulus, const Polinome p1, const Polinome p2) {
+int orderOfPolinome(int modulus, const Polinome irreducible, const Polinome polinome) {
     int order = 1;
-    bool found = false;
-    Polinome result = Polinome();
-    result = p2;
-     while (!found){
+    Polinome result = polinome;
+     while (result.toString() != Polinome("1").toString()){
          order++;
-         result = result.multiply(p2, modulus);
-         if (result.divide(p1, modulus).remainder->toString() == Polinome("1").toString())
-         {
-             return order;
-        }
-
+         result = result.multiply(polinome, modulus);
+         result = *result.divide(irreducible, modulus).remainder;
     }
+     return order;
 }
 
 int degreeOfPolinome(Polinome p) {
