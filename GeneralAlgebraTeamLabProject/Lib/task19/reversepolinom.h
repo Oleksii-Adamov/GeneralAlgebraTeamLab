@@ -7,10 +7,11 @@
 
 class LIB_EXPORT ReversePolinom
 {
-    Polinome a, b, x, y, gcd;
+    Polinome a, b, reverse;
 public:
-    ReversePolinom(Polinome a, Polinome b, int field);
-    Polinome xGCD(Polinome a, Polinome b, int field);
+    ReversePolinom(Polinome a, Polinome p, int modulo);
+    Polinome inverse(Polinome a, Polinome p, int modulo);
+    Polinome get_reverse();
 };
 
 #endif // REVERSEPOLINOM_H
