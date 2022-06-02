@@ -21,6 +21,8 @@ private slots:
 
     void on_pushButton_FiniteField_clicked();
 
+    void on_pushButton_PolynomialField_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

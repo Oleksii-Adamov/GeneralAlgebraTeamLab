@@ -2,8 +2,8 @@
 #define REVERSEPOLINOM_H
 
 #include "Lib_global.h"
-#include "task11/polinome.cpp"
-#include "task13/polinome_division.cpp"
+#include "task11/polinome.h"
+#include "task13/polinome_division.h"
 
 class LIB_EXPORT ReversePolinom
 {

@@ -14,14 +14,26 @@ LIBS += -L../Lib/debug/ -lLib
 LIBS += -L../Lib/release/ -lLib
 
 SOURCES += \
+    finitefieldwindow.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    polynomialfieldwindow.cpp \
+    polynomialringwindow.cpp \
+    validation.cpp
 
 HEADERS += \
-    mainwindow.h
+    abstractguishowexceptionwindow.h \
+    finitefieldwindow.h \
+    mainwindow.h \
+    polynomialfieldwindow.h \
+    polynomialringwindow.h \
+    validation.h
 
 FORMS += \
-    mainwindow.ui
+    finitefieldwindow.ui \
+    mainwindow.ui \
+    polynomialfieldwindow.ui \
+    polynomialringwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

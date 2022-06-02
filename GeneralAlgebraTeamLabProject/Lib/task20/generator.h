@@ -6,6 +6,7 @@
 #include "task13/polinome_division.h"
 #include "task13/division_result.h"
 
+// p1 - irreducible
 LIB_EXPORT int orderOfPolinome(int modulus, const Polinome p1, const Polinome p2);
 LIB_EXPORT int degreeOfPolinome(const Polinome p);
 LIB_EXPORT int maxOrderOfPolinome(int modulus, const Polinome p);
