@@ -18,10 +18,12 @@ void print(const std::string_view rem, const M& mmap)
     std::cout << '\n';
 }
 */
-long long discreteLogarithm(long long a, long long b, long long p)
+
+std::vector<int> discreteLogarithm(double a, double b, int p)
 {
-    long long h = floor(sqrt(p)) + 1;
-    long long c = IntModulo(std::pow(a, h), p).get_num();
+    std::vector<int> result;
+    int h = floor(sqrt(p)) + 1;
+    int c = IntModulo(std::pow(a, h), p).get_num();
 
     std::multimap<int, int> cu;
     std::multimap<int, int> bav;
@@ -35,12 +37,12 @@ long long discreteLogarithm(long long a, long long b, long long p)
     for(auto el_cu = cu.begin(); el_cu != cu.end(); el_cu++) {
         for(auto el_bav = bav.begin(); el_bav != bav.end(); el_bav++) {
             if (el_cu->first == el_bav->first && IntModulo(std::pow(a, h * el_cu->second - el_bav->second), p).get_num() == b)
-                return h * el_cu->second - el_bav->second;
+                result.push_back(h * el_cu->second - el_bav->second);
         }
     }
 
 
-    return -1;
+    return result.size() ? result : std::vector<int> {-1};
 }
 
 std::vector<long long> discreteLogarithm2(int base, int result, int module) {
