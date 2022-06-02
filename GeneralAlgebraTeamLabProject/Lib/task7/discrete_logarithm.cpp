@@ -5,6 +5,9 @@
 //#include "../utils.h"
 #include "task1/intmodulo.h"
 #include "discrete_logarithm.h"
+#include <vector>
+#include <algorithm>
+#include <unordered_set>
 
 /*template<class M>
 void print(const std::string_view rem, const M& mmap)
@@ -15,6 +18,7 @@ void print(const std::string_view rem, const M& mmap)
     std::cout << '\n';
 }
 */
+
 std::vector<int> discreteLogarithm(double a, double b, int p)
 {
     std::vector<int> result;
@@ -24,10 +28,10 @@ std::vector<int> discreteLogarithm(double a, double b, int p)
     std::multimap<int, int> cu;
     std::multimap<int, int> bav;
 
-    for(int u = 1; u <= h; u++)
+    for (long long u = 1; u <= h; u++)
         cu.insert(decltype(cu)::value_type(IntModulo(std::pow(c, u), p).get_num(), u));
 
-    for(int v = 0; v<= h; v++)
+    for (long long v = 0; v <= h; v++)
         bav.insert(decltype(bav)::value_type(IntModulo(b * std::pow(a, v), p).get_num(), v));
 
     for(auto el_cu = cu.begin(); el_cu != cu.end(); el_cu++) {
@@ -41,8 +45,7 @@ std::vector<int> discreteLogarithm(double a, double b, int p)
     return result.size() ? result : std::vector<int> {-1};
 }
 
-
-int discreteLogarithm2(int base, int result, int module) {
+std::vector<long long> discreteLogarithm2(int base, int result, int module) {
     int n = (int)sqrt(module) + 1;
 
     int baseInNPower = 1;
@@ -50,26 +53,37 @@ int discreteLogarithm2(int base, int result, int module) {
         baseInNPower = (baseInNPower * base) % module;
     }
 
-    std::map<int, int>  table;
+    std::map<int, std::vector<long long>>  table;
+
+    table[1] = {0};
 
     for (int i = 1, current = baseInNPower; i <= n; i++) {
-        if (!table[current]) {
-            table[current] = i;
+        if (table[current].size() == 0) {
+            table[current] = {i};
+        }
+        else {
+            table[current].push_back(i);
         }
 
         current = (current * baseInNPower) % module;
     }
 
-   for (int j = 0, current = result; j <= n; j++) {
-        if (table[current]) {
-            int answer = table[current] * n - j;
-            if (answer < module) {
-                return answer;
-            }
+    std::vector<long long> answers;
 
+   for (int j = 0, current = result; j <= n; j++) {
+        if (table[current].size() > 0) {
+            for (auto tempAnswer : table[current]) {
+                int answer = tempAnswer * n - j;
+                if(answer < module) {
+                    answers.push_back(answer);
+                }
+            }
         }
         current = (current * base) % module;
     }
 
-    return -1;
+   if (answers.size() == 0) return { -1 };
+   std::sort(answers.begin(), answers.end());
+   answers.erase(std::unique(answers.begin(), answers.end()), answers.end());
+   return answers;
 }
