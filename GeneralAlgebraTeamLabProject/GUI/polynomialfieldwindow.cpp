@@ -154,7 +154,7 @@ void PolynomialFieldWindow::on_pushButton_pow_clicked()
         unsigned long long modulus;
         window->read_and_mod(first, irreducible, modulus);
         // possible change for valid_ll if negatives will be added
-        if (!valid_ull(window->ui->lineEdit_second->text())) throw "Друге поле введено неправильно";
+        if (!valid_ull(window->ui->lineEdit_second->text())) throw std::invalid_argument("Друге поле введено неправильно");
         long long exponent = std::stoll(window->ui->lineEdit_second->text().toStdString());
         Polinome ans = first.pow(exponent, /*irreducible,*/ modulus);
         window->set_ans(ans);
