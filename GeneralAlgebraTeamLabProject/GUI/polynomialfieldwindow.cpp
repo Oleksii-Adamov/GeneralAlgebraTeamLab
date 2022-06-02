@@ -173,3 +173,19 @@ void PolynomialFieldWindow::on_pushButton_reduce_clicked()
     }, this);
 }
 
+
+void PolynomialFieldWindow::on_pushButton_is_generator_clicked()
+{
+    evaluate_func([](PolynomialFieldWindow* window) {
+        Polinome input, irreducible;
+        unsigned long long modulus;
+        window->read_and_mod(input, irreducible, modulus);
+        if (isGenerator(modulus, irreducible, input)) {
+            window->set_ans("Так, є генератором");
+        }
+        else {
+            window->set_ans("Ні, не є генератором");
+        }
+    }, this);
+}
+

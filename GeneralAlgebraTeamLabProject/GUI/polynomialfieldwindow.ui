@@ -111,7 +111,7 @@
           <widget class="QLineEdit" name="lineEdit_second"/>
          </item>
          <item row="8" column="0">
-          <widget class="QPushButton" name="pushButton_3">
+          <widget class="QPushButton" name="pushButton_is_generator">
            <property name="text">
             <string>Чи є елемент генератором</string>
            </property>
