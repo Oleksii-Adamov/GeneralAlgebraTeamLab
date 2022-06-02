@@ -36,11 +36,16 @@ std::vector<int> discreteLogarithm(double a, double b, int p)
 
     for(auto el_cu = cu.begin(); el_cu != cu.end(); el_cu++) {
         for(auto el_bav = bav.begin(); el_bav != bav.end(); el_bav++) {
-            if (el_cu->first == el_bav->first && IntModulo(std::pow(a, h * el_cu->second - el_bav->second), p).get_num() == b)
-                result.push_back(h * el_cu->second - el_bav->second);
+            if (el_cu->first == el_bav->first
+                && IntModulo(std::pow(a, h * el_cu->second - el_bav->second), p).get_num() == b
+                && (h * el_cu->second - el_bav->second <= p))
+                    result.push_back(h * el_cu->second - el_bav->second);
         }
     }
 
+    std::sort(result.begin(), result.end());
+    auto last = std::unique(result.begin(),result.end());
+    result.erase(last, result.end());
 
     return result.size() ? result : std::vector<int> {-1};
 }
