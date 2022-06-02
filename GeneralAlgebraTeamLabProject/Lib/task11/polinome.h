@@ -43,7 +43,7 @@ public:
     Polinome add(const Polinome& polinome, const Polinome& irreducible, unsigned long long modulus) const;
     Polinome subtract(const Polinome& polinome, const Polinome& irreducible, unsigned long long modulus) const;
     Polinome multiply(const Polinome& polinome, const Polinome& irreducible, unsigned long long modulus) const;
-    Polinome pow(long long power, unsigned long long modulus) const;
+    Polinome pow(long long power, const Polinome& irreducible, unsigned long long modulus) const;
 
     // task12 methods
     Polinome derivative(unsigned long long modulus);
