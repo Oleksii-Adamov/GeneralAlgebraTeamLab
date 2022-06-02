@@ -167,7 +167,7 @@
           </widget>
          </item>
          <item row="5" column="0">
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="pushButton_reversed">
            <property name="text">
             <string>Знайти обернений</string>
            </property>

@@ -3,6 +3,7 @@
 #include "validation.h"
 #include "task15/ri.h"
 #include "task20/generator.h"
+#include "task19/reversepolinom.h"
 
 PolynomialFieldWindow::PolynomialFieldWindow(QWidget *parent) :
     AbstractGuiShowExceptionWindow(parent),
@@ -186,6 +187,18 @@ void PolynomialFieldWindow::on_pushButton_is_generator_clicked()
         else {
             window->set_ans("Ні, не є генератором");
         }
+    }, this);
+}
+
+
+void PolynomialFieldWindow::on_pushButton_reversed_clicked()
+{
+    evaluate_func([](PolynomialFieldWindow* window) {
+        Polinome input, irreducible;
+        unsigned long long modulus;
+        window->read_and_mod(input, irreducible, modulus);
+        ReversePolinom rp2(input, irreducible, modulus);
+        window->set_ans(rp2.get_reverse());
     }, this);
 }
 
