@@ -48,15 +48,12 @@ void FiniteFieldWindow::validate_modulus_field() {
 
 void FiniteFieldWindow::read_and_mod(IntModulo& first, IntModulo& second, unsigned long long& modulus) {
     read_and_mod(first, modulus);
-    //if (ui->lineEdit_second->text() == "") throw std::invalid_argument("Друге поле не заповнене");
     validate_second_field();
     second.FromString(ui->lineEdit_second->text().toStdString());
     second.mod(modulus);
 }
 
 void FiniteFieldWindow::read_and_mod(IntModulo& first, unsigned long long& modulus) {
-    //if (ui->lineEdit_modulus->text() == "") throw std::invalid_argument("Модуль не задано");
-    //if (ui->lineEdit_first->text() == "") throw std::invalid_argument("Перше поле не заповнене");
     validate_modulus_field();
     validate_first_field();
     modulus = std::stoull(ui->lineEdit_modulus->text().toStdString());
