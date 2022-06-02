@@ -19,8 +19,12 @@ SOURCES += \
     task13/polinome_gcd.cpp \
     task13/polynome_degree.cpp \
     task5/pollardfactorization.cpp \
-    task20/generator.cpp
-
+    task6/sqrt.cpp\
+    task15/ri.cpp \
+    task20/generator.cpp \
+    task8/findgroup.cpp \
+    utils.cpp
+    
 HEADERS += \
     Lib_global.h \
     lib.h \
@@ -32,9 +36,13 @@ HEADERS += \
     task13/polinome_copy.h \
     task13/polinome_degree.h \
     task13/polinome_division.h \
+    task13/polinome_gcd.h \
     task5/pollardfactorization.h \
+    task6/sqrt.h \
+    task15/ri.h \
+    utils.h \
     task20/generator.h \
-    task13/polinome_gcd.h 
+    task8/findgroup.h 
    
 
 # Default rules for deployment.

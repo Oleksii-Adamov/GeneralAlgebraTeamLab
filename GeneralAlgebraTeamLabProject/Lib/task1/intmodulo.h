@@ -5,6 +5,8 @@
 #include <string>
 #include <iostream>
 #include <map>
+#include <set>
+#include <cstdint>
 
 class LIB_EXPORT IntModulo
 {
@@ -41,6 +43,11 @@ private:
     // I do not store modulus, because that would be a waste of memory (we will work in fields with some constant modulus, so
     // there is no sense to store it with every integer
     long long num = 0;
+
+    /**
+     * @param modulus - should be prime
+     */
+    std::set<long long> sqrt_prime(unsigned long long modulus) const;
 public:
     // methods
 
@@ -59,7 +66,7 @@ public:
     // finds reversed element (return num = 0 if no reversed)
     IntModulo findReversed(unsigned long long modulus) const;
     // num = num^(exponent) (mod modulus > 0) complexity O(log exponent) using Right-to-left binary method
-    void pow(unsigned long long exponent, unsigned long long modulus);
+    void pow(long long exponent, unsigned long long modulus);
     // return string representation of num
     std::string ToString() const;
     // read num from string (std::invalid_argument if contains non digits before digits, but if string is "123d", then num := 123)
@@ -74,6 +81,8 @@ public:
     long long phi();
     // finds the smallest positive m for every integer between 1 and num that is coprime to n
     long long carmichael();
+
+    std::set<long long> sqrt(unsigned long long modulus) const;
 private:
     // methods
     static bool miillerTest(long long d, long long n);

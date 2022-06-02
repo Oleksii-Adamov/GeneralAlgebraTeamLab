@@ -1,4 +1,6 @@
 #include "polinome.h"
+#include "../utils.h"
+#include "task13/polinome_division.h"
 
 std::vector<IntModulo>* convert(const std::string& writtenPolinome);
 
@@ -6,6 +8,7 @@ Polinome::Polinome() {
     std::vector<IntModulo>* vec = new std::vector<IntModulo>();
     coefficients = vec;
 }
+
 
 Polinome::Polinome(int power) {
     coefficients = new std::vector<IntModulo>();
@@ -26,10 +29,18 @@ Polinome::~Polinome() {
     delete coefficients;
 }
 
+Polinome::Polinome(const Polinome& other) {
+    this->coefficients = new std::vector<IntModulo>(other.coefficients->size());
+    for(size_t i=0;i<other.coefficients->size();i++){
+       (*this->coefficients)[i]= (*other.coefficients)[i];
+    }
+}
+
+
 std::vector<IntModulo>* Polinome::getCoefficients()
-        {
-            return this->coefficients;
-        }
+{
+    return this->coefficients;
+}
 
 Polinome Polinome::add(const Polinome& polinome, unsigned long long modulus) const {
     Polinome result = Polinome();
@@ -41,6 +52,12 @@ Polinome Polinome::add(const Polinome& polinome, unsigned long long modulus) con
         result.coefficients->push_back(addend1);
     }
     return result;
+}
+
+Polinome Polinome::add(const Polinome& polinome, const Polinome& irreducible, unsigned long long modulus) const {
+    Polinome p = this->add(polinome, modulus);
+    DivisionResult<Polinome> res = p.divide(irreducible, modulus);
+    return *res.remainder;
 }
 
 Polinome Polinome::subtract(const Polinome &polinome, unsigned long long modulus) const {
@@ -55,6 +72,12 @@ Polinome Polinome::subtract(const Polinome &polinome, unsigned long long modulus
     return result;
 }
 
+Polinome Polinome::subtract(const Polinome& polinome, const Polinome& irreducible, unsigned long long modulus) const {
+    Polinome p = this->subtract(polinome, modulus);
+    DivisionResult<Polinome> res = p.divide(irreducible, modulus);
+    return *res.remainder;
+}
+
 Polinome Polinome::multiply(const Polinome& polinome, unsigned long long modulus) const {
     Polinome result = Polinome(this->coefficients->size() + polinome.coefficients->size());
     for(unsigned long long i = 0; i < this->coefficients->size(); ++i) {
@@ -65,6 +88,40 @@ Polinome Polinome::multiply(const Polinome& polinome, unsigned long long modulus
         }
     }
     return result;
+}
+
+Polinome Polinome::multiply(const Polinome& polinome, const Polinome& irreducible, unsigned long long modulus) const {
+    Polinome p = this->multiply(polinome, modulus);
+    DivisionResult<Polinome> res = p.divide(irreducible, modulus);
+    return *res.remainder;
+}
+Polinome Polinome::reduce(unsigned long long modulus) const {
+    Polinome res=Polinome();
+    unsigned long long k = 0;
+    for (auto it = this->coefficients->rbegin(); it != this->coefficients->rend(); it++) {
+        k = it->get_num();
+        if (k != 0) {
+            break;
+        }
+    }
+    for (auto el : *this->coefficients) {
+        if (k > 1) {
+            el.divide(k, modulus);
+        }
+        res.coefficients->push_back(el);
+    }
+    return res;
+}
+Polinome Polinome::pow(long long power, unsigned long long modulus) const {
+    long long pow;
+    Polinome res = *this;
+    for (pow = 1; pow*2 <= power; pow*=2) {
+        res = res.multiply(res, modulus);
+    }
+    if (pow < power) {
+        res = res.multiply(*this, modulus);
+    }
+    return res;
 }
 
 std::string Polinome::toString() {
@@ -106,6 +163,15 @@ IntModulo Polinome::evaluate(IntModulo x, unsigned long long modulus){
     }
 
     return res;
+}
+
+Polinome& Polinome::operator= (const Polinome& polinome) {
+    delete this->coefficients;
+    this->coefficients= new std::vector<IntModulo>(polinome.coefficients->size());
+    for(size_t i = 0; i < polinome.coefficients->size(); i++)
+       (*this->coefficients)[i] = (*polinome.coefficients)[i];
+   
+    return *this;
 }
 
 bool Polinome::operator== (const Polinome& polinome) const {
@@ -249,27 +315,27 @@ std::vector<IntModulo>* convert(const std::string& writtenPolinome) {
     return answer;
 }
 
-std::vector<long long> Eratosthene(long long M)
+std::vector<long long> Eratosthene(unsigned long long M)
 {
     //store prime numbers
     bool isPrime[M+1];
 
 //initialize prime numbers
-    for (long long i = 0; i <= M + 1; i++) {
+    for (unsigned long long i = 0; i <= M + 1; i++) {
         isPrime[i] = true;
     }
 
-    for(long long k=2; k*k<=M;k++){
+    for(unsigned long long k=2; k*k<=M;k++){
         if(isPrime[k]==true){
                //update all multiples if k non prime
-            for(int i=k*k; i<=M;i++){
+            for(unsigned long long i=k*k; i<=M;i+=k){
                 isPrime[i]=false;
             }
         }
     }
     //prime numbers<M
     std::vector<long long> prime;
-    for(long long i=2; i<=M;i++){
+    for(unsigned long long i=2; i<=M;i++){
         if(isPrime[i]){
             prime.push_back(i);
         }
@@ -280,66 +346,91 @@ std::vector<long long> Eratosthene(long long M)
 // Function to check whether the three
 // conditions of Eisenstein's
 // Irreducibility criterion for prime P
-bool check(std::vector<IntModulo> coefficients, long long P, long long N)
+bool check(std::vector<IntModulo> coefficients, long long P, long long N, unsigned long long modulus)
 {
-    if (coefficients[0].get_num() % P == 0)
+    if (coefficients[0].get_num()!=0 && coefficients[0].get_num() % P == 0)
         return 0;
 
-    for (long long i = 1; i < N; i++)
-        if (coefficients[i].get_num() % P)
+    for (long long i = 1; i < N; i++){
+        if (coefficients[i].get_num()!=0 && coefficients[i].get_num()% P!=0)
             return 0;
-
-    if (coefficients[N - 1].get_num() % (P * P) == 0)
+    }
+        long long q=(P*P)%modulus;
+    if (coefficients[N-1].get_num()!=0 && coefficients[N-1].get_num() % q == 0)
         return 0;
 
     return 1;
 }
 // Function to check for Eisensteins
 // Irreducubility Criterion
-bool checkIrreducibilty(std::vector<IntModulo> coefficients, long long N)
+bool checkIrreducibilty(Polinome& polinome, unsigned long long modulus)
 {
+    std::vector<IntModulo>* coefficients=polinome.getCoefficients();
+    long long N=coefficients->size();
     if (N <= 0) {
         throw std::invalid_argument("N <= 0");
     }
-    std::reverse(coefficients.begin(), coefficients.end());
-    // Stores the largest element in A
-    long long M = -1;
+  //  long long M = -1;
 
+   std::reverse(coefficients->begin(),coefficients->end());
     // Find the maximum element in A
-    for (long long i = 0; i < N; i++) {
-        M = fmax(M, coefficients[i].get_num());
+  /*  for (long long i = 0; i < N; i++) {
+        M = fmax(M, (*coefficients)[i].get_num());
     }
-
+*/
     // Stores all the prime numbers
     std::vector<long long> primes
-        = Eratosthene(M + 1);
-    
+        = Eratosthene(modulus-1);
+if(coefficients->size()==2)
+    return true;
     // Check if any prime
     // satisfies the conditions
-    for (std::size_t i = 0;
-        i < primes.size(); i++) {
-        
+else{
+    for (std::size_t i = 0; i < primes.size(); i++) {
         // Function Call to check
         // for the three conditions
-        if (check(coefficients, primes[i], N)) {
+        if (check(*coefficients, primes[i], N, modulus)) {
             return 1;
         }
     }
     return 0;
 }
-
-Polinome& Polinome::operator= (const Polinome& polinome) {
-    delete this->coefficients;
-    this->coefficients = new std::vector<IntModulo>(polinome.coefficients->size());
-    for(size_t i=0;i<polinome.coefficients->size();i++){
-       (*this->coefficients)[i]= (*polinome.coefficients)[i];
-    }
-    return *this;
 }
 
-Polinome::Polinome(const Polinome& other) {
-    this->coefficients = new std::vector<IntModulo>(other.coefficients->size());
-    for(size_t i=0;i<other.coefficients->size();i++){
-       (*this->coefficients)[i]= (*other.coefficients)[i];
+DivisionResult<Polinome> CyclotomicPolynomial(unsigned long long n, unsigned long long module) {
+    Polinome numerator   = Polinome(n + 1);
+    Polinome denominator = Polinome(n + 1);
+    bool numerator_init = false;
+    bool denominator_init = false;
+    for(unsigned long long d = 1; d <= n; d++) {
+        if (n % d == 0) {
+            auto pol= new std::vector<IntModulo>(n + 1,0);
+            (*pol)[d] = 1;
+            (*pol)[0] = -1;
+            switch(mobius(n/d)){
+                case 1: {
+                    if(!numerator_init) {
+                        numerator = Polinome(pol);
+                        numerator_init = true;
+                        break;
+                    }
+                 numerator = numerator.multiply(Polinome(pol), module);
+                    break;
+                }
+                case -1: {
+                    if(!denominator_init) {
+                        denominator = Polinome(pol);
+                        denominator_init = true;
+                        break;
+                    }
+                  denominator = denominator.multiply(Polinome(pol), module);
+                    break;
+                }
+            }
+        }
     }
+    if(!denominator_init)
+           return numerator.divide(Polinome("1"),module);
+
+    return numerator.divide(denominator, module);
 }
