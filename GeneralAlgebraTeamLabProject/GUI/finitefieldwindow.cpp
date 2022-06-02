@@ -217,14 +217,17 @@ void FiniteFieldWindow::on_pushButton_discreteLogarithm_clicked()
         IntModulo base, arg;
         unsigned long long modulus;
         window->read_and_mod(arg, base, modulus);
-        /*int ans = discreteLogarithm(base.get_num(), arg.get_num(), modulus);
-        window->set_ans(ans);*/
         std::vector<int> answers = discreteLogarithm(base.get_num(), arg.get_num(), modulus);
-        QString ans = "";
-        for(std::size_t i = 0; i < answers.size(); i++) {
-          ans += QString::number(answers[i]) + " ";
+        if (answers[0] == -1) {
+            window->set_ans("Не існує");
         }
-        window->set_ans(ans.toStdString());
+        else {
+            QString ans = "";
+            for(std::size_t i = 0; i < answers.size(); i++) {
+              ans += QString::number(answers[i]) + " ";
+            }
+            window->set_ans(ans.toStdString());
+        }
     }, this);
 }
 
@@ -235,11 +238,16 @@ void FiniteFieldWindow::on_pushButton_discreteLogarithm2_clicked()
         unsigned long long modulus;
         window->read_and_mod(arg, base, modulus);
         std::vector<long long> answers = discreteLogarithm2(base.get_num(), arg.get_num(), modulus);
-        QString ans = "";
-        for(std::size_t i = 0; i < answers.size(); i++) {
-          ans += QString::number(answers[i]) + " ";
+        if (answers[0] == -1) {
+            window->set_ans("Не існує");
         }
-        window->set_ans(ans.toStdString());
+        else {
+            QString ans = "";
+            for(std::size_t i = 0; i < answers.size(); i++) {
+              ans += QString::number(answers[i]) + " ";
+            }
+            window->set_ans(ans.toStdString());
+        }
     }, this);
 }
 
