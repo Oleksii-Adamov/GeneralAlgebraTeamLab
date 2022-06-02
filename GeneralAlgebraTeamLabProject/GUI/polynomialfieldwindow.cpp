@@ -63,6 +63,7 @@ void PolynomialFieldWindow::read_and_mod(Polinome& first, Polinome& irreducible,
     first = first.add(Polinome("0"), modulus);
     irreducible = Polinome(ui->lineEdit_irreducible->text().toStdString());
     irreducible = irreducible.add(Polinome("0"), modulus);
+    first = *(first.divide(irreducible, modulus).remainder);
 }
 
 void PolynomialFieldWindow::on_pushButton_order_clicked()
@@ -102,6 +103,7 @@ void PolynomialFieldWindow::on_pushButton_is_irreducible_clicked()
         window->validate_modulus_field();
         unsigned long long modulus = std::stoull(window->ui->lineEdit_modulus->text().toStdString());
         Polinome input(window->ui->lineEdit_first->text().toStdString());
+        input = input.add(Polinome("0"), modulus);
         if(checkIrreducibilty(input, modulus)) {
             window->ui->lineEdit_ans->setText("Так, є незвідним");
         }
@@ -169,6 +171,7 @@ void PolynomialFieldWindow::on_pushButton_reduce_clicked()
         window->validate_modulus_field();
         unsigned long long modulus = std::stoull(window->ui->lineEdit_modulus->text().toStdString());
         Polinome input = Polinome(window->ui->lineEdit_first->text().toStdString());
+        input = input.add(Polinome("0"), modulus);
         Polinome ans = input.reduce(modulus);
         window->set_ans(ans);
     }, this);
