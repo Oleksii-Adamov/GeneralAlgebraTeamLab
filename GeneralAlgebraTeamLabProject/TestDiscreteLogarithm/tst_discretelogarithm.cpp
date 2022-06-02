@@ -31,12 +31,21 @@ DiscreteLogarithm::~DiscreteLogarithm()
 
 void DiscreteLogarithm::testDiscreteLogarithm()
 {
-     /*QCOMPARE(discreteLogarithm(3, 13, 17), 4);
-     QCOMPARE(discreteLogarithm(2, 18, 19), 9);
-     QCOMPARE(discreteLogarithm(3, 12, 17), 13);
-     QCOMPARE(discreteLogarithm(5,  4,  7), 2);
-     QCOMPARE(discreteLogarithm(5,  4, 11), 8);
-     QCOMPARE(discreteLogarithm(3,  4,  5), 2);*/
+     std::vector<int> result =  {4};
+     QCOMPARE(discreteLogarithm(3, 13, 17), result);
+     result =  {9};
+     QCOMPARE(discreteLogarithm(2, 18, 19), result);
+     result =  {13};
+     QCOMPARE(discreteLogarithm(3, 12, 17), result);
+     result =  {2};
+     QCOMPARE(discreteLogarithm(5,  4,  7), result);
+     result =  {3,8};
+     QCOMPARE(discreteLogarithm(5,  4, 11), result);
+     result =  {2};
+     QCOMPARE(discreteLogarithm(3,  4,  5), result);
+    /* result =  {10,30,50,70,90,110,130,150,170,190};
+     QCOMPARE(discreteLogarithm(8, 24, 200), result);*/
+
 }
 
 void DiscreteLogarithm::testDiscreteLogarithmBabyStep()
