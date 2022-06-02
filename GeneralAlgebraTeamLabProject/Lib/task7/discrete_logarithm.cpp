@@ -15,8 +15,9 @@ void print(const std::string_view rem, const M& mmap)
     std::cout << '\n';
 }
 */
-int discreteLogarithm(double a, double b, int p)
+std::vector<int> discreteLogarithm(double a, double b, int p)
 {
+    std::vector<int> result;
     int h = floor(sqrt(p)) + 1;
     int c = IntModulo(std::pow(a, h), p).get_num();
 
@@ -32,12 +33,12 @@ int discreteLogarithm(double a, double b, int p)
     for(auto el_cu = cu.begin(); el_cu != cu.end(); el_cu++) {
         for(auto el_bav = bav.begin(); el_bav != bav.end(); el_bav++) {
             if (el_cu->first == el_bav->first && IntModulo(std::pow(a, h * el_cu->second - el_bav->second), p).get_num() == b)
-                return h * el_cu->second - el_bav->second;
+                result.push_back(h * el_cu->second - el_bav->second);
         }
     }
 
 
-    return -1;
+    return result.size() ? result : std::vector<int> {-1};
 }
 
 
