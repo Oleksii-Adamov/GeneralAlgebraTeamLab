@@ -140,3 +140,27 @@ void PolynomialRingWindow::on_pushButton_CyclotomicPolynomial_clicked()
     }, this);
 }
 
+
+void PolynomialRingWindow::on_pushButton_subtract_clicked()
+{
+    evaluate_func([](PolynomialRingWindow* window) {
+        Polinome first, second;
+        unsigned long long modulus;
+        window->read_and_mod(first, second, modulus);
+        Polinome ans = first.subtract(second, modulus);
+        window->set_ans(ans);
+    }, this);
+}
+
+
+void PolynomialRingWindow::on_pushButton_multiply_clicked()
+{
+    evaluate_func([](PolynomialRingWindow* window) {
+        Polinome first, second;
+        unsigned long long modulus;
+        window->read_and_mod(first, second, modulus);
+        Polinome ans = first.multiply(second, modulus);
+        window->set_ans(ans);
+    }, this);
+}
+

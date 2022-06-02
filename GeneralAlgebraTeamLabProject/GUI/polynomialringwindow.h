@@ -30,6 +30,10 @@ private slots:
 
     void on_pushButton_CyclotomicPolynomial_clicked();
 
+    void on_pushButton_subtract_clicked();
+
+    void on_pushButton_multiply_clicked();
+
 private:
     Ui::PolynomialRingWindow *ui;
     void evaluate_func(std::function<void(PolynomialRingWindow*)> func, PolynomialRingWindow* context);
