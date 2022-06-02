@@ -28,16 +28,16 @@ void FindGroup::SetGroup(int order){
 
 IntModulo FindGroup::ElementOrder(IntModulo elem){ 
     if(std::find(group.begin(), group.end(), elem) != group.end()){
-        int result = 0;
+        int result = 1;
         int i = 1;
-        while(result != 1){
-            result = (pow(elem.get_num(), i));
+        do{
+            result *= elem.get_num();
             result %= this->degree;
             i++;
             if(i > this->degree){
                 return IntModulo(0);
             }
-        }
+        }while(result != 1);
         this->groupOrder = IntModulo(i - 1);
         return this->groupOrder;
     } 
