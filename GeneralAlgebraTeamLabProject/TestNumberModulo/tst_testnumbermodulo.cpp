@@ -3,6 +3,7 @@
 #include "task1/intmodulo.h"
 #include <stdexcept>
 #include <sstream>
+#include "task6/sqrt.h"
 
 class TestNumberModulo : public QObject
 {
@@ -24,6 +25,7 @@ private slots:
     void test_case_divide();
     void test_case_findReversed();
     void test_case_pow();
+    void test_case_sqrt();
     void test_case_copy_constructor();
     void test_case_copy_assignment_operator();
     void test_case_ToString();
@@ -289,6 +291,78 @@ void TestNumberModulo::test_case_pow() {
 
     test_num.set_num(4);
     QVERIFY_THROWS_EXCEPTION(std::logic_error, test_num.pow(-2, 16));
+}
+
+bool invoke_sqrt_test(long long a, long long n, bool no_roots) {
+    auto anss = IntModulo(a).sqrt(n);
+    if (no_roots) {
+        if (anss.size() != 0) {
+            throw "There should be no roots";
+        }
+    } else {
+        for (auto ans : anss) {
+            if (ans*ans%n != a%n) {
+                throw "Not a root";
+            }
+        }
+    }
+    return true;
+}
+
+void TestNumberModulo::test_case_sqrt() {
+    // prime n
+    invoke_sqrt_test(1, 2, false);
+    invoke_sqrt_test(312, 683, false);
+    invoke_sqrt_test(169, 1801, false);
+    invoke_sqrt_test(420, 1237, false);
+    invoke_sqrt_test(742, 1217, false);
+    invoke_sqrt_test(738, 1279, false);
+    invoke_sqrt_test(829, 1861, false);
+    invoke_sqrt_test(870, 1013, false);
+    invoke_sqrt_test(64, 887, false);
+    invoke_sqrt_test(252, 1531, false);
+    invoke_sqrt_test(118, 229, false);
+    invoke_sqrt_test(233, 557, false);
+    invoke_sqrt_test(965, 1493, false);
+    invoke_sqrt_test(13, 647, false);
+    invoke_sqrt_test(573, 1307, false);
+    invoke_sqrt_test(559, 1789, false);
+    invoke_sqrt_test(633, 1783, false);
+    invoke_sqrt_test(776, 1279, false);
+    invoke_sqrt_test(916, 1399, false);
+    invoke_sqrt_test(724, 1949, false);
+    invoke_sqrt_test(715, 1237, false);
+    invoke_sqrt_test(108, 541, false);
+
+    invoke_sqrt_test(10, 17, true);
+    invoke_sqrt_test(907, 1123, true);
+    invoke_sqrt_test(179, 1103, true);
+    invoke_sqrt_test(340, 1451, true);
+    invoke_sqrt_test(657, 1283, true);
+    invoke_sqrt_test(518, 1223, true);
+
+    // composite n
+    invoke_sqrt_test(37, 1436, false);
+    invoke_sqrt_test(863, 1535, false);
+    invoke_sqrt_test(92, 1106, false);
+    invoke_sqrt_test(287, 1099, false);
+    invoke_sqrt_test(168, 514, false);
+    invoke_sqrt_test(563, 1644, false);
+    invoke_sqrt_test(938, 690, false);
+    invoke_sqrt_test(577, 1121, false);
+    invoke_sqrt_test(251, 1135, false);
+    invoke_sqrt_test(504, 1851, false);
+    invoke_sqrt_test(747, 1593, false);
+    invoke_sqrt_test(856, 1514, false);
+    invoke_sqrt_test(529, 1267, false);
+    invoke_sqrt_test(323, 139, false);
+    invoke_sqrt_test(59, 47, false);
+
+    invoke_sqrt_test(858, 1422, true);
+    invoke_sqrt_test(910, 973, true);
+    invoke_sqrt_test(466, 1906, true);
+    invoke_sqrt_test(48, 1309, true);
+    invoke_sqrt_test(350, 644, true);
 }
 
 void TestNumberModulo::test_case_copy_constructor()
