@@ -23,6 +23,7 @@ SOURCES += \
     task15/ri.cpp \
     task20/generator.cpp \
     task8/findgroup.cpp \
+    task19/reversepolinom.cpp \
     utils.cpp
     
 HEADERS += \
@@ -40,6 +41,7 @@ HEADERS += \
     task5/pollardfactorization.h \
     task6/sqrt.h \
     task15/ri.h \
+    task19/reversepolinom.h \
     utils.h \
     task20/generator.h \
     task8/findgroup.h 
