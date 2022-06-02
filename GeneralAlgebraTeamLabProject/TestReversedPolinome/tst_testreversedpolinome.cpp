@@ -44,7 +44,7 @@ void TestReversedPolinome::test_case1()
 
     auto p2 = Polinome("x^7+x^6+x^3+x+1");
     auto a2 = Polinome("x^4+x^2");
-    Polinome result2 = Polinome("2x^3+2x^2+2x+1");
+    Polinome result2 = Polinome("x^5+x^3+x^2");
     ReversePolinom rp2(a2, p2, 2);
     QCOMPARE (rp2.get_reverse(), result2);
 }
