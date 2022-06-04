@@ -50,19 +50,34 @@ std::vector<int> discreteLogarithm(double a, double b, int p)
     return result.size() ? result : std::vector<int> {-1};
 }
 
-std::vector<long long> discreteLogarithm2(int base, int result, int module) {
-    int n = (int)sqrt(module) + 1;
+// Algorithm
+// We have base, result and module
+// base ^ n = result mod module
+// We need to find n
 
-    int baseInNPower = 1;
-    for (int i = 0; i < n; i++) {
+// Solution: 
+// let m = sqrt(module) + 1
+// we can write n as n = i*m - j, where 0 <= i <= m and  0 <= j <= m
+// then base^(i*m) mod module = result * base^j mod module
+// create map and calc base^(i*m) mod module and write in pairs like: {base^(i*m) mod module : i}
+// calculate result * base^j mod module and if this value exists in table return i*m - j
+
+std::vector<unsigned long long> discreteLogarithm2(long base, long result, long module)
+{
+    long n = (long)sqrt(module) + 1;
+
+    unsigned long long baseInNPower = 1;
+    for (long i = 0; i < n; i++)
+    {
         baseInNPower = (baseInNPower * base) % module;
     }
 
-    std::map<int, std::vector<long long>>  table;
+    std::map<unsigned long long, std::vector<long>> table;
 
     table[1] = {0};
-
-    for (int i = 1, current = baseInNPower; i <= n; i++) {
+    unsigned long long current = baseInNPower;
+    for (long i = 1; i <= n; i++)
+    {
         if (table[current].size() == 0) {
             table[current] = {i};
         }
@@ -73,21 +88,23 @@ std::vector<long long> discreteLogarithm2(int base, int result, int module) {
         current = (current * baseInNPower) % module;
     }
 
-    std::vector<long long> answers;
+    std::vector<unsigned long long> answers;
 
-   for (int j = 0, current = result; j <= n; j++) {
-        if (table[current].size() > 0) {
-            for (auto tempAnswer : table[current]) {
-                int answer = tempAnswer * n - j;
+    unsigned long long current2 = result;
+    for (long j = 0; j <= n; j++)
+    {
+        // check if result * base ^j is in the table
+        if (table[current2].size() > 0) {
+            for (auto tempAnswer : table[current2]) {
+                unsigned long long answer = tempAnswer * n - j;
                 if(answer < module) {
                     answers.push_back(answer);
                 }
             }
         }
-        current = (current * base) % module;
+        current2 = (current2 * base) % module;
     }
 
-   if (answers.size() == 0) return { -1 };
    std::sort(answers.begin(), answers.end());
    answers.erase(std::unique(answers.begin(), answers.end()), answers.end());
    return answers;

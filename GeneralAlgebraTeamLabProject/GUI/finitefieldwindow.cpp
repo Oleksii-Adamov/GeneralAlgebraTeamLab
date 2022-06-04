@@ -237,7 +237,7 @@ void FiniteFieldWindow::on_pushButton_discreteLogarithm2_clicked()
         IntModulo base, arg;
         unsigned long long modulus;
         window->read_and_mod(arg, base, modulus);
-        std::vector<long long> answers = discreteLogarithm2(base.get_num(), arg.get_num(), modulus);
+        std::vector<unsigned long long> answers = discreteLogarithm2(base.get_num(), arg.get_num(), modulus);
         if (answers[0] == -1) {
             window->set_ans("Не існує");
         }
