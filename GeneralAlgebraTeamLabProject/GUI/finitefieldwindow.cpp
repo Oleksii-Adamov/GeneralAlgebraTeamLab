@@ -237,17 +237,21 @@ void FiniteFieldWindow::on_pushButton_discreteLogarithm2_clicked()
         IntModulo base, arg;
         unsigned long long modulus;
         window->read_and_mod(arg, base, modulus);
+
         std::vector<unsigned long long> answers = discreteLogarithm2(base.get_num(), arg.get_num(), modulus);
-        if (answers[0] == -1) {
+        if (modulus >= 1000000000) {
+            window->set_ans("Модуль має бути не більше 1_000_000_000 !!!");
+        } else if (answers.size() == 0) {
             window->set_ans("Не існує");
-        }
-        else {
+        } else if (answers.size() == 1) {
+            window->set_ans(QString::number(answers[0]).toStdString());
+        } else {
             QString ans = "";
-            for(std::size_t i = 0; i < answers.size(); i++) {
-              ans += QString::number(answers[i]) + " ";
-            }
+            ans = QString::number(answers[0]) + " + " + QString::number(answers[1] - answers[0]) + "k";
             window->set_ans(ans.toStdString());
         }
+
+
     }, this);
 }
 
