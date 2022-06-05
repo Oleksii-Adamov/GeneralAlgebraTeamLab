@@ -5,7 +5,7 @@
 FindGroup::FindGroup(IntModulo order)
 {
     SetGroup(order.get_num());
-    // FindPrimeFactorization();  
+    FindPrimeFactorization();
 }
 
 void FindGroup::SetGroup(int order){
@@ -28,17 +28,22 @@ void FindGroup::SetGroup(int order){
 
 IntModulo FindGroup::ElementOrder(IntModulo elem){ 
     if(std::find(group.begin(), group.end(), elem) != group.end()){
+        std::map<IntModulo, IntModulo>::iterator itr = factorizationMap.begin();
         int result = 1;
-        int i = 1;
-        do{
-            result *= elem.get_num();
-            result %= this->degree;
-            i++;
-            if(i > this->degree){
-                return IntModulo(0);
-            }
-        }while(result != 1);
-        this->groupOrder = IntModulo(i - 1);
+        std::map<IntModulo, IntModulo> resMap;
+        for(int i = 0; i < factorizationMap.size(); i++){
+            auto elemC = elem;
+            elemC.pow(itr->first.get_num(), this->degree);
+            resMap.insert({elemC, itr->first});
+        }
+        std::map<IntModulo, IntModulo>::iterator it;
+        it = resMap.find(IntModulo(1));
+        if(it != resMap.end()){
+            this->groupOrder = IntModulo(it->second);
+        }
+        else {
+            this->groupOrder = IntModulo(0);
+        }
         return this->groupOrder;
     } 
     else {
@@ -81,32 +86,32 @@ long long FindGroup::get_groupOrder(){
     return groupOrder.get_num();
 }
 
-// void FindGroup::FindPrimeFactorization(){
-//     int degreeCopy = this->degree;
-//     std::vector<IntModulo> factorization;
-    
-//     for (long long d = 2; d * d <= degreeCopy; d++) {
-//         while (degreeCopy % d == 0) {
-//             factorization.push_back(IntModulo(d));
-//             degreeCopy /= d;
-//         }
-//     }
-//     if (degreeCopy > 1)
-//         factorization.push_back(IntModulo(degreeCopy));
+void FindGroup::FindPrimeFactorization(){
+ int degreeCopy = this->degree;
+ std::vector<IntModulo> factorization;
+
+ for (long long d = 2; d * d <= degreeCopy; d++) {
+     while (degreeCopy % d == 0) {
+         factorization.push_back(IntModulo(d));
+         degreeCopy /= d;
+     }
+ }
+ if (degreeCopy > 1)
+     factorization.push_back(IntModulo(degreeCopy));
 
 
-//     for(int i = 0; i < factorization.size(); i++){
-//         std::map<IntModulo, IntModulo>::iterator item;
-//         item = factorizationMap.find(factorization[i]);
+ for(int i = 0; i < factorization.size(); i++){
+     std::map<IntModulo, IntModulo>::iterator item;
+     item = factorizationMap.find(factorization[i]);
 
-//         if(item == factorizationMap.end()){
-//             int sum = 0;
-//             for(int j = i; j < factorization.size(); j++){
-//                 if(factorization[i].get_num() == factorization[j].get_num()){
-//                     sum++;
-//                 }
-//             }
-//             this->factorizationMap.insert(std::pair<IntModulo, IntModulo>(IntModulo(factorization[i]), IntModulo(sum)));
-//         }
-//     }    
-// }
+     if(item == factorizationMap.end()){
+         int sum = 0;
+         for(int j = i; j < factorization.size(); j++){
+             if(factorization[i].get_num() == factorization[j].get_num()){
+                 sum++;
+             }
+         }
+         this->factorizationMap.insert(std::pair<IntModulo, IntModulo>(IntModulo(factorization[i]), IntModulo(sum)));
+     }
+ }
+}
