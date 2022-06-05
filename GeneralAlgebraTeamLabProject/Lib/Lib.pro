@@ -20,7 +20,8 @@ SOURCES += \
     task13/polinome_division.cpp \
     task13/polynome_degree.cpp \
     task19/reversepolinom.cpp \
-    task8/findgroup.cpp
+    task8/findgroup.cpp \
+    task7/discrete_logarithm.cpp
 
 HEADERS += \
     Lib_global.h \
@@ -36,7 +37,8 @@ HEADERS += \
     task13/polinome_degree.h \
     task13/polinome_division.h \
     task19/reversepolinom.h \
-    task8/findgroup.h
+    task8/findgroup.h \
+    task7/discrete_logarithm.h
 
 # Default rules for deployment.
 unix {

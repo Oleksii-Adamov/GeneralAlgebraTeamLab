@@ -14,4 +14,4 @@ LIBS += ../Lib/libLib.a
 
 #LIBS += -L../Lib/release/ -lLib
 
-SOURCES +=  tst_testfoundgroup.cpp
+SOURCES +=  tst_discretelogarithm.cpp

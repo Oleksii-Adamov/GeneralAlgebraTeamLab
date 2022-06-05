@@ -3,6 +3,7 @@ TEMPLATE = subdirs
 SUBDIRS += \
     GUI \
     Lib \
-    TestFindGroup \
+#    TestFindGroup \
     TestNumberModulo \
+    TestDiscreteLogarithm \
     TestReversedPolinome
