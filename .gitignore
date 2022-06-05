@@ -59,3 +59,4 @@ compile_commands.json
 #General
 .DS_Store
 .vscode
+*.json

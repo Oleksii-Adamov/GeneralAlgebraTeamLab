@@ -3,6 +3,9 @@
 
 #include "Lib_global.h"
 #include "task1/intmodulo.h"
+#include "task13/division_result.h"
+#include "task13/degree_result.h"
+
 #include <vector>
 #include <string>
 
@@ -32,5 +35,7 @@ public:
 
     bool operator== (const Polinome& polinome) const;
 };
+
+DivisionResult<Polinome> CyclotomicPolynomial(unsigned long long n);
 
 #endif // POLINOME_H
