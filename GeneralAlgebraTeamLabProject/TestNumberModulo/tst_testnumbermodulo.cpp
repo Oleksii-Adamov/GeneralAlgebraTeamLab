@@ -22,6 +22,9 @@ private slots:
     void test_case_add();
     void test_case_substract();
     void test_case_multiply();
+    void test_case_divide();
+    void test_case_findReversed();
+    void test_case_pow();
     void test_case_copy_constructor();
     void test_case_copy_assignment_operator();
     void test_case_ToString();
@@ -177,6 +180,85 @@ void TestNumberModulo::test_case_multiply()
     test_num.multiply(5, 7);
     QCOMPARE(test_num.get_num(), 0);
 }
+void TestNumberModulo::test_case_divide()
+{
+    IntModulo test_num;
+    test_num.set_num(3);
+    test_num.divide(IntModulo(3), 26);
+    QCOMPARE(test_num.get_num(), 1);
+    test_num.divide(5, 16);
+    QCOMPARE(test_num.get_num(), 13);
+    test_num.set_num(7);
+    test_num.divide(8, 3);
+    QCOMPARE(test_num.get_num(), 2);
+    test_num.set_num(56);
+    test_num.divide(34, 67);
+    QCOMPARE(test_num.get_num(), 45);
+    test_num.set_num(246);
+    test_num.divide(3, 56);
+    QCOMPARE(test_num.get_num(), 26);
+    test_num.set_num(246);
+    test_num.divide(1, 56);
+    QCOMPARE(test_num.get_num(), 22);
+}
+void TestNumberModulo::test_case_findReversed()
+{
+    IntModulo test_num;
+    test_num.set_num(3);
+    test_num = test_num.findReversed(26);
+    QCOMPARE(test_num.get_num(), 9);
+    test_num.set_num(147);
+    test_num = test_num.findReversed(53);
+    QCOMPARE(test_num.get_num(), 22);
+    test_num.set_num(454);
+    test_num = test_num.findReversed(21);
+    QCOMPARE(test_num.get_num(), 13);
+    test_num.set_num(0);
+    // no reverse
+    test_num = test_num.findReversed(1);
+    QCOMPARE(test_num.get_num(), 0);
+    test_num.set_num(2);
+    test_num = test_num.findReversed(0);
+    QCOMPARE(test_num.get_num(), 0);
+    test_num.set_num(1);
+    test_num = test_num.findReversed(1);
+    QCOMPARE(test_num.get_num(), 0);
+    test_num.set_num(35);
+    test_num = test_num.findReversed(1);
+    QCOMPARE(test_num.get_num(), 0);
+
+    /* not working
+    test_num.set_num(2);
+    test_num = test_num.findReversed(12);
+    QCOMPARE(test_num.get_num(), 0);
+    */
+}
+
+void TestNumberModulo::test_case_pow() {
+    IntModulo test_num(5);
+    test_num.pow(3, 13);
+    QCOMPARE(test_num.get_num(), 8);
+
+    test_num.set_num(4);
+    test_num.pow(13, 497);
+    QCOMPARE(test_num.get_num(), 445);
+
+    test_num.pow(5, 1);
+    QCOMPARE(test_num.get_num(), 0);
+
+    test_num.pow(3, 12);
+    QCOMPARE(test_num.get_num(), 0);
+
+    test_num.set_num(1);
+    test_num.pow(13, 497);
+    QCOMPARE(test_num.get_num(), 1);
+
+    test_num.set_num(2);
+    test_num.pow(0, 497);
+    QCOMPARE(test_num.get_num(), 1);
+
+    QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.pow(2, 0));
+}
 
 void TestNumberModulo::test_case_copy_constructor()
 {
@@ -247,6 +329,9 @@ void TestNumberModulo::test_case_FromString()
     test_num.FromString("-145");
     QCOMPARE(test_num.get_num(), -145);
     test_num.FromString("0");
+    QCOMPARE(test_num.get_num(), 0);
+    QVERIFY_THROWS_EXCEPTION(std::invalid_argument, test_num.FromString("ab"));
+    test_num.FromString("0b");
     QCOMPARE(test_num.get_num(), 0);
 }
 
