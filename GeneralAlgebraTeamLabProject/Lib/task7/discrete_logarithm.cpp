@@ -37,7 +37,7 @@ std::vector<long long> discreteLogarithm(long long a, long long b, unsigned long
     }
 
     for (long long v = 0; v <= h; v++) {
-        IntModulo bav_key(c);
+        IntModulo bav_key(a);
         bav_key.pow(v,p);
         IntModulo B(b);
         bav_key.multiply(B, p);

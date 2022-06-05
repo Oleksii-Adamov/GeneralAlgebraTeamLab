@@ -32,10 +32,7 @@ DiscreteLogarithm::~DiscreteLogarithm()
 void DiscreteLogarithm::testDiscreteLogarithm()
 {
      std::vector<long long> result = {4};
-     long long a = 3;
-     long long b = 13;
-     unsigned long long p = 17;
-     QCOMPARE(discreteLogarithm(a, b, p), result);
+     QCOMPARE(discreteLogarithm(3, 13, 17), result);
      result =  {9};
      QCOMPARE(discreteLogarithm(2, 18, 19), result);
      result =  {13};
