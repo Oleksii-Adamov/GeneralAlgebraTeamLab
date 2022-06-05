@@ -19,26 +19,37 @@ void print(const std::string_view rem, const M& mmap)
 }
 */
 
-std::vector<int> discreteLogarithm(double a, double b, int p)
+std::vector<long long> discreteLogarithm(long long a, long long b, unsigned long long p)
 {
-    std::vector<int> result;
-    int h = floor(sqrt(p)) + 1;
-    int c = IntModulo(std::pow(a, h), p).get_num();
+    std::vector<long long> result;
+    long long h = floor(sqrt(p)) + 1;
+    IntModulo C(a);
+    C.pow(h,p);
+    long long c = C.get_num();
 
-    std::multimap<int, int> cu;
-    std::multimap<int, int> bav;
+    std::multimap<long long, long long> cu;
+    std::multimap<long long, long long> bav;
 
-    for (long long u = 1; u <= h; u++)
-        cu.insert(decltype(cu)::value_type(IntModulo(std::pow(c, u), p).get_num(), u));
+    for (long long u = 1; u <= h; u++) {
+        IntModulo cu_key(c);
+        cu_key.pow(u,p);
+        cu.insert(decltype(cu)::value_type(cu_key.get_num(), u));
+    }
 
-    for (long long v = 0; v <= h; v++)
-        bav.insert(decltype(bav)::value_type(IntModulo(b * std::pow(a, v), p).get_num(), v));
-
+    for (long long v = 0; v <= h; v++) {
+        IntModulo bav_key(a);
+        bav_key.pow(v,p);
+        IntModulo B(b);
+        bav_key.multiply(B, p);
+        bav.insert(decltype(bav)::value_type(bav_key.get_num(), v));
+    }
     for(auto el_cu = cu.begin(); el_cu != cu.end(); el_cu++) {
         for(auto el_bav = bav.begin(); el_bav != bav.end(); el_bav++) {
+            IntModulo a_buf(a);
+            a_buf.pow(h * el_cu->second - el_bav->second, p);
             if (el_cu->first == el_bav->first
-                && IntModulo(std::pow(a, h * el_cu->second - el_bav->second), p).get_num() == b
-                && (h * el_cu->second - el_bav->second <= p))
+                && a_buf.get_num() == b
+                && (h * el_cu->second - el_bav->second < p))
                     result.push_back(h * el_cu->second - el_bav->second);
         }
     }
@@ -47,7 +58,7 @@ std::vector<int> discreteLogarithm(double a, double b, int p)
     auto last = std::unique(result.begin(),result.end());
     result.erase(last, result.end());
 
-    return result.size() ? result : std::vector<int> {-1};
+    return result.size() ? result : std::vector<long long> {-1};
 }
 
 // Algorithm
