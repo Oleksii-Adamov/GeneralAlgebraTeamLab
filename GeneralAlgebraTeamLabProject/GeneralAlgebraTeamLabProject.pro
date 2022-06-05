@@ -5,5 +5,4 @@ SUBDIRS += \
     Lib \
     TestFindGroup \
     TestNumberModulo \
-    TestPolino \
     TestReversedPolinome
