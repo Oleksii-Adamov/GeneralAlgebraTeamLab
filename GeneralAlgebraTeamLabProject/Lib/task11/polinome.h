@@ -36,6 +36,8 @@ public:
     Polinome subtract(const Polinome& polinome, unsigned long long modulus) const;
     Polinome multiply(const Polinome& polinome, unsigned long long modulus) const;
     std::string toString();
+    Polinome pow(long long power, unsigned long long modulus) const;
+    long long maxPower();
 
     // task12 methods
     Polinome derivative(unsigned long long modulus);

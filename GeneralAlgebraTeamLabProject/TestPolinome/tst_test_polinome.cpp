@@ -224,7 +224,6 @@ void TestPolinome::testPolinomeToString() {
     }
     QVERIFY(caught);
 }
-
 // Task12 tests
 void TestPolinome::testPolinomeDerivative() {
    std::string writtenPolinome = "1 + 2x";
@@ -325,13 +324,13 @@ void TestPolinome::testPolinomeCyclotomicPolynomial() {
 
 void TestPolinome::testCheckIrreducibility() {
     auto pol1= Polinome("4x^3 + 7x^2 + 21x +28");
-    bool r1=checkIrreducibilty(pol1,30);
+    bool r1=checkIrreducibilty(pol1,11);
     QCOMPARE(r1,true);
     auto pol2=Polinome("x^2 + 2x + 1");
-    bool r2=checkIrreducibilty(pol2,30);
+    bool r2=checkIrreducibilty(pol2,11);
     QCOMPARE(r2,false);
     auto pol3=Polinome("3x + 1");
-    bool r3=checkIrreducibilty(pol3,30);
+    bool r3=checkIrreducibilty(pol3,11);
     QCOMPARE(r3,true);
 }
 QTEST_APPLESS_MAIN(TestPolinome)

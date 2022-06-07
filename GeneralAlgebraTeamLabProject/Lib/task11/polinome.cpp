@@ -1,6 +1,7 @@
 #include "polinome.h"
 #include "../utils.h"
 #include "task13/polinome_division.h"
+#include <math.h>
 
 std::vector<IntModulo>* convert(const std::string& writtenPolinome);
 
@@ -76,6 +77,18 @@ Polinome Polinome::multiply(const Polinome& polinome, unsigned long long modulus
         }
     }
     return result;
+}
+
+Polinome Polinome::pow(long long power, unsigned long long modulus) const {
+    long long pow;
+    Polinome res = *this;
+    for (pow = 1; pow*2 <= power; pow*=2) {
+        res = res.multiply(res, modulus);
+    }
+    if (pow < power) {
+        res = res.multiply(*this, modulus);
+    }
+    return res;
 }
 
 std::string Polinome::toString() {
@@ -200,7 +213,7 @@ std::vector<PolinomeItem> getPolinomCoefs(const std::string& writtenPolinome) {
 int maxPower(std::vector<PolinomeItem> coefficients) {
     int max = 0;
     for (std::size_t i = 0; i < coefficients.size(); ++i) {
-        if (max < coefficients[i].power)
+        if (max < coefficients[i].power&&coefficients[i].coefficient!=0)
             max = coefficients[i].power;
     }
     return max;
@@ -315,41 +328,47 @@ bool check(std::vector<IntModulo> coefficients, long long P, long long N, unsign
 
     return 1;
 }
-// Function to check for Eisensteins
-// Irreducubility Criterion
-bool checkIrreducibilty(Polinome& polinome, unsigned long long modulus)
-{
-    std::vector<IntModulo>* coefficients=polinome.getCoefficients();
-    long long N=coefficients->size();
-    if (N <= 0) {
-        throw std::invalid_argument("N <= 0");
-    }
-  //  long long M = -1;
 
-   std::reverse(coefficients->begin(),coefficients->end());
-    // Find the maximum element in A
-  /*  for (long long i = 0; i < N; i++) {
-        M = fmax(M, (*coefficients)[i].get_num());
-    }
-*/
-    // Stores all the prime numbers
-    std::vector<long long> primes
-        = Eratosthene(modulus-1);
-if(coefficients->size()==2)
-    return true;
-    // Check if any prime
-    // satisfies the conditions
-else{
-    for (std::size_t i = 0; i < primes.size(); i++) {
-        // Function Call to check
-        // for the three conditions
-        if (check(*coefficients, primes[i], N, modulus)) {
-            return 1;
-        }
+long long Polinome::maxPower() {
+    std::vector<IntModulo> temp=*this->coefficients;
+    for (std::size_t i = 0; i < coefficients->size(); ++i) {
+        if (temp[i].get_num()!=0)
+            return coefficients->size()-i;
+
     }
     return 0;
 }
+
+bool checkIrreducibilty(Polinome& polinome, unsigned long long modulus)
+{
+    std::vector<IntModulo>* coefficients=polinome.getCoefficients();
+    auto temp1=std::vector<IntModulo>{1, 0};
+    Polinome odd(&temp1);
+     auto temp2=std::vector<IntModulo>{0, 1};
+    Polinome one(&temp2);
+     auto temp3=std::vector<IntModulo>{0, 0};
+    Polinome gcd_(&temp3);
+    long long polPower=coefficients->size();
+     for(long long i = 1; i <= polPower/2; i++){
+         long long power_=pow(modulus,i);
+         Polinome x(power_);
+         auto temp=*x.getCoefficients();
+         temp.back().set_num(1);
+         Polinome X(&temp);
+         if((X.subtract(odd,modulus)).maxPower()>=polinome.maxPower()){
+             gcd_=*polinome.gcd((*X.subtract(odd,modulus).divide(polinome,modulus).remainder),modulus);
+         }
+         else{
+            gcd_=*polinome.gcd((X.subtract(odd,modulus)),modulus);
+         }
+         if(gcd_.maxPower()!=0){
+             return false;
+         }
+     }
+     return true;
 }
+
+
 
 DivisionResult<Polinome> CyclotomicPolynomial(unsigned long long n, unsigned long long module) {
     Polinome numerator   = Polinome(n + 1);
