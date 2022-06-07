@@ -1,7 +1,10 @@
 #include "intmodulo.h"
+#include <random>
 #include "task5/pollardfactorization.h"
 #include <numeric>
 #include <stdexcept>
+#include <string>
+#include <algorithm>
 
 IntModulo::IntModulo()
 {
@@ -201,6 +204,23 @@ bool IntModulo::isPrime(int iterationsNum)
     }
 
     return true;
+}
+
+long long legendreSymbol(unsigned long long a, unsigned long long n)
+{
+    if (a == 1)
+    {
+        return 1;
+    }
+    if ((a % 2 == 0) && (a != 0))
+    {
+        return legendreSymbol(a / 2, n) * pow(-1, (n * n - 1) / 8);
+    }
+    if (a % 2 != 0)
+    {
+        return legendreSymbol(n % a, a) * pow(-1, (a - 1) * (n - 1) / 4);
+    }
+    return 0;
 }
 
 // Private methods
