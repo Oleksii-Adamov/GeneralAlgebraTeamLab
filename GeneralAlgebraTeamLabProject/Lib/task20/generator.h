@@ -7,9 +7,10 @@
 #include "task13/division_result.h"
 
 // p1 - irreducible
-LIB_EXPORT int orderOfPolinome(int modulus, const Polinome p1, const Polinome p2);
-LIB_EXPORT int degreeOfPolinome(const Polinome p);
-LIB_EXPORT int maxOrderOfPolinome(int modulus, const Polinome p);
-LIB_EXPORT bool isGenerator(int modulus, const Polinome p1, const Polinome p2);
+LIB_EXPORT std::vector<int> findDivisors (int n);
+LIB_EXPORT long orderOfPolinome(long modulus, const Polinome p1, const Polinome p2);
+LIB_EXPORT long degreeOfPolinome(const Polinome p);
+LIB_EXPORT long maxOrderOfPolinome(long modulus, const Polinome p);
+LIB_EXPORT bool isGenerator(long modulus, const Polinome p1, const Polinome p2);
 
 #endif
