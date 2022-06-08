@@ -21,10 +21,13 @@ private:
     int degree = 0; //степінь групи
     IntModulo groupGenerator;
     std::vector<IntModulo> group; //елементи групи
-    // std::map<IntModulo, IntModulo> factorizationMap; //розклад степеню групи на прості множники
+     std::map<IntModulo, IntModulo> factorizationMap; //розклад степеню групи на прості множники
+    std::vector<int >findDivisors(int val);
+    bool isPrime(int n);
+    bool RelativelyPrime (int a, int b);
 
     void SetGroup(int order);
-    // void FindPrimeFactorization();
+     void FindPrimeFactorization();
 public:
     bool FindGroupGenerator(IntModulo elem);
     int get_degree();

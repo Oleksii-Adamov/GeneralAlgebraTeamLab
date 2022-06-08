@@ -53,7 +53,7 @@ void TestFactorization::test_case2()
         bool isExceptionThrown = false;
         try {
             std::map<long long, int> pn = PollardFactorization::factorize(i);
-        } catch(std::exception e) {
+        } catch(std::exception& e) {
             isExceptionThrown = true;
         }
         QVERIFY(!isExceptionThrown);

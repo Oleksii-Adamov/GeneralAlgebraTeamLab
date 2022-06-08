@@ -38,7 +38,7 @@ public:
     Polinome subtract(const Polinome& polinome, unsigned long long modulus) const;
     Polinome multiply(const Polinome& polinome, unsigned long long modulus) const;
     Polinome reduce(unsigned long long modulus) const;
-    std::string toString();
+    std::string toString() const;
     //task 18 methods
     Polinome add(const Polinome& polinome, const Polinome& irreducible, unsigned long long modulus) const;
     Polinome subtract(const Polinome& polinome, const Polinome& irreducible, unsigned long long modulus) const;

@@ -133,7 +133,7 @@ Polinome Polinome::pow(long long power, const Polinome& irreducible, unsigned lo
     return res;
 }
 
-std::string Polinome::toString() {
+std::string Polinome::toString() const {
     std::string result = "";
     for (int power = coefficients->size() - 1; power >= 0; power--) {
         if ((*this->coefficients)[power].get_num() != 0) {

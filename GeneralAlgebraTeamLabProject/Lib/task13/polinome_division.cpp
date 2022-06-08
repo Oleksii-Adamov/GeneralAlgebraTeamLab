@@ -19,7 +19,7 @@ DivisionResult<Polinome> Polinome::divide(const Polinome& divider, unsigned long
 
     auto dividerDegreeResult = divider.degree();
     if (dividerDegreeResult.zero) {
-       throw "Division by zero";
+       throw std::logic_error("Division by zero");
     };
     auto divDeg = dividerDegreeResult.value;
 
