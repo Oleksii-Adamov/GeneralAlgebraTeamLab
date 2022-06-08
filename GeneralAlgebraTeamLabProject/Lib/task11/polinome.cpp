@@ -1,6 +1,7 @@
 #include "polinome.h"
 #include "../utils.h"
 #include "task13/polinome_division.h"
+#include "task19/reversepolinom.h"
 
 std::vector<IntModulo>* convert(const std::string& writtenPolinome);
 
@@ -112,16 +113,37 @@ Polinome Polinome::reduce(unsigned long long modulus) const {
     }
     return res;
 }
-Polinome Polinome::pow(long long power, const Polinome& irreducible, unsigned long long modulus) const {
-    long long pow;
-    Polinome res = *this;
-    for (pow = 1; pow*2 <= power; pow*=2) {
-        res = res.multiply(res, irreducible, modulus);
+Polinome Polinome::pow(long long exponent, const Polinome& irreducible, unsigned long long modulus) const {
+
+    if (modulus == 1) {
+        return Polinome("0");
     }
-    if (pow < power) {
-        res = res.multiply(*this, irreducible, modulus);
+    // throws exception if modulus = 0
+    Polinome input_pol = *this;
+    input_pol =  *input_pol.divide(irreducible, modulus).remainder;
+    // negative exponentiation is positive exponentiation of inverse element
+    if (exponent < 0) {
+        ReversePolinom rp(input_pol, irreducible, modulus);
+        input_pol = rp.get_reverse();
+        exponent *= -1;
     }
-    return res;
+    // base_in_pow = base^(2^i)
+    Polinome base_in_pow = input_pol;
+    Polinome result = Polinome("1");
+    // result = product(base^(bit(i)*2^i)) (mod m), i=0,n-1, bit(i) = i-th bit from end(least significant, right)
+    while (exponent > 0) {
+        // if right bit is 1
+        if (exponent % 2 == 1) {
+            result = result.multiply(base_in_pow, modulus);
+            result = *result.divide(irreducible, modulus).remainder;
+        }
+        base_in_pow = base_in_pow.multiply(base_in_pow, modulus);
+        base_in_pow = *base_in_pow.divide(irreducible, modulus).remainder;
+        // delete right bit
+        exponent = exponent >> 1;
+    }
+    return result;
+
 }
 
 std::string Polinome::toString() const {
