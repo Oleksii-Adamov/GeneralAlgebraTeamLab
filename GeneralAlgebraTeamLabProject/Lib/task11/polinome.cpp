@@ -114,19 +114,19 @@ Polinome Polinome::reduce(unsigned long long modulus) const {
 }
 Polinome Polinome::pow(long long power, const Polinome& irreducible, unsigned long long modulus) const {
     Polinome res;
-    if (power > 0) {
-        long long pow;
-        res = Polinome(*this);
-        for (pow = 1; pow * 2 <= power; pow *= 2) {
-            res = res.multiply(res, irreducible, modulus);
-        }
-        if (pow < power) {
-            res = res.multiply(*this, irreducible, modulus);
-        }
+
+    if (power == 1) {
     }
-    else if (power == 1) {
+    else if(power < 0) {
     }
-    else {
+
+    long long pow;
+    res = Polinome(*this);
+    for (pow = 1; pow * 2 <= power; pow *= 2) {
+        res = res.multiply(res, irreducible, modulus);
+    }
+    if (pow < power) {
+        res = res.multiply(*this, irreducible, modulus);
     }
     return res;
 }
