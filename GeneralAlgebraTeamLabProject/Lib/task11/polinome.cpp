@@ -115,9 +115,11 @@ Polinome Polinome::reduce(unsigned long long modulus) const {
 Polinome Polinome::pow(long long power, const Polinome& irreducible, unsigned long long modulus) const {
     Polinome res;
 
-    if (power == 1) {
+    if (modulus == 1) {
+
     }
-    else if(power < 0) {
+    if(power < 0) {
+
     }
 
     long long pow;
