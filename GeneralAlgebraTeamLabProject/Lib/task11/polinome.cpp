@@ -310,64 +310,48 @@ std::vector<long long> Eratosthene(unsigned long long M)
     return prime;
 }
 
-// Function to check whether the three
-// conditions of Eisenstein's
-// Irreducibility criterion for prime P
-bool check(std::vector<IntModulo> coefficients, long long P, long long N, unsigned long long modulus)
-{
-    if (coefficients[0].get_num()!=0 && coefficients[0].get_num() % P == 0)
-        return 0;
-
-    for (long long i = 1; i < N; i++){
-        if (coefficients[i].get_num()!=0 && coefficients[i].get_num()% P!=0)
-            return 0;
-    }
-        long long q=(P*P)%modulus;
-    if (coefficients[N-1].get_num()!=0 && coefficients[N-1].get_num() % q == 0)
-        return 0;
-
-    return 1;
-}
-
-long long Polinome::maxPower() {
-    std::vector<IntModulo> temp=*this->coefficients;
-    for (std::size_t i = 0; i < coefficients->size(); ++i) {
-        if (temp[i].get_num()!=0)
-            return coefficients->size()-i;
-
-    }
-    return 0;
-}
 
 bool checkIrreducibilty(Polinome& polinome, unsigned long long modulus)
 {
-    std::vector<IntModulo>* coefficients=polinome.getCoefficients();
-    auto temp1=std::vector<IntModulo>{1, 0};
-    Polinome odd(&temp1);
-     auto temp2=std::vector<IntModulo>{0, 1};
-    Polinome one(&temp2);
-     auto temp3=std::vector<IntModulo>{0, 0};
-    Polinome gcd_(&temp3);
-    long long polPower=coefficients->size();
-     for(long long i = 1; i <= polPower/2; i++){
-         long long power_=pow(modulus,i);
-         Polinome x(power_);
-         auto temp=*x.getCoefficients();
-         temp.back().set_num(1);
-         Polinome X(&temp);
-         if((X.subtract(odd,modulus)).maxPower()>=polinome.maxPower()){
-             gcd_=*polinome.gcd((*X.subtract(odd,modulus).divide(polinome,modulus).remainder),modulus);
-         }
-         else{
-            gcd_=*polinome.gcd((X.subtract(odd,modulus)),modulus);
-         }
-         if(gcd_.maxPower()!=0){
-             return false;
-         }
-     }
-     return true;
-}
 
+    std::vector<IntModulo>* coefficients=polinome.getCoefficients();
+    long long N=coefficients->size()-1;
+    Polinome temp=*new Polinome("x");
+   std::vector<long long> primes=Eratosthene(coefficients->size()-1);
+   std::vector<long long> tetas;
+   for(unsigned long long i=0;i<primes.size();i++){
+       if(N%primes[i]==0){
+           tetas.push_back(primes[i]);
+       }
+   }
+   std::vector<long long> k;
+
+     for(unsigned long long i=0;i<tetas.size();i++){
+           k.push_back(N/tetas[i]);
+       }
+
+     for(unsigned long long i=0;i<tetas.size();i++){
+         long long power=pow(modulus,k[i]);
+           Polinome h=temp.pow(power,modulus);
+           h=h.subtract(temp,modulus);
+           h=*h.divide(polinome,modulus).remainder;
+           Polinome g=*polinome.gcd(h,modulus);
+
+           if(g.toString()!="1"){
+               return false;
+              }
+}
+     long long power=pow(modulus,N);
+     Polinome h=temp.pow(power,modulus);
+     h=h.subtract(temp,modulus);
+     h=*h.divide(polinome,modulus).remainder;
+     if(h.toString()=="0"){
+         return true;
+     }
+     else{
+         return false;
+     }
+}
 
 
 DivisionResult<Polinome> CyclotomicPolynomial(unsigned long long n, unsigned long long module) {
