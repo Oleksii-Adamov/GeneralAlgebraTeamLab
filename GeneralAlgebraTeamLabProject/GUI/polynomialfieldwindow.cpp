@@ -63,7 +63,9 @@ void PolynomialFieldWindow::read_and_mod(Polinome& first, Polinome& irreducible,
     first = first.add(Polinome("0"), modulus);
     irreducible = Polinome(ui->lineEdit_irreducible->text().toStdString());
     irreducible = irreducible.add(Polinome("0"), modulus);
-    first = *(first.divide(irreducible, modulus).remainder);
+    if (modulus > 1) {
+        first = *(first.divide(irreducible, modulus).remainder);
+    }
 }
 
 void PolynomialFieldWindow::on_pushButton_order_clicked()
@@ -156,8 +158,7 @@ void PolynomialFieldWindow::on_pushButton_pow_clicked()
         Polinome first, irreducible;
         unsigned long long modulus;
         window->read_and_mod(first, irreducible, modulus);
-        // possible change for valid_ll if negatives will be added
-        if (!valid_ull(window->ui->lineEdit_second->text())) throw std::invalid_argument("Друге поле введено неправильно");
+        if (!valid_ll(window->ui->lineEdit_second->text())) throw std::invalid_argument("Друге поле введено неправильно");
         long long exponent = std::stoll(window->ui->lineEdit_second->text().toStdString());
         Polinome ans = first.pow(exponent, irreducible, modulus);
         window->set_ans(ans);
